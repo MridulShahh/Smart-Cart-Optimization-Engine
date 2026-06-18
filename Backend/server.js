@@ -14,6 +14,7 @@ app.use(express.json());
 // Routes
 app.use("/api/products", require("./src/routes/productRoutes"));
 app.use("/api/cart", require("./src/routes/cartRoutes")); 
+app.use("/api/recommendations", require("./src/routes/recommendationRoutes"));
 
 app.get("/", (req, res) => {
   res.send("Smart Cart Backend Running 🚀");
