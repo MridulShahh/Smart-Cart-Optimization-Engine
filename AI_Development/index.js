@@ -9,6 +9,21 @@ const mongoose = require('mongoose');
 const app = express();
 app.use(express.json());
 
+const cartItemSchema = new mongoose.Schema({
+  product : mongoose.Schema.Types.ObjectId,
+  quantity: Number,
+  price   : Number
+});
+
+const cartSchema = new mongoose.Schema({
+  userId     : String,
+  items      : [cartItemSchema],
+  totalPrice : Number,
+  totalItems : Number
+}, { timestamps: true });
+
+const Cart = mongoose.models.Cart || mongoose.model('Cart', cartSchema);
+
 // ─── Connect to MongoDB ────────────────────────────────────────────
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ MongoDB connected'))
@@ -24,14 +39,22 @@ const { getRecommendations } = require('./engine/recommendationEngine');
 
 app.get('/recommendations/:cartId', async (req, res) => {
   try {
-    const Product = mongoose.model('Product');
-    const testProduct = await Product.findOne({ name: 'Laptop' });
+    const Cart = mongoose.model('Cart');
 
-    if (!testProduct) {
-      return res.status(404).json({ error: 'Test product not found. Did you run seed.js?' });
+    const cart = await Cart.findById(req.params.cartId);
+
+    if (!cart) {
+      return res.status(404).json({ error: 'Cart not found' });
     }
 
-    const recommendations = await getRecommendations([testProduct._id]);
+    if (!cart.items || cart.items.length === 0) {
+      return res.json([]); // empty cart, nothing to recommend
+    }
+
+    // Extract just the product IDs from the cart's items array
+    const cartProductIds = cart.items.map(item => item.product);
+
+    const recommendations = await getRecommendations(cartProductIds);
     res.json(recommendations);
 
   } catch (err) {
