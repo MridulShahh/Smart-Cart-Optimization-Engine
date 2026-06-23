@@ -25,7 +25,7 @@ const { getRecommendations } = require('./engine/recommendationEngine');
 app.get('/recommendations/:cartId', async (req, res) => {
   try {
     const Product = mongoose.model('Product');
-    const testProduct = await Product.findOne({ productName: 'Laptop' });
+    const testProduct = await Product.findOne({ name: 'Laptop' });
 
     if (!testProduct) {
       return res.status(404).json({ error: 'Test product not found. Did you run seed.js?' });

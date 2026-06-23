@@ -15,12 +15,14 @@ const trainedModel = MLR.load(modelJSON);
 // ─── Schemas ────────────────────────────────────────────────────────────────
 
 const productSchema = new mongoose.Schema({
-  productName : String,
+  name        : String,
   category    : String,
-  brand       : String,
   price       : Number,
   rating      : Number,
-  popularity  : String,
+  popularity  : Number,
+  stock       : Number,
+  description : String,
+  tags        : [String],
   createdAt   : { type: Date, default: Date.now }
 });
 
@@ -43,7 +45,6 @@ const Relationship = mongoose.models.Relationship || mongoose.model('Relationshi
 const RecommendationHistory = mongoose.models.RecommendationHistory || mongoose.model('RecommendationHistory', recommendationHistorySchema);
 
 // ─── Helper: convert popularity into a number ───────────────────────────────
-// Handles both numeric (1/2/3) and string ("High"/"Medium"/"Low") formats
 
 function getPopularityScore(popularity) {
   const numValue = Number(popularity);
@@ -66,26 +67,33 @@ function getPriceScore(candidatePrice, cartItemPrice) {
   return 0.2;
 }
 
+// ─── Manual formula scoring (the original hand-picked weights) ─────────────
+
+function getManualScore(relationshipScore, popularityScore, ratingScore, priceScore) {
+  return (
+    (relationshipScore * 0.40) +
+    (popularityScore   * 0.30) +
+    (ratingScore        * 0.20) +
+    (priceScore         * 0.10)
+  );
+}
+
 // ─── Main function: get top recommendations for a list of cart product IDs ─
 
 async function getRecommendations(cartProductIds) {
 
-  // Step 1 — Get full product details for items already in the cart
   const cartProducts = await Product.find({ _id: { $in: cartProductIds } });
 
   if (cartProducts.length === 0) {
-    return []; // empty cart, nothing to recommend
+    return [];
   }
 
-  // Step 2 — Calculate average price of items in the cart (used for price scoring)
   const avgCartPrice = cartProducts.reduce((sum, p) => sum + p.price, 0) / cartProducts.length;
 
-  // Step 3 — Find all relationships where the cart items are the source product
   const relationships = await Relationship.find({
     productId: { $in: cartProductIds }
   });
 
-  // Step 4 — Score every candidate product using the trained ML model
   const scoredCandidates = [];
 
   for (const rel of relationships) {
@@ -103,20 +111,28 @@ async function getRecommendations(cartProductIds) {
     const ratingScore       = candidate.rating / 5;
     const priceScore        = getPriceScore(candidate.price, avgCartPrice);
 
-    const mlPrediction = trainedModel.predict([[relationshipScore, popularityScore, ratingScore, priceScore]]);
-    const finalScore = Math.max(0, Math.min(1, mlPrediction[0][0]));
+    // Check the flag to decide which scoring method to use
+    const useML = process.env.USE_ML_SCORING === 'true';
+
+    let finalScore;
+    if (useML) {
+      const mlPrediction = trainedModel.predict([[relationshipScore, popularityScore, ratingScore, priceScore]]);
+      finalScore = Math.max(0, Math.min(1, mlPrediction[0][0]));
+    } else {
+      finalScore = getManualScore(relationshipScore, popularityScore, ratingScore, priceScore);
+    }
 
     scoredCandidates.push({
-      productId   : candidate._id,
-      productName : candidate.productName,
-      price       : candidate.price,
-      rating      : candidate.rating,
-      popularity  : candidate.popularity,
-      score       : Math.round(finalScore * 100) / 100
+      productId    : candidate._id,
+      productName  : candidate.name,
+      price        : candidate.price,
+      rating       : candidate.rating,
+      popularity   : candidate.popularity,
+      score        : Math.round(finalScore * 100) / 100,
+      scoringMethod: useML ? 'ML Model' : 'Manual Formula'
     });
   }
 
-  // Step 5 — Remove duplicate candidates
   const uniqueCandidates = [];
   const seenIds = new Set();
 
@@ -127,21 +143,16 @@ async function getRecommendations(cartProductIds) {
     }
   }
 
-  // Step 6 — Sort by score, highest first, keep top 3
   uniqueCandidates.sort((a, b) => b.score - a.score);
   const top3 = uniqueCandidates.slice(0, 3);
 
-  // Step 7 — Get the main cart item's name (used in the AI prompt)
-  const cartItemName = cartProducts[0].productName;
+  const cartItemName = cartProducts[0].name;
 
-  // Step 8 — Add an AI-generated explanation to each top recommendation
-  // Small delay between calls to stay within Gemini's free-tier rate limit
-  for (const item of top3) {
-    item.explanation = await explainRecommendation(cartItemName, item.productName);
-    await new Promise(resolve => setTimeout(resolve, 2500));
-  }
+for (const item of top3) {
+  item.explanation = await explainRecommendation(cartItemName, item.productName);
+  await new Promise(resolve => setTimeout(resolve, 2500));
+}
 
-  // Step 9 — Log each recommendation to history for analytics tracking
   for (const item of top3) {
     try {
       await RecommendationHistory.create({
