@@ -68,10 +68,10 @@ app.post('/recommendations/:historyId/accept', async (req, res) => {
     const RecommendationHistory = mongoose.model('RecommendationHistory');
 
     const updated = await RecommendationHistory.findByIdAndUpdate(
-      req.params.historyId,
-      { accepted: true },
-      { new: true }
-    );
+  req.params.historyId,
+  { accepted: true },
+  { returnDocument: 'after' }
+);
 
     if (!updated) {
       return res.status(404).json({ error: 'Recommendation history record not found' });
