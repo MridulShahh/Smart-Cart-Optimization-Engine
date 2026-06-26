@@ -40,9 +40,9 @@ const recommendationHistorySchema = new mongoose.Schema({
   createdAt           : { type: Date, default: Date.now }
 });
 
-const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
-const Relationship = mongoose.models.Relationship || mongoose.model('Relationship', relationshipSchema);
-const RecommendationHistory = mongoose.models.RecommendationHistory || mongoose.model('RecommendationHistory', recommendationHistorySchema);
+const Product = require("../models/Product");
+const Relationship = require("../models/Relationship");
+const RecommendationHistory = require("../models/RecommendationHistory");
 
 // ─── Helper: convert popularity into a number ───────────────────────────────
 
