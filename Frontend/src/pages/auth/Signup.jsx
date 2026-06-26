@@ -45,7 +45,17 @@ function Signup() {
 
     const result = await dispatch(signupUser(form));
     if (signupUser.fulfilled.match(result)) {
-      toast.success(`Account created successfully! Welcome, ${result.payload.user.fullName}!`);
+      toast.success(`Account generated. Welcome to the grid, ${result.payload.user.fullName}.`, {
+        icon: '💻',
+        style: {
+          borderRadius: '12px',
+          background: '#0a0a0a',
+          color: '#00ff41',
+          border: '1px solid #00ff41',
+          boxShadow: '0 0 15px rgba(0, 255, 65, 0.3)',
+          fontFamily: 'monospace'
+        }
+      });
       navigate("/");
     } else {
       toast.error(result.payload || "Signup failed");
@@ -60,10 +70,30 @@ function Signup() {
       password: "customer123"
     }));
     if (signupUser.fulfilled.match(result)) {
-      toast.success("Successfully registered via Google account!");
+      toast.success(`Google Auth Protocol verified. Welcome to the grid, Sophia Sterling.`, {
+        icon: '💻',
+        style: {
+          borderRadius: '12px',
+          background: '#0a0a0a',
+          color: '#00ff41',
+          border: '1px solid #00ff41',
+          boxShadow: '0 0 15px rgba(0, 255, 65, 0.3)',
+          fontFamily: 'monospace'
+        }
+      });
       navigate("/");
     } else {
-      toast.success("Signed in successfully via Google account!");
+      toast.success(`Google Auth Protocol verified. Welcome to the grid, Sophia Sterling.`, {
+        icon: '💻',
+        style: {
+          borderRadius: '12px',
+          background: '#0a0a0a',
+          color: '#00ff41',
+          border: '1px solid #00ff41',
+          boxShadow: '0 0 15px rgba(0, 255, 65, 0.3)',
+          fontFamily: 'monospace'
+        }
+      });
       navigate("/");
     }
   };

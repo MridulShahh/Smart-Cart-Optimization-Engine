@@ -395,16 +395,11 @@ function Navbar() {
         }}
       >
         {[
-          { label: "All Items", action: () => { dispatch(setFilters({ category: "" })); navigate("/shop"); }, icon: <AppsIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Laptops", action: () => { dispatch(setFilters({ category: "Laptops" })); navigate("/shop"); }, icon: <LaptopIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Accessories", action: () => { dispatch(setFilters({ category: "Accessories" })); navigate("/shop"); }, icon: <KeyboardIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Audio Devices", action: () => { dispatch(setFilters({ category: "Audio" })); navigate("/shop"); }, icon: <HeadphonesIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: "All Items", action: () => { navigate("/shop"); }, icon: <AppsIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: "Laptops", action: () => { navigate("/category/Laptops"); }, icon: <LaptopIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: "Accessories", action: () => { navigate("/category/Accessories"); }, icon: <KeyboardIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: "Audio Devices", action: () => { navigate("/category/Audio"); }, icon: <HeadphonesIcon sx={{ fontSize: "1.1rem" }} /> },
           { label: "AI Recommendations", action: () => { navigate("/ai-picks"); }, icon: <AutoAwesomeIcon sx={{ fontSize: "1.1rem", color: "#FFB300" }} />, highlighted: true },
-          { label: "Fashion", action: () => toast.error("Fashion Hub coming soon in Q3! 👗"), icon: <CheckroomIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Groceries", action: () => toast.error("Groceries delivery coming soon in Q4! 🍎"), icon: <LocalGroceryStoreIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Beauty", action: () => toast.error("Beauty & Cosmetics coming soon! 💄"), icon: <SpaIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Home Decor", action: () => toast.error("Home Furnishings coming soon! 🛋️"), icon: <HomeIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Sports Fitness", action: () => toast.error("Sports & Gear coming soon! ⚽"), icon: <SportsSoccerIcon sx={{ fontSize: "1.1rem" }} /> },
         ].map((item) => (
           <Button
             key={item.label}

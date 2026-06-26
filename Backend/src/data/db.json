@@ -18,7 +18,7 @@
       ],
       "popularity": 90,
       "_modelName": "Product",
-      "_id": "04e6f96023d828ab4a35c73d"
+      "_id": "80df94ae328a35fdb70f960b"
     },
     {
       "productName": "Wireless Mouse",
@@ -38,7 +38,7 @@
       ],
       "popularity": 95,
       "_modelName": "Product",
-      "_id": "597760ea758b0f062cfdb47d"
+      "_id": "a0d5402bee7231144f4879e5"
     },
     {
       "productName": "Mechanical Keyboard",
@@ -58,7 +58,7 @@
       ],
       "popularity": 85,
       "_modelName": "Product",
-      "_id": "3d1312d6c4ebccc085fdab45"
+      "_id": "afe7a67c4dc3984cd80d7efc"
     },
     {
       "productName": "Laptop Bag",
@@ -78,7 +78,7 @@
       ],
       "popularity": 75,
       "_modelName": "Product",
-      "_id": "f76e540d7b77ac15192f77aa"
+      "_id": "e84281bfd3c8768f080d02d3"
     },
     {
       "productName": "Monitor",
@@ -98,7 +98,7 @@
       ],
       "popularity": 80,
       "_modelName": "Product",
-      "_id": "600c4076ee4136f811f5c25d"
+      "_id": "9705d813903d738993240667"
     },
     {
       "productName": "Headphones",
@@ -118,7 +118,7 @@
       ],
       "popularity": 88,
       "_modelName": "Product",
-      "_id": "9b5bcb9b5f6282fb0c5eb101"
+      "_id": "4d6b3d53ce082a2fa4299a2a"
     },
     {
       "productName": "Webcam",
@@ -138,7 +138,7 @@
       ],
       "popularity": 65,
       "_modelName": "Product",
-      "_id": "3410565b613a13d1094a7410"
+      "_id": "9cb77bf7e7a2fdb0c296508c"
     },
     {
       "productName": "USB Hub",
@@ -158,7 +158,7 @@
       ],
       "popularity": 70,
       "_modelName": "Product",
-      "_id": "cd9d85d4b992b6e130d15ba6"
+      "_id": "8604b1ce06705091ce564b01"
     },
     {
       "productName": "SSD 512GB",
@@ -178,7 +178,7 @@
       ],
       "popularity": 82,
       "_modelName": "Product",
-      "_id": "c31f5170c7b3452b6061aa76"
+      "_id": "ffbd24525061b907422c57ff"
     },
     {
       "productName": "Bluetooth Speaker",
@@ -198,127 +198,207 @@
       ],
       "popularity": 92,
       "_modelName": "Product",
-      "_id": "ba613a78aa90767dd5126fe1"
+      "_id": "c4f36104924826b0d2b6899e"
     },
     {
-      "productName": "Laptop Charger",
-      "name": "Laptop Charger",
-      "price": 1500,
-      "description": "Universal 65W USB-C laptop charger power adapter.",
-      "category": "Accessories",
-      "brand": "Lenovo",
-      "stock": 20,
-      "rating": 4.1,
-      "image": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80",
-      "tags": [
-        "charger",
-        "power",
-        "accessory",
-        "laptop"
-      ],
-      "popularity": 60,
-      "_modelName": "Product",
-      "_id": "734a957eac3812af062f3089"
-    },
-    {
-      "productName": "Gaming Mouse Pad",
-      "name": "Gaming Mouse Pad",
-      "price": 600,
-      "description": "Extended gaming mouse pad with anti-fray stitched edges.",
-      "category": "Accessories",
-      "brand": "Razer",
-      "stock": 50,
-      "rating": 4.6,
-      "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80",
-      "tags": [
-        "mousepad",
-        "accessory",
-        "gaming",
-        "laptop"
-      ],
-      "popularity": 78,
-      "_modelName": "Product",
-      "_id": "4da8b2589a23f5582154bf75"
-    },
-    {
-      "productName": "External Hard Drive 1TB",
-      "name": "External Hard Drive 1TB",
-      "price": 4200,
-      "description": "Durable external hard drive with USB 3.0 support.",
+      "productName": "Laptop",
+      "name": "Laptop",
+      "price": 55000,
+      "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
       "category": "Laptops",
-      "brand": "WD",
-      "stock": 25,
-      "rating": 4.5,
-      "image": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&q=80",
+      "brand": "Dell",
+      "stock": 10,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&q=80",
       "tags": [
-        "storage",
-        "hdd",
+        "pc",
         "computer",
-        "backup"
+        "work",
+        "electronics"
       ],
-      "popularity": 74,
+      "popularity": 90,
       "_modelName": "Product",
-      "_id": "8dc9726a737a9de753caec79"
+      "_id": "60919505a4af5981a03f4189"
     },
     {
-      "productName": "Gaming Mouse",
-      "name": "Gaming Mouse",
-      "price": 2500,
-      "description": "High-precision RGB gaming mouse with programmable buttons.",
-      "category": "Accessories",
-      "brand": "Razer",
-      "stock": 30,
+      "productName": "MacBook Pro 16\"",
+      "name": "MacBook Pro 16\"",
+      "price": 249900,
+      "description": "M3 Max chip with 14-core CPU and 30-core GPU, 36GB Unified Memory.",
+      "category": "Laptops",
+      "brand": "Apple",
+      "stock": 5,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80",
+      "tags": [
+        "macbook",
+        "pro",
+        "apple",
+        "laptop"
+      ],
+      "popularity": 99,
+      "_modelName": "Product",
+      "_id": "f71b279c161c9fbf0a624bb5"
+    },
+    {
+      "productName": "ROG Zephyrus G14",
+      "name": "ROG Zephyrus G14",
+      "price": 145000,
+      "description": "Ultra-slim premium gaming laptop with RTX 4060 and OLED display.",
+      "category": "Laptops",
+      "brand": "ASUS",
+      "stock": 12,
       "rating": 4.7,
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&q=80",
+      "tags": [
+        "gaming",
+        "rog",
+        "asus",
+        "laptop"
+      ],
+      "popularity": 92,
+      "_modelName": "Product",
+      "_id": "38108ea1692e54cbcde6c835"
+    },
+    {
+      "productName": "ThinkPad X1 Carbon",
+      "name": "ThinkPad X1 Carbon",
+      "price": 135000,
+      "description": "Gen 11 ultra-light business laptop with Intel Core i7.",
+      "category": "Laptops",
+      "brand": "Lenovo",
+      "stock": 8,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&q=80",
+      "tags": [
+        "business",
+        "thinkpad",
+        "lenovo",
+        "laptop"
+      ],
+      "popularity": 88,
+      "_modelName": "Product",
+      "_id": "2364ce9f7f77bd4c2995c622"
+    },
+    {
+      "productName": "MX Master 3S",
+      "name": "MX Master 3S",
+      "price": 8500,
+      "description": "Advanced ergonomic wireless mouse with MagSpeed scrolling.",
+      "category": "Accessories",
+      "brand": "Logitech",
+      "stock": 35,
+      "rating": 4.9,
       "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80",
       "tags": [
         "mouse",
-        "accessory",
-        "gaming",
-        "laptop"
+        "wireless",
+        "logitech",
+        "accessory"
+      ],
+      "popularity": 96,
+      "_modelName": "Product",
+      "_id": "61d20bfff547af5170e79e79"
+    },
+    {
+      "productName": "Keychron Q1 Pro",
+      "name": "Keychron Q1 Pro",
+      "price": 14000,
+      "description": "QMK/VIA fully customizable wireless mechanical keyboard.",
+      "category": "Accessories",
+      "brand": "Keychron",
+      "stock": 15,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80",
+      "tags": [
+        "keyboard",
+        "mechanical",
+        "custom",
+        "accessory"
+      ],
+      "popularity": 91,
+      "_modelName": "Product",
+      "_id": "359371f620dbaba16c62c640"
+    },
+    {
+      "productName": "Anker 737 Power Bank",
+      "name": "Anker 737 Power Bank",
+      "price": 12500,
+      "description": "24,000mAh 140W fast-charging power bank for laptops.",
+      "category": "Accessories",
+      "brand": "Anker",
+      "stock": 25,
+      "rating": 4.7,
+      "image": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80",
+      "tags": [
+        "powerbank",
+        "charger",
+        "anker",
+        "accessory"
+      ],
+      "popularity": 85,
+      "_modelName": "Product",
+      "_id": "22ea5b79b013cb9ffc85a91e"
+    },
+    {
+      "productName": "WH-1000XM5",
+      "name": "WH-1000XM5",
+      "price": 29990,
+      "description": "Industry leading noise-canceling wireless headphones.",
+      "category": "Audio",
+      "brand": "Sony",
+      "stock": 18,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=600&q=80",
+      "tags": [
+        "headphones",
+        "audio",
+        "sony",
+        "noise-canceling"
+      ],
+      "popularity": 98,
+      "_modelName": "Product",
+      "_id": "6f68370c3bc8b58b8e22f82f"
+    },
+    {
+      "productName": "AirPods Pro (2nd Gen)",
+      "name": "AirPods Pro (2nd Gen)",
+      "price": 24900,
+      "description": "Premium wireless earbuds with active noise cancellation.",
+      "category": "Audio",
+      "brand": "Apple",
+      "stock": 40,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=600&q=80",
+      "tags": [
+        "earbuds",
+        "audio",
+        "apple",
+        "wireless"
+      ],
+      "popularity": 97,
+      "_modelName": "Product",
+      "_id": "91260a978bbd875daf47e073"
+    },
+    {
+      "productName": "Sonos Roam",
+      "name": "Sonos Roam",
+      "price": 19999,
+      "description": "Smart portable Wi-Fi and Bluetooth speaker.",
+      "category": "Audio",
+      "brand": "Sonos",
+      "stock": 22,
+      "rating": 4.6,
+      "image": "https://images.unsplash.com/photo-1608223652643-b9cb4d2f09d6?w=600&q=80",
+      "tags": [
+        "speaker",
+        "audio",
+        "sonos",
+        "bluetooth"
       ],
       "popularity": 89,
       "_modelName": "Product",
-      "_id": "24fb2669aa1f7369f794ebbd"
-    },
-    {
-      "productName": "Webcam Pro",
-      "name": "Webcam Pro",
-      "price": 5500,
-      "description": "Ultra HD 4K webcam with HDR and auto-focus.",
-      "category": "Accessories",
-      "brand": "Logitech",
-      "stock": 10,
-      "rating": 4.8,
-      "image": "https://images.unsplash.com/photo-1603539958975-d144342410a5?w=600&q=80",
-      "tags": [
-        "camera",
-        "video",
-        "accessory",
-        "pro"
-      ],
-      "popularity": 62,
-      "_modelName": "Product",
-      "_id": "82999faa16cb2b2f61b5bee2"
-    },
-    {
-      "productName": "WiFi Router",
-      "name": "WiFi Router",
-      "price": 3200,
-      "description": "Dual-band gigabit smart WiFi router.",
-      "category": "Laptops",
-      "brand": "TP-Link",
-      "stock": 20,
-      "rating": 4.4,
-      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80",
-      "tags": [
-        "wifi",
-        "router",
-        "network",
-        "electronics"
-      ],
-      "popularity": 76,
-      "_modelName": "Product",
-      "_id": "7baa21a43916cbf00536eada"
+      "_id": "bba0cf5bb6c364946cb0d225"
     }
   ],
   "User": [],

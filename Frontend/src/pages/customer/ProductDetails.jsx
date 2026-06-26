@@ -12,6 +12,7 @@ import {
   Tabs,
   Tab,
   CircularProgress,
+  IconButton,
 } from "@mui/material";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,6 +38,7 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [tabValue, setTabValue] = useState(0);
   const [wishlisted, setWishlisted] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     if (products.length === 0) {
@@ -65,9 +67,9 @@ function ProductDetails() {
 
   const handleAddToCart = () => {
     if (user) {
-      dispatch(addToCart({ userId: user.id, productId: product._id, quantity: 1 }));
+      dispatch(addToCart({ userId: user.id, productId: product._id, quantity }));
     } else {
-      dispatch(addLocalItem({ productId: product._id, quantity: 1, product }));
+      dispatch(addLocalItem({ productId: product._id, quantity, product }));
     }
     toast.success(`${product.productName || product.name} added to cart! 🛒`);
   };
@@ -160,11 +162,12 @@ function ProductDetails() {
                 p: 4,
                 borderRadius: "24px",
                 border: "1px solid #E5E7EB",
-                bgcolor: "white",
+                bgcolor: "#FAFAFA",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 height: { xs: "320px", md: "460px" },
+                mb: 2
               }}
             >
               <Box
@@ -175,72 +178,81 @@ function ProductDetails() {
                   maxHeight: "100%",
                   maxWidth: "100%",
                   objectFit: "contain",
+                  mixBlendMode: "multiply"
                 }}
               />
             </Paper>
+            
+            {/* Thumbnail Gallery */}
+            <Stack direction="row" spacing={2} sx={{ overflowX: 'auto', pb: 1 }}>
+              {[1, 2, 3, 4].map(idx => (
+                <Box key={idx} sx={{ width: 80, height: 80, borderRadius: '12px', border: idx === 1 ? '2px solid #F43F5E' : '1px solid #E5E7EB', p: 1, cursor: 'pointer', bgcolor: "#FAFAFA" }}>
+                  <Box component="img" src={product.image} sx={{ width: '100%', height: '100%', objectFit: 'contain', mixBlendMode: "multiply" }} />
+                </Box>
+              ))}
+            </Stack>
           </Grid>
 
           {/* Right Product Details Info */}
           <Grid item xs={12} md={6}>
-            <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ letterSpacing: "0.1em", textTransform: "uppercase" }}>
-              {product.brand}
-            </Typography>
-
             <Typography
               variant="h3"
               fontWeight="900"
               gutterBottom
-              sx={{ fontFamily: "'Poppins', sans-serif", fontSize: { xs: "2rem", md: "2.8rem" }, mt: 1 }}
+              sx={{ fontFamily: "'Poppins', sans-serif", fontSize: { xs: "2rem", md: "2.5rem" }, mt: 1 }}
             >
               {product.productName || product.name}
             </Typography>
 
             {/* Ratings */}
-            <Stack direction="row" spacing={1.5} alignItems="center" mb={2}>
-              <Rating value={product.rating || 4.5} precision={0.1} readOnly sx={{ color: "#FFB300" }} />
-              <Typography variant="body1" fontWeight="600" color="text.primary">
-                {product.rating || 4.5} ★
-              </Typography>
-              <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+            <Stack direction="row" spacing={1.5} alignItems="center" mb={3}>
+              <Box sx={{ display: 'flex', alignItems: 'center', bgcolor: '#E8F5E9', color: '#16A34A', px: 1, py: 0.5, borderRadius: '6px' }}>
+                <Typography variant="body2" fontWeight="700">{product.rating || 4.5} ★</Typography>
+              </Box>
               <Typography variant="body2" color="text.secondary">
-                ({product.popularity || 45} orders generated)
+                {product.reviews || Math.floor(Math.random() * 500 + 100)} reviews
               </Typography>
+              <Typography variant="body2" color="text.secondary">•</Typography>
+              <Stack direction="row" alignItems="center" spacing={0.5}>
+                <VerifiedIcon sx={{ color: product.stock > 0 ? "#16A34A" : "#6B7280", fontSize: '1.2rem' }} />
+                <Typography variant="body2" fontWeight="600" color={product.stock > 0 ? "#16A34A" : "#6B7280"}>
+                  {product.stock > 0 ? `In stock` : "Out of stock"}
+                </Typography>
+              </Stack>
             </Stack>
 
-            <Typography variant="h4" fontWeight="800" color="#E23744" mb={3}>
-              ₹{(product.price || 0).toLocaleString("en-IN")}
+            {/* Price section */}
+            <Stack direction="row" alignItems="baseline" spacing={2} mb={0.5}>
+              <Typography variant="h3" fontWeight="900">
+                ₹{(product.price || 0).toLocaleString("en-IN")}
+              </Typography>
+              <Typography variant="h6" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                ₹{(product.originalPrice || Math.floor(product.price * 1.35)).toLocaleString("en-IN")}
+              </Typography>
+              <Typography variant="h6" color="#16A34A" fontWeight="700">
+                {product.discount || "35% off"}
+              </Typography>
+            </Stack>
+            <Typography variant="caption" color="text.secondary" display="block" mb={3}>
+              Inclusive of all taxes
             </Typography>
 
             <Typography variant="body1" color="text.secondary" paragraph mb={4} sx={{ lineHeight: 1.7 }}>
               {product.description || "The ultimate tool for your digital desk. Experience high reliability, premium build quality, and startup-grade performance backed by NexCart quality assurance standards."}
             </Typography>
 
-            {/* In Stock status */}
-            <Stack direction="row" spacing={1.5} alignItems="center" mb={4}>
-              <VerifiedIcon sx={{ color: product.stock > 0 ? "#16A34A" : "#6B7280" }} />
-              <Typography variant="body2" fontWeight="600" color={product.stock > 0 ? "#16A34A" : "#6B7280"}>
-                {product.stock > 0 ? `In Stock (Only ${product.stock} items left!)` : "Out of Stock"}
-              </Typography>
+            {/* Quantity Selector */}
+            <Stack direction="row" alignItems="center" spacing={4} mb={4}>
+              <Typography fontWeight="700">Quantity</Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid #E5E7EB', borderRadius: '8px' }}>
+                <IconButton onClick={() => setQuantity(Math.max(1, quantity - 1))} size="small" sx={{ px: 2 }}>-</IconButton>
+                <Typography fontWeight="600" sx={{ px: 2 }}>{quantity}</Typography>
+                <IconButton onClick={() => setQuantity(quantity + 1)} size="small" sx={{ px: 2 }}>+</IconButton>
+              </Box>
             </Stack>
 
             {/* Actions */}
             <Stack direction="row" spacing={2} mb={4}>
-              <Button
-                variant="contained"
-                size="large"
-                onClick={handleBuyNow}
-                disabled={product.stock === 0}
-                sx={{
-                  flexGrow: 1,
-                  bgcolor: "#E23744",
-                  fontWeight: 700,
-                  py: 1.8,
-                  borderRadius: "50px",
-                  "&:hover": { bgcolor: "#b82531" },
-                }}
-              >
-                Buy Now
-              </Button>
               <Button
                 variant="contained"
                 size="large"
@@ -253,80 +265,73 @@ function ProductDetails() {
                   fontWeight: 700,
                   py: 1.8,
                   borderRadius: "50px",
+                  textTransform: "none",
                   "&:hover": { bgcolor: "#1F2937" },
                 }}
               >
                 Add to Cart
               </Button>
+              <Button
+                variant="contained"
+                size="large"
+                onClick={handleBuyNow}
+                disabled={product.stock === 0}
+                startIcon={<AutoAwesomeIcon />}
+                sx={{
+                  flexGrow: 1,
+                  bgcolor: "#F43F5E",
+                  color: "white",
+                  fontWeight: 700,
+                  py: 1.8,
+                  borderRadius: "50px",
+                  textTransform: "none",
+                  "&:hover": { bgcolor: "#E11D48" },
+                }}
+              >
+                Buy Now
+              </Button>
               <IconButton onClick={handleWishlistToggle} sx={{ border: "1px solid #E5E7EB", p: 1.8, borderRadius: "50%" }}>
-                {wishlisted ? <FavoriteIcon sx={{ color: "#E23744" }} /> : <FavoriteBorderIcon />}
+                {wishlisted ? <FavoriteIcon sx={{ color: "#F43F5E" }} /> : <FavoriteBorderIcon />}
               </IconButton>
             </Stack>
 
-            <Divider />
-
-            {/* Shipping indicator */}
-            <Stack direction="row" spacing={3} mt={3}>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <LocalShippingIcon sx={{ color: "#4B5563" }} />
-                <Typography variant="caption" fontWeight="600" color="text.secondary">
-                  FREE 1-DAY EXPRESS DELIVERY
-                </Typography>
-              </Stack>
+            {/* Badges */}
+            <Stack direction="row" spacing={2} mb={4} flexWrap="wrap" useFlexGap>
+              <Box sx={{ border: '1px solid #E5E7EB', borderRadius: '50px', px: 2, py: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                <LocalShippingIcon sx={{ color: '#F43F5E', fontSize: '1.2rem' }} />
+                <Typography variant="caption" fontWeight="600" color="text.primary">Free delivery</Typography>
+              </Box>
+              <Box sx={{ border: '1px solid #E5E7EB', borderRadius: '50px', px: 2, py: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                <AutoAwesomeIcon sx={{ color: '#F43F5E', fontSize: '1.2rem' }} /> 
+                <Typography variant="caption" fontWeight="600" color="text.primary">7-day returns</Typography>
+              </Box>
+              <Box sx={{ border: '1px solid #E5E7EB', borderRadius: '50px', px: 2, py: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                <VerifiedIcon sx={{ color: '#F43F5E', fontSize: '1.2rem' }} />
+                <Typography variant="caption" fontWeight="600" color="text.primary">Secure payments</Typography>
+              </Box>
             </Stack>
+
+            {/* Specifications Box */}
+            <Box sx={{ bgcolor: '#FAFAFA', borderRadius: '16px', p: 3, border: '1px solid #E5E7EB' }}>
+              <Typography variant="subtitle1" fontWeight="800" mb={2}>Specifications</Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={4}><Typography variant="body2" color="text.secondary">Brand</Typography></Grid>
+                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.brand}</Typography></Grid>
+                
+                <Grid item xs={4}><Typography variant="body2" color="text.secondary">Category</Typography></Grid>
+                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.category}</Typography></Grid>
+                
+                <Grid item xs={4}><Typography variant="body2" color="text.secondary">Weight</Typography></Grid>
+                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.specifications?.weight || '1.2 kg'}</Typography></Grid>
+
+                <Grid item xs={4}><Typography variant="body2" color="text.secondary">Warranty</Typography></Grid>
+                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.specifications?.warranty || '1 Year'}</Typography></Grid>
+              </Grid>
+            </Box>
           </Grid>
         </Grid>
 
-        {/* Tab specifications */}
-        <Box sx={{ mt: 10 }}>
-          <Tabs value={tabValue} onChange={(e, val) => setTabValue(val)} sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
-            <Tab label="Specifications" sx={{ fontWeight: 700, textTransform: "none" }} />
-            <Tab label="Reviews" sx={{ fontWeight: 700, textTransform: "none" }} />
-          </Tabs>
 
-          {tabValue === 0 && (
-            <Paper elevation={0} sx={{ p: 4, borderRadius: "16px", border: "1px solid #E5E7EB", bgcolor: "white" }}>
-              <Grid container spacing={3}>
-                <Grid item xs={6} sm={4}><Typography variant="subtitle2" fontWeight="700">Category</Typography></Grid>
-                <Grid item xs={6} sm={8}><Typography variant="body2" color="text.secondary">{product.category}</Typography></Grid>
-                
-                <Grid item xs={6} sm={4}><Typography variant="subtitle2" fontWeight="700">Brand</Typography></Grid>
-                <Grid item xs={6} sm={8}><Typography variant="body2" color="text.secondary">{product.brand}</Typography></Grid>
-                
-                <Grid item xs={6} sm={4}><Typography variant="subtitle2" fontWeight="700">Stock Available</Typography></Grid>
-                <Grid item xs={6} sm={8}><Typography variant="body2" color="text.secondary">{product.stock} units</Typography></Grid>
-
-                <Grid item xs={6} sm={4}><Typography variant="subtitle2" fontWeight="700">Tags</Typography></Grid>
-                <Grid item xs={6} sm={8}><Typography variant="body2" color="text.secondary">{(product.tags || []).join(", ") || "Smart Tech, Accessory"}</Typography></Grid>
-              </Grid>
-            </Paper>
-          )}
-
-          {tabValue === 1 && (
-            <Paper elevation={0} sx={{ p: 4, borderRadius: "16px", border: "1px solid #E5E7EB", bgcolor: "white" }}>
-              <Stack spacing={4}>
-                <Box>
-                  <Stack direction="row" spacing={2} alignItems="center" mb={1}>
-                    <Typography variant="subtitle2" fontWeight="700">Mridul (SkillTurtle)</Typography>
-                    <Rating value={5} readOnly size="small" sx={{ color: "#FFB300" }} />
-                  </Stack>
-                  <Typography variant="body2" color="text.secondary">
-                    Absolutely phenomenal! Works exactly as described. The integration with the cart optimization is seamless and helps me discover necessary companion accessories instantly.
-                  </Typography>
-                </Box>
-                <Box>
-                  <Stack direction="row" spacing={2} alignItems="center" mb={1}>
-                    <Typography variant="subtitle2" fontWeight="700">Sophia Sterling</Typography>
-                    <Rating value={4.5} readOnly size="small" sx={{ color: "#FFB300" }} />
-                  </Stack>
-                  <Typography variant="body2" color="text.secondary">
-                    Super high quality build and fast shipping. Highly recommended.
-                  </Typography>
-                </Box>
-              </Stack>
-            </Paper>
-          )}
-        </Box>
 
         {/* AI Recommendations Section */}
         <Box sx={{ mt: 10 }}>

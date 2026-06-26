@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -26,11 +27,25 @@ import ProductCard from "../../components/product/ProductCard";
 
 function Shop() {
   const dispatch = useDispatch();
+  const { categoryName } = useParams();
   const { items: products, filters, loading } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  // Handle URL category routing
+  useEffect(() => {
+    if (categoryName) {
+      // Map url-friendly names to standard format if needed
+      let formattedCategory = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
+      if (formattedCategory.toLowerCase() === "audio devices") formattedCategory = "Audio";
+      dispatch(setFilters({ category: formattedCategory }));
+    } else {
+      // If we go to /shop directly, clear the category so it defaults to all
+      dispatch(setFilters({ category: "" }));
+    }
+  }, [categoryName, dispatch]);
 
   const handlePriceChange = (event, newValue) => {
     dispatch(setFilters({ priceRange: newValue }));
@@ -57,7 +72,8 @@ function Shop() {
         .includes(filters.search.toLowerCase());
       
       // Category check
-      const categoryMatch = !filters.category || product.category === filters.category;
+      const categoryMatch = !filters.category || 
+        (product.category && product.category.toLowerCase().trim() === filters.category.toLowerCase().trim());
 
       // Price check
       const priceMatch =
@@ -89,7 +105,7 @@ function Shop() {
 
         <Grid container spacing={4}>
           {/* Filters Sidebar */}
-          <Grid xs={12} md={3}>
+          <Grid item xs={12} md={3}>
             <Card sx={{ borderRadius: "16px", border: "1px solid #E5E7EB", boxShadow: "none" }}>
               <CardContent sx={{ p: 3 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
@@ -159,7 +175,7 @@ function Shop() {
           </Grid>
 
           {/* Product Listing */}
-          <Grid xs={12} md={9}>
+          <Grid item xs={12} md={9}>
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
@@ -193,7 +209,7 @@ function Shop() {
             </Stack>
 
             {/* Empty state */}
-            {filteredProducts.length === 0 && !loading && (
+            {filteredProducts.length === 0 && (
               <Box sx={{ textAlign: "center", py: 10 }}>
                 <Typography variant="h5" fontWeight="700" gutterBottom>
                   No Products Found
@@ -209,9 +225,9 @@ function Shop() {
 
             {/* Product Grid */}
             <Grid container spacing={3}>
-              {filteredProducts.map((product) => (
-                <Grid xs={12} sm={6} md={4} key={product._id}>
-                  <ProductCard product={product} />
+              {filteredProducts.map((product, index) => (
+                <Grid item xs={12} sm={6} md={4} key={product._id}>
+                  <ProductCard product={product} index={index} />
                 </Grid>
               ))}
             </Grid>
