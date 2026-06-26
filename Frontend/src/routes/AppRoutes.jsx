@@ -34,6 +34,7 @@ function AppRoutes() {
       {/* Customer Routes */}
       <Route path="/" element={<Home />} />
       <Route path="/shop" element={<Shop />} />
+      <Route path="/category/:categoryName" element={<Shop />} />
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/wishlist" element={<Wishlist />} />

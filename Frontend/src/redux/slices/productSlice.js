@@ -6,7 +6,12 @@ export const fetchProducts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("/products");
-      return response.data?.data || [];
+      let data = [];
+      if (Array.isArray(response)) data = response;
+      else if (response && Array.isArray(response.data)) data = response.data;
+      else if (response && response.data && Array.isArray(response.data.data)) data = response.data.data;
+      else data = [];
+      return data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to fetch products");
     }
@@ -18,7 +23,13 @@ export const fetchProductById = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await api.get(`/products/${id}`);
-      return response.data?.data || null;
+      let data = null;
+      if (response && response.data && typeof response.data === 'object' && !Array.isArray(response.data)) {
+         data = response.data.data || response.data;
+      } else {
+         data = response.data || response || null;
+      }
+      return data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to fetch product details");
     }
