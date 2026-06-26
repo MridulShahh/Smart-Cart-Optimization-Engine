@@ -89,7 +89,7 @@ function Shop() {
 
         <Grid container spacing={4}>
           {/* Filters Sidebar */}
-          <Grid item xs={12} md={3}>
+          <Grid xs={12} md={3}>
             <Card sx={{ borderRadius: "16px", border: "1px solid #E5E7EB", boxShadow: "none" }}>
               <CardContent sx={{ p: 3 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
@@ -159,13 +159,15 @@ function Shop() {
           </Grid>
 
           {/* Product Listing */}
-          <Grid item xs={12} md={9}>
+          <Grid xs={12} md={9}>
             <Stack
               direction={{ xs: "column", sm: "row" }}
-              justifyContent="space-between"
-              alignItems={{ xs: "stretch", sm: "center" }}
               spacing={2}
               mb={4}
+              sx={{
+                justifyContent: "space-between",
+                alignItems: { xs: "stretch", sm: "center" }
+              }}
             >
               <Typography color="text.secondary" fontWeight="500">
                 Showing {filteredProducts.length} results
@@ -208,7 +210,7 @@ function Shop() {
             {/* Product Grid */}
             <Grid container spacing={3}>
               {filteredProducts.map((product) => (
-                <Grid item xs={12} sm={6} md={4} key={product._id}>
+                <Grid xs={12} sm={6} md={4} key={product._id}>
                   <ProductCard product={product} />
                 </Grid>
               ))}
