@@ -39,7 +39,17 @@ function Login() {
 
     const result = await dispatch(loginUser({ email, password }));
     if (loginUser.fulfilled.match(result)) {
-      toast.success(`Welcome back, ${result.payload.user.fullName}!`);
+      toast.success(`System initialized. Welcome to the grid, ${result.payload.user.fullName}.`, {
+        icon: '💻',
+        style: {
+          borderRadius: '12px',
+          background: '#0a0a0a',
+          color: '#00ff41',
+          border: '1px solid #00ff41',
+          boxShadow: '0 0 15px rgba(0, 255, 65, 0.3)',
+          fontFamily: 'monospace'
+        }
+      });
       navigate("/");
     } else {
       toast.error(result.payload || "Login failed");
@@ -49,7 +59,17 @@ function Login() {
   const handleGoogleLogin = async () => {
     const result = await dispatch(loginUser({ email: "customer@nexcart.com", password: "customer123" }));
     if (loginUser.fulfilled.match(result)) {
-      toast.success("Successfully logged in via Google account!");
+      toast.success(`Google Auth Protocol verified. Welcome to the grid, ${result.payload.user.fullName}.`, {
+        icon: '💻',
+        style: {
+          borderRadius: '12px',
+          background: '#0a0a0a',
+          color: '#00ff41',
+          border: '1px solid #00ff41',
+          boxShadow: '0 0 15px rgba(0, 255, 65, 0.3)',
+          fontFamily: 'monospace'
+        }
+      });
       navigate("/");
     }
   };
