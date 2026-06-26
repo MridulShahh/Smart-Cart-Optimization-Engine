@@ -17,7 +17,7 @@ const slides = [
     title: "Premium Laptops & Workstations",
     subtitle: "UP TO 20% OFF ON HIGH-PERFORMANCE GEAR",
     description: "Upgrade your productivity with next-gen Dell laptops, high-speed SSDs, and premium IPS monitors built for creators and developers.",
-    image: "https://images.unsplash.com/photo-1496181130204-755241524eab?w=1920&q=90",
+    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=1920&q=90",
     link: "/shop?category=Laptops",
   },
   {
@@ -104,7 +104,7 @@ function HeroSection() {
           <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2, height: "100%", display: "flex", alignItems: "center" }}>
             <Grid container sx={{ width: "100%" }}>
               {/* Left text column */}
-              <Grid item xs={12} sm={8} md={7}>
+              <Grid xs={12} sm={8} md={7}>
                 <Box sx={{ color: "white" }}>
                   <Typography
                     variant="overline"

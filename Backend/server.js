@@ -30,7 +30,7 @@ const seedDatabase = async () => {
           brand: "Dell",
           stock: 10,
           rating: 4.8,
-          image: "https://images.unsplash.com/photo-1496181130204-755241524eab?w=600&q=80",
+          image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&q=80",
           tags: ["pc", "computer", "work", "electronics"],
           popularity: 90
         },

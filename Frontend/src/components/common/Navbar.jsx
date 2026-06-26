@@ -214,7 +214,7 @@ function Navbar() {
               "&:hover": { bgcolor: "#E5E7EB" },
             }}
           >
-            <Box textAlign="left">
+            <Box sx={{ textAlign: "left" }}>
               <Typography variant="caption" color="text.secondary" display="block" sx={{ fontSize: "0.7rem", lineHeight: 1 }}>
                 DELIVER TO
               </Typography>

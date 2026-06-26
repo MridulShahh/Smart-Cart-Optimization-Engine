@@ -233,7 +233,10 @@ function Checkout() {
           </Paper>
         ) : (
           <Paper sx={{ p: 4, borderRadius: "24px", border: "1px solid #E5E7EB" }} elevation={0}>
-            <Typography variant="h4" fontWeight="800" mb={4} textAlign="center" sx={{ fontFamily: "'Poppins', sans-serif" }}>
+            <Typography variant="h4" fontWeight="800" mb={4} sx={{ 
+              fontFamily: "'Poppins', sans-serif",
+              textAlign: "center"
+            }}>
               Checkout
             </Typography>
 

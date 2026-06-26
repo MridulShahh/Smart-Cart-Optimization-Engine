@@ -14,9 +14,9 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 function SearchSection() {
   return (
     <Container sx={{ mt: 10 }}>
-      <Grid container spacing={4} alignItems="center">
+      <Grid container spacing={4} sx={{ alignItems: "center" }}>
         {/* Gamified scratch card promotion */}
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Box
             sx={{
               p: 4,
@@ -38,7 +38,7 @@ function SearchSection() {
         </Grid>
 
         {/* Feature badges */}
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Typography
             variant="h4"
             fontWeight="800"
@@ -50,7 +50,7 @@ function SearchSection() {
 
           <Grid container spacing={3}>
             {/* Feature 1 */}
-            <Grid item xs={12} sm={6}>
+            <Grid xs={12} sm={6}>
               <Stack direction="row" spacing={2} alignItems="center">
                 <Box sx={{ bgcolor: "#FEE2E2", p: 1.5, borderRadius: "50%", color: "#E23744", display: "flex" }}>
                   <LocalShippingIcon />
@@ -67,7 +67,7 @@ function SearchSection() {
             </Grid>
 
             {/* Feature 2 */}
-            <Grid item xs={12} sm={6}>
+            <Grid xs={12} sm={6}>
               <Stack direction="row" spacing={2} alignItems="center">
                 <Box sx={{ bgcolor: "#FEF3C7", p: 1.5, borderRadius: "50%", color: "#FFB300", display: "flex" }}>
                   <WorkspacePremiumIcon />
@@ -84,7 +84,7 @@ function SearchSection() {
             </Grid>
 
             {/* Feature 3 */}
-            <Grid item xs={12} sm={6}>
+            <Grid xs={12} sm={6}>
               <Stack direction="row" spacing={2} alignItems="center">
                 <Box sx={{ bgcolor: "#E0F2FE", p: 1.5, borderRadius: "50%", color: "#0284C7", display: "flex" }}>
                   <PaymentIcon />
@@ -101,7 +101,7 @@ function SearchSection() {
             </Grid>
 
             {/* Feature 4 */}
-            <Grid item xs={12} sm={6}>
+            <Grid xs={12} sm={6}>
               <Stack direction="row" spacing={2} alignItems="center">
                 <Box sx={{ bgcolor: "#DCFCE7", p: 1.5, borderRadius: "50%", color: "#16A34A", display: "flex" }}>
                   <AutorenewIcon />

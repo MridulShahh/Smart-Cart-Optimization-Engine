@@ -11,7 +11,7 @@ import { setFilters } from "../../redux/slices/productSlice";
 const categories = [
   {
     name: "Laptops",
-    image: "https://images.unsplash.com/photo-1496181130204-755241524eab?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&q=80",
     count: "5 Products",
   },
   {
@@ -51,10 +51,9 @@ function Categories() {
         </Typography>
       </Box>
 
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={4} sx={{ justifyContent: "center" }}>
         {categories.map((cat) => (
           <Grid
-            item
             xs={12}
             sm={4}
             key={cat.name}

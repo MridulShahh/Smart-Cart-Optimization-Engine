@@ -19,7 +19,7 @@ const sampleRecommendation = {
     productName: "Laptop",
     brand: "Dell",
     price: 55000,
-    image: "https://images.unsplash.com/photo-1496181130204-755241524eab?w=600&q=80"
+    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&q=80"
   },
   suggestions: [
     {
@@ -67,9 +67,9 @@ function RecommendationPreview() {
           </Typography>
         </Stack>
 
-        <Grid container spacing={4} alignItems="center">
+        <Grid container spacing={4} sx={{ alignItems: "center" }}>
           {/* Cart preview */}
-          <Grid item xs={12} md={4}>
+          <Grid xs={12} md={4}>
             <Typography variant="h4" fontWeight="800" gutterBottom sx={{ fontFamily: "'Poppins', sans-serif", color: "#111827" }}>
               Smart Cart AI Preview
             </Typography>
@@ -103,7 +103,7 @@ function RecommendationPreview() {
           </Grid>
 
           {/* AI recommendations */}
-          <Grid item xs={12} md={8}>
+          <Grid xs={12} md={8}>
             <Stack spacing={3}>
               {sampleRecommendation.suggestions.map((suggestion) => (
                 <Card
@@ -116,15 +116,15 @@ function RecommendationPreview() {
                   }}
                 >
                   <CardContent sx={{ p: 2.5 }}>
-                    <Grid container spacing={2} alignItems="center">
-                      <Grid item xs={3} sm={2}>
+                    <Grid container spacing={2} sx={{ alignItems: "center" }}>
+                      <Grid xs={3} sm={2}>
                         <Box
                           component="img"
                           src={suggestion.image}
                           sx={{ width: "100%", height: 70, objectFit: "contain", bgcolor: "#FAFAFA", borderRadius: "8px" }}
                         />
                       </Grid>
-                      <Grid item xs={9} sm={10}>
+                      <Grid xs={9} sm={10}>
                         <Stack direction={{ xs: "column", sm: "row" }} justifyContent="space-between" alignItems="flex-start" mb={1}>
                           <Box>
                             <Typography variant="body1" fontWeight="700" color="#111827">
