@@ -48,7 +48,7 @@ export const signupUser = createAsyncThunk(
   "auth/signup",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await api.post("/auth/signup", userData);
+      const response = await api.post("/auth/register", userData);
       return response.data;
     } catch (error) {
       // Mock signup fallback

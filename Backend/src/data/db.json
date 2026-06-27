@@ -16,7 +16,7 @@
         "work",
         "electronics"
       ],
-      "popularity": 90,
+      "popularity": 93,
       "_modelName": "Product",
       "_id": "80df94ae328a35fdb70f960b"
     },
@@ -36,7 +36,7 @@
         "electronics",
         "laptop"
       ],
-      "popularity": 95,
+      "popularity": 96,
       "_modelName": "Product",
       "_id": "a0d5402bee7231144f4879e5"
     },
@@ -236,7 +236,7 @@
         "apple",
         "laptop"
       ],
-      "popularity": 99,
+      "popularity": 100,
       "_modelName": "Product",
       "_id": "f71b279c161c9fbf0a624bb5"
     },
@@ -401,8 +401,61 @@
       "_id": "bba0cf5bb6c364946cb0d225"
     }
   ],
-  "User": [],
-  "Cart": [],
+  "User": [
+    {
+      "fullName": "Unique User",
+      "email": "unique_user_2026_06_26@example.com",
+      "password": "$2b$10$F7llQaCpCFO/.JbJmDVREu0HUI2S7fLBkm3WPdRsJIdxGq0hm9bHy",
+      "phone": "1234567890",
+      "_modelName": "User",
+      "_id": "2de1f575a4d56225a7211540"
+    }
+  ],
+  "Cart": [
+    {
+      "userId": "74v25zywd",
+      "items": [
+        {
+          "product": "f71b279c161c9fbf0a624bb5",
+          "quantity": 1,
+          "price": 249900
+        },
+        {
+          "product": "6f68370c3bc8b58b8e22f82f",
+          "quantity": 1,
+          "price": 29990
+        }
+      ],
+      "_modelName": "Cart",
+      "_id": "08cdc77f6839556df1343fef",
+      "totalItems": 2,
+      "totalPrice": 279890
+    },
+    {
+      "userId": "mock-customer-id",
+      "items": [
+        {
+          "product": "80df94ae328a35fdb70f960b",
+          "quantity": 1,
+          "price": 55000
+        },
+        {
+          "product": "a0d5402bee7231144f4879e5",
+          "quantity": 1,
+          "price": 1200
+        },
+        {
+          "product": "f71b279c161c9fbf0a624bb5",
+          "quantity": 1,
+          "price": 249900
+        }
+      ],
+      "_modelName": "Cart",
+      "_id": "659019b38a766dbafac100f5",
+      "totalItems": 3,
+      "totalPrice": 306100
+    }
+  ],
   "Order": [],
   "RecommendationHistory": [],
   "Relationship": []

@@ -205,6 +205,28 @@ function createModel(modelName, schema) {
       return { deletedCount: 1 };
     }
     
+    async populate(pathStr) {
+      // Populate references on instance (e.g. await cart.populate("items.product"))
+      if (pathStr === 'items.product' && this.items) {
+        for (let subItem of this.items) {
+          if (subItem.product && typeof subItem.product === 'string') {
+            const ProductModel = models['Product'];
+            if (ProductModel) {
+              const prod = await ProductModel.findById(subItem.product);
+              if (prod) subItem.product = prod;
+            }
+          }
+        }
+      } else if (pathStr === 'product' && this.product && typeof this.product === 'string') {
+        const ProductModel = models['Product'];
+        if (ProductModel) {
+          const prod = await ProductModel.findById(this.product);
+          if (prod) this.product = prod;
+        }
+      }
+      return this;
+    }
+    
     static find(query) {
       const promise = Promise.resolve(
         db[modelName]
@@ -240,7 +262,20 @@ function createModel(modelName, schema) {
     static findByIdAndUpdate(id, update, options) {
       const found = db[modelName].find(item => item._id === id);
       if (found) {
-        Object.assign(found, update);
+        // Handle MongoDB update operators
+        if (update && update.$inc) {
+          for (const [key, val] of Object.entries(update.$inc)) {
+            found[key] = (found[key] || 0) + val;
+          }
+        } else if (update && update.$set) {
+          Object.assign(found, update.$set);
+        } else {
+          // Plain update (no operators)
+          const cleanUpdate = { ...update };
+          delete cleanUpdate.$inc;
+          delete cleanUpdate.$set;
+          Object.assign(found, cleanUpdate);
+        }
         saveDb();
         return Promise.resolve(new MongooseModel(found));
       }

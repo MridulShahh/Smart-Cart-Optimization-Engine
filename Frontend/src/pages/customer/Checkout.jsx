@@ -172,7 +172,7 @@ function Checkout() {
             <Typography variant="h6" fontWeight="700" mb={3}>
               Choose Payment Method
             </Typography>
-            <RadioGroup value={paymentMethod} onChange={(e) => setDeliveryMethod(e.target.value)}>
+            <RadioGroup value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
               <Paper sx={{ p: 2, mb: 2, borderRadius: "12px", border: "1px solid #E5E7EB" }} elevation={0}>
                 <FormControlLabel value="card" control={<Radio />} label="Credit or Debit Card" />
                 {paymentMethod === "card" && (
