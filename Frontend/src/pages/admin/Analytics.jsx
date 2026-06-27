@@ -1,4 +1,3 @@
-import {
   Container,
   Grid,
   Typography,
@@ -13,10 +12,13 @@ import {
   TableHead,
   TableRow,
   Paper,
+  CircularProgress,
 } from "@mui/material";
 import AdminLayout from "../../layouts/AdminLayout";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line } from "recharts";
+import api from "../../services/api";
+import { useState, useEffect } from "react";
 
 const dataAcceptance = [
   { name: "Wireless Mouse", rate: 64 },
@@ -43,6 +45,52 @@ const topRecs = [
 ];
 
 function Analytics() {
+  const [statsData, setStatsData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await api.get("/analytics/dashboard");
+        if (res?.success) {
+          setStatsData(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to load analytics", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
+
+  if (loading) {
+    return (
+      <AdminLayout>
+        <Container sx={{ mt: 5, mb: 10, textAlign: 'center' }}>
+          <CircularProgress />
+        </Container>
+      </AdminLayout>
+    );
+  }
+
+  // Fallback data for charts (can be made dynamic later)
+  const dataAcceptance = statsData?.mostAccepted?.map(item => ({
+    name: item.product.productName || item.product.name,
+    rate: item.count
+  })) || [];
+
+  const topRecs = statsData?.topRecommended?.map(item => {
+    const acceptedCount = statsData.mostAccepted?.find(a => a.product._id === item.product._id)?.count || 0;
+    const rate = item.count > 0 ? ((acceptedCount / item.count) * 100).toFixed(0) + "%" : "0%";
+    return {
+      product: item.product.productName || item.product.name,
+      recommended: item.count,
+      accepted: acceptedCount,
+      rate
+    };
+  }) || [];
+
   return (
     <AdminLayout>
       <Container sx={{ mt: 5, mb: 10 }}>

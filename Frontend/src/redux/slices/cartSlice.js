@@ -90,6 +90,7 @@ const saveLocalCart = (cart) => {
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
+    cartId: null,
     items: [],
     totalItems: 0,
     totalPrice: 0,
@@ -153,6 +154,7 @@ const cartSlice = createSlice({
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
         if (action.payload) {
+          state.cartId = action.payload._id || null;
           state.items = action.payload.items || [];
           state.totalItems = action.payload.totalItems || 0;
           state.totalPrice = action.payload.totalPrice || 0;
@@ -168,6 +170,7 @@ const cartSlice = createSlice({
       .addCase(addToCart.fulfilled, (state, action) => {
         state.loading = false;
         if (action.payload) {
+          state.cartId = action.payload._id || null;
           state.items = action.payload.items || [];
           state.totalItems = action.payload.totalItems || 0;
           state.totalPrice = action.payload.totalPrice || 0;

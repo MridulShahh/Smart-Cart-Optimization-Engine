@@ -41,7 +41,10 @@
       ],
       "popularity": 95,
       "_modelName": "Product",
-      "_id": "a0d5402bee7231144f4879e5"
+      "_id": "a0d5402bee7231144f4879e5",
+      "$inc": {
+        "popularity": 1
+      }
     },
     {
       "productName": "Mechanical Keyboard",
@@ -264,7 +267,10 @@
       ],
       "popularity": 92,
       "_modelName": "Product",
-      "_id": "38108ea1692e54cbcde6c835"
+      "_id": "38108ea1692e54cbcde6c835",
+      "$inc": {
+        "popularity": 1
+      }
     },
     {
       "productName": "ThinkPad X1 Carbon",
@@ -446,12 +452,41 @@
           "product": "6f68370c3bc8b58b8e22f82f",
           "quantity": 1,
           "price": 29990
+        },
+        {
+          "product": "38108ea1692e54cbcde6c835",
+          "quantity": 1,
+          "price": 145000
+        },
+        {
+          "product": "80df94ae328a35fdb70f960b",
+          "quantity": 2,
+          "price": 55000
+        },
+        {
+          "product": "a0d5402bee7231144f4879e5",
+          "quantity": 1,
+          "price": 1200
         }
       ],
       "_modelName": "Cart",
       "_id": "500d315a98d747d34abebb05",
+      "totalItems": 5,
+      "totalPrice": 286190
+    },
+    {
+      "userId": "mock-customer-id",
+      "items": [
+        {
+          "product": "80df94ae328a35fdb70f960b",
+          "quantity": 1,
+          "price": 55000
+        }
+      ],
+      "_modelName": "Cart",
+      "_id": "6f6cf6f1650d30ed7030a5b0",
       "totalItems": 1,
-      "totalPrice": 29990
+      "totalPrice": 55000
     }
   ],
   "Order": [],

@@ -11,6 +11,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./src/config/db");
 const Product = require("./src/models/Product");
+const Relationship = require("./src/models/Relationship");
 
 dotenv.config();
 
@@ -283,7 +284,42 @@ const seedDatabase = async () => {
         }
       ];
       await Product.insertMany(products);
-      console.log("Database seeded successfully.");
+      console.log("Products seeded successfully.");
+    }
+    
+    const relCount = await Relationship.countDocuments();
+    if (relCount === 0) {
+      console.log("Seeding explicit product relationships...");
+      const dbProducts = await Product.find();
+      
+      const getProd = (brand, category) => dbProducts.find(p => p.brand === brand && p.category === category);
+      
+      const relationships = [];
+      const dellLaptop = getProd("Dell", "Laptops");
+      const macbook = getProd("Apple", "Laptops");
+      const rog = getProd("ASUS", "Laptops");
+      const logiMouse = getProd("Logitech", "Accessories"); // Wireless Mouse
+      const keychron = getProd("Keychron", "Accessories"); // Mechanical Keyboard
+      const anker = getProd("Anker", "Accessories"); // Power Bank
+      const sonyAudio = getProd("Sony", "Audio"); // Headphones
+      
+      if (dellLaptop && logiMouse) relationships.push({ productId: dellLaptop._id, relatedProductId: logiMouse._id, relationshipScore: 100 });
+      if (macbook && logiMouse) relationships.push({ productId: macbook._id, relatedProductId: logiMouse._id, relationshipScore: 90 });
+      if (rog && logiMouse) relationships.push({ productId: rog._id, relatedProductId: logiMouse._id, relationshipScore: 100 });
+      
+      if (dellLaptop && keychron) relationships.push({ productId: dellLaptop._id, relatedProductId: keychron._id, relationshipScore: 85 });
+      if (macbook && keychron) relationships.push({ productId: macbook._id, relatedProductId: keychron._id, relationshipScore: 80 });
+      if (rog && keychron) relationships.push({ productId: rog._id, relatedProductId: keychron._id, relationshipScore: 95 });
+      
+      if (macbook && anker) relationships.push({ productId: macbook._id, relatedProductId: anker._id, relationshipScore: 95 });
+      
+      if (dellLaptop && sonyAudio) relationships.push({ productId: dellLaptop._id, relatedProductId: sonyAudio._id, relationshipScore: 70 });
+      if (macbook && sonyAudio) relationships.push({ productId: macbook._id, relatedProductId: sonyAudio._id, relationshipScore: 85 });
+      
+      if (relationships.length > 0) {
+        await Relationship.insertMany(relationships);
+        console.log("Relationships seeded successfully.");
+      }
     }
   } catch (error) {
     console.error("Database seeding failed:", error);
@@ -306,6 +342,7 @@ app.use(express.json());
 app.use("/api/products", require("./src/routes/productRoutes"));
 app.use("/api/cart", require("./src/routes/cartRoutes")); 
 app.use("/api/recommendations", require("./src/routes/recommendationRoutes"));
+app.use("/api/analytics", require("./src/routes/analyticsRoutes"));
 
 app.get("/", (req, res) => {
   res.send("Smart Cart Backend Running 🚀");

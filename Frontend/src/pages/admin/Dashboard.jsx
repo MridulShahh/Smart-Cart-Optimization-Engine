@@ -6,18 +6,17 @@ import {
   Card,
   CardContent,
   Stack,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
+  CircularProgress,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AdminLayout from "../../layouts/AdminLayout";
 import PeopleIcon from "@mui/icons-material/People";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import PercentIcon from "@mui/icons-material/Percent";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import api from "../../services/api";
+import { useState, useEffect } from "react";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from "recharts";
 
 const dataSales = [
@@ -36,12 +35,41 @@ const dataPie = [
 ];
 
 function Dashboard() {
-  const stats = [
-    { title: "Total Revenue", value: "₹78,000", icon: <AttachMoneyIcon />, color: "#E23744" },
-    { title: "Total Users", value: "148", icon: <PeopleIcon />, color: "#FFB300" },
-    { title: "Orders Placed", value: "32", icon: <ShoppingBagIcon />, color: "#111827" },
-    { title: "Recommendations", value: "512", icon: <AutoAwesomeIcon />, color: "#3B82F6" },
-  ];
+  const [statsData, setStatsData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await api.get("/analytics/dashboard");
+        if (res?.success) {
+          setStatsData(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to load analytics", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
+
+  const stats = statsData ? [
+    { title: "Total Products", value: statsData.totalProducts, icon: <InventoryIcon />, color: "#E23744" },
+    { title: "Active Carts", value: statsData.activeCarts, icon: <ShoppingCartIcon />, color: "#FFB300" },
+    { title: "Total Recs", value: statsData.totalRecommendations, icon: <AutoAwesomeIcon />, color: "#111827" },
+    { title: "Accept Rate", value: `${statsData.acceptanceRate}%`, icon: <PercentIcon />, color: "#3B82F6" },
+  ] : [];
+
+  if (loading) {
+    return (
+      <AdminLayout>
+        <Container sx={{ mt: 5, mb: 10, textAlign: 'center' }}>
+          <CircularProgress />
+        </Container>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>

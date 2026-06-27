@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 import {
   Container,
   Grid,
@@ -26,11 +27,42 @@ function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { items: cartItems, totalPrice, totalItems } = useSelector((state) => state.cart);
+  const { cartId, items: cartItems, totalPrice, totalItems } = useSelector((state) => state.cart);
   const { items: products } = useSelector((state) => state.products);
 
   const [promo, setPromo] = useState("");
   const [discountPercent, setDiscountPercent] = useState(0);
+  const [recommendations, setRecommendations] = useState([]);
+  const [explanations, setExplanations] = useState({});
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      if (user?.id && cartItems.length > 0) {
+        try {
+          const res = await api.get(`/recommendations/${user.id}`);
+          if (res?.success && res?.recommendations) {
+            setRecommendations(res.recommendations);
+            
+            // Fetch explanations
+            for (const rec of res.recommendations) {
+              const expRes = await api.post("/recommendations/explain", {
+                cartProducts: cartItems.map(item => item.product),
+                recommendedProduct: rec.product
+              });
+              if (expRes?.success) {
+                setExplanations(prev => ({...prev, [rec.product._id]: expRes.explanation}));
+              }
+            }
+          }
+        } catch (error) {
+          console.error("Failed to fetch recommendations", error);
+        }
+      } else {
+        setRecommendations([]);
+      }
+    };
+    fetchRecommendations();
+  }, [user, cartItems]);
 
   const handleApplyPromo = () => {
     if (promo.trim().toUpperCase() === "NEXSMART15") {
@@ -56,16 +88,8 @@ function Cart() {
   const shipping = totalPrice > 999 ? 0 : totalPrice === 0 ? 0 : 99;
   const finalTotal = totalPrice - discountAmount + shipping;
 
-  // Cross sell items for Sidebar
-  const getCrossSellSuggestions = () => {
-    if (cartItems.length === 0) return [];
-    const inCartIds = cartItems.map(item => item.product._id);
-    return products
-      .filter((p) => !inCartIds.includes(p._id))
-      .slice(0, 2);
-  };
-
-  const suggestions = getCrossSellSuggestions();
+    // Use state recommendations
+    const suggestions = recommendations.slice(0, 2);
 
   return (
     <MainLayout>
@@ -227,45 +251,50 @@ function Cart() {
                 {suggestions.length > 0 && (
                   <Card sx={{ borderRadius: "16px", border: "1px dashed #FFB300", bgcolor: "#FFFBEB", boxShadow: "none" }}>
                     <CardContent sx={{ p: 3 }}>
-                      <Stack direction="row" spacing={1} alignItems="center" mb={2}>
+                      <Stack direction="row" alignItems="center" spacing={1} mb={2}>
                         <AutoAwesomeIcon sx={{ color: "#FFB300" }} />
-                        <Typography variant="subtitle2" fontWeight="700" color="#D97706" sx={{ letterSpacing: "0.05em", textTransform: "uppercase" }}>
-                          AI Cart Optimization
+                        <Typography variant="h6" fontWeight="700">
+                          Smart AI Add-ons
                         </Typography>
                       </Stack>
-
-                      <Stack spacing={2.5}>
+                      <Stack spacing={2}>
                         {suggestions.map((item) => (
-                          <Paper key={item._id} elevation={0} sx={{ p: 2, borderRadius: "12px", border: "1px solid #FEF3C7", bgcolor: "white" }}>
+                          <Box key={item.product._id} sx={{ p: 2, borderRadius: "12px", border: "1px solid #FEF3C7", bgcolor: "white" }}>
                             <Stack direction="row" spacing={2} alignItems="center" mb={1}>
                               <Box
                                 component="img"
-                                src={item.image}
-                                sx={{ width: 45, height: 45, objectFit: "contain", bgcolor: "#FAFAFA", borderRadius: "6px" }}
+                                src={item.product.image}
+                                sx={{ width: 60, height: 60, borderRadius: "12px", objectFit: "cover", bgcolor: "white" }}
                               />
                               <Box flex={1}>
-                                <Typography variant="body2" fontWeight="700" sx={{ fontSize: "0.85rem" }}>
-                                  {item.productName || item.name}
-                                </Typography>
-                                <Typography variant="caption" color="text.secondary">
-                                  ₹{item.price.toLocaleString("en-IN")}
-                                </Typography>
+                                <Typography variant="subtitle2" fontWeight="600">{item.product.productName || item.product.name}</Typography>
+                                <Typography variant="body2" color="text.secondary">₹{item.product.price.toLocaleString()}</Typography>
                               </Box>
                               <Button
                                 size="small"
                                 onClick={() => {
-                                  dispatch(updateCartItem({ userId: user?.id, productId: item._id, quantity: 1 }));
-                                  toast.success(`Added suggestions to cart!`);
+                                  dispatch(updateCartItem({ userId: user?.id, productId: item.product._id, quantity: 1 }));
+                                  toast.success(`Added ${item.product.productName || item.product.name} to cart!`);
+                                  
+                                  // Track acceptance
+                                  if (cartId) {
+                                    api.post("/recommendations/accept", {
+                                      cartId,
+                                      productId: item.product._id
+                                    }).catch(console.error);
+                                  }
                                 }}
                                 sx={{ textTransform: "none", color: "#E23744", fontWeight: 700, fontSize: "0.75rem" }}
                               >
                                 + Add
                               </Button>
                             </Stack>
-                            <Typography variant="caption" color="text.secondary" sx={{ fontStyle: "italic" }}>
-                              "Customers who bought {cartItems[0]?.product.productName} usually add {item.productName}."
-                            </Typography>
-                          </Paper>
+                            {explanations[item.product._id] && (
+                              <Typography variant="caption" sx={{ display: 'block', mt: 1, color: '#8b6f1e', fontStyle: 'italic', bgcolor: 'rgba(255,179,0,0.1)', p: 1, borderRadius: 1 }}>
+                                "{explanations[item.product._id]}"
+                              </Typography>
+                            )}
+                          </Box>
                         ))}
                       </Stack>
                     </CardContent>

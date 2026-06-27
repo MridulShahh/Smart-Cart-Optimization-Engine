@@ -66,7 +66,7 @@ exports.addToCart = async (req, res) => {
     await Product.findByIdAndUpdate(productId, { $inc: { popularity: 1 } });
 
     await cart.save();
-    await cart.populate("items.product", "name category price rating");
+    cart = await Cart.findOne({ userId: req.params.userId }).populate("items.product", "name category price rating");
 
     res.status(201).json({ success: true, data: cart });
   } catch (err) {
@@ -96,7 +96,7 @@ exports.updateCartItem = async (req, res) => {
     cart.totalPrice = totalPrice;
 
     await cart.save();
-    await cart.populate("items.product", "name category price rating");
+    cart = await Cart.findOne({ userId: req.params.userId }).populate("items.product", "name category price rating");
 
     res.json({ success: true, data: cart });
   } catch (err) {
