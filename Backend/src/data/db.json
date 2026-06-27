@@ -364,7 +364,10 @@
       ],
       "popularity": 98,
       "_modelName": "Product",
-      "_id": "6f68370c3bc8b58b8e22f82f"
+      "_id": "6f68370c3bc8b58b8e22f82f",
+      "$inc": {
+        "popularity": 1
+      }
     },
     {
       "productName": "AirPods Pro (2nd Gen)",
@@ -435,6 +438,20 @@
       "_id": "9154689cc149030a3fed9482",
       "totalItems": 3,
       "totalPrice": 84400
+    },
+    {
+      "userId": "nc2fl6qya",
+      "items": [
+        {
+          "product": "6f68370c3bc8b58b8e22f82f",
+          "quantity": 1,
+          "price": 29990
+        }
+      ],
+      "_modelName": "Cart",
+      "_id": "500d315a98d747d34abebb05",
+      "totalItems": 1,
+      "totalPrice": 29990
     }
   ],
   "Order": [],

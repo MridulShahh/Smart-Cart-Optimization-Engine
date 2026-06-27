@@ -7,7 +7,7 @@ export const fetchCart = createAsyncThunk(
     try {
       if (!userId) return { items: [], totalItems: 0, totalPrice: 0 };
       const response = await api.get(`/cart/${userId}`);
-      return response.data?.data;
+      return response?.data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to fetch cart");
     }
@@ -24,7 +24,7 @@ export const addToCart = createAsyncThunk(
         return null;
       }
       const response = await api.post(`/cart/${userId}/add`, { productId, quantity });
-      return response.data?.data;
+      return response?.data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to add to cart");
     }
@@ -40,7 +40,7 @@ export const updateCartItem = createAsyncThunk(
         return null;
       }
       const response = await api.put(`/cart/${userId}/update`, { productId, quantity });
-      return response.data?.data;
+      return response?.data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to update item quantity");
     }
@@ -56,7 +56,7 @@ export const removeFromCart = createAsyncThunk(
         return null;
       }
       const response = await api.delete(`/cart/${userId}/remove/${productId}`);
-      return response.data?.data;
+      return response?.data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to remove from cart");
     }
@@ -72,7 +72,7 @@ export const clearCart = createAsyncThunk(
         return null;
       }
       const response = await api.delete(`/cart/${userId}/clear`);
-      return response.data?.data;
+      return response?.data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to clear cart");
     }
