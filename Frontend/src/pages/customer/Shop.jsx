@@ -105,8 +105,8 @@ function Shop() {
 
         <Grid container spacing={4}>
           {/* Filters Sidebar */}
-          <Grid item xs={12} md={3}>
-            <Card sx={{ borderRadius: "16px", border: "1px solid #E5E7EB", boxShadow: "none" }}>
+          <Grid item xs={12} sm={4} md={3}>
+            <Card sx={{ borderRadius: "16px", border: "1px solid #E5E7EB", boxShadow: "none", height: "fit-content" }}>
               <CardContent sx={{ p: 3 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
                   <Typography variant="h6" fontWeight="700">
@@ -144,8 +144,8 @@ function Shop() {
                     onChange={handlePriceChange}
                     valueLabelDisplay="auto"
                     min={0}
-                    max={60000}
-                    step={500}
+                    max={300000}
+                    step={1000}
                     color="primary"
                   />
                   <Stack direction="row" justifyContent="space-between" mt={1}>
@@ -175,7 +175,7 @@ function Shop() {
           </Grid>
 
           {/* Product Listing */}
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} sm={8} md={9}>
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}

@@ -18,7 +18,10 @@
       ],
       "popularity": 90,
       "_modelName": "Product",
-      "_id": "80df94ae328a35fdb70f960b"
+      "_id": "80df94ae328a35fdb70f960b",
+      "$inc": {
+        "popularity": 1
+      }
     },
     {
       "productName": "Wireless Mouse",
@@ -178,7 +181,10 @@
       ],
       "popularity": 82,
       "_modelName": "Product",
-      "_id": "ffbd24525061b907422c57ff"
+      "_id": "ffbd24525061b907422c57ff",
+      "$inc": {
+        "popularity": 1
+      }
     },
     {
       "productName": "Bluetooth Speaker",
@@ -378,7 +384,10 @@
       ],
       "popularity": 97,
       "_modelName": "Product",
-      "_id": "91260a978bbd875daf47e073"
+      "_id": "91260a978bbd875daf47e073",
+      "$inc": {
+        "popularity": 1
+      }
     },
     {
       "productName": "Sonos Roam",
@@ -402,7 +411,32 @@
     }
   ],
   "User": [],
-  "Cart": [],
+  "Cart": [
+    {
+      "userId": "m4381h6mk",
+      "items": [
+        {
+          "product": "80df94ae328a35fdb70f960b",
+          "quantity": 1,
+          "price": 55000
+        },
+        {
+          "product": "ffbd24525061b907422c57ff",
+          "quantity": 1,
+          "price": 4500
+        },
+        {
+          "product": "91260a978bbd875daf47e073",
+          "quantity": 1,
+          "price": 24900
+        }
+      ],
+      "_modelName": "Cart",
+      "_id": "9154689cc149030a3fed9482",
+      "totalItems": 3,
+      "totalPrice": 84400
+    }
+  ],
   "Order": [],
   "RecommendationHistory": [],
   "Relationship": []

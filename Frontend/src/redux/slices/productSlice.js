@@ -41,7 +41,7 @@ const initialState = {
   selectedProduct: null,
   filters: {
     category: "",
-    priceRange: [0, 60000],
+    priceRange: [0, 300000],
     rating: 0,
     search: "",
     sortBy: "popularity", // popularity | price_asc | price_desc | rating
