@@ -16,7 +16,7 @@
         "work",
         "electronics"
       ],
-      "popularity": 93,
+      "popularity": 95,
       "_modelName": "Product",
       "_id": "80df94ae328a35fdb70f960b"
     },
@@ -216,7 +216,7 @@
         "work",
         "electronics"
       ],
-      "popularity": 90,
+      "popularity": 91,
       "_modelName": "Product",
       "_id": "60919505a4af5981a03f4189"
     },
@@ -236,7 +236,7 @@
         "apple",
         "laptop"
       ],
-      "popularity": 100,
+      "popularity": 102,
       "_modelName": "Product",
       "_id": "f71b279c161c9fbf0a624bb5"
     },
@@ -296,7 +296,7 @@
         "logitech",
         "accessory"
       ],
-      "popularity": 96,
+      "popularity": 97,
       "_modelName": "Product",
       "_id": "61d20bfff547af5170e79e79"
     },
@@ -356,7 +356,7 @@
         "sony",
         "noise-canceling"
       ],
-      "popularity": 98,
+      "popularity": 99,
       "_modelName": "Product",
       "_id": "6f68370c3bc8b58b8e22f82f"
     },
@@ -399,6 +399,86 @@
       "popularity": 89,
       "_modelName": "Product",
       "_id": "bba0cf5bb6c364946cb0d225"
+    },
+    {
+      "productName": "Classic White T-Shirt",
+      "name": "Classic White T-Shirt",
+      "price": 800,
+      "description": "Premium 100% cotton everyday t-shirt.",
+      "category": "Clothing",
+      "brand": "Essentials",
+      "stock": 100,
+      "rating": 4.5,
+      "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80",
+      "tags": [
+        "clothing",
+        "shirt",
+        "casual",
+        "apparel"
+      ],
+      "popularity": 75,
+      "_modelName": "Product",
+      "_id": "64df94ae328a35fdb70f961a"
+    },
+    {
+      "productName": "Running Shoes",
+      "name": "Running Shoes",
+      "price": 4500,
+      "description": "Lightweight breathable sneakers for running and training.",
+      "category": "Clothing",
+      "brand": "Nike",
+      "stock": 45,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
+      "tags": [
+        "shoes",
+        "sneakers",
+        "sports",
+        "footwear"
+      ],
+      "popularity": 88,
+      "_modelName": "Product",
+      "_id": "64df94ae328a35fdb70f961b"
+    },
+    {
+      "productName": "Ceramic Coffee Mug",
+      "name": "Ceramic Coffee Mug",
+      "price": 450,
+      "description": "Minimalist matte finish 350ml ceramic coffee mug.",
+      "category": "Home & Living",
+      "brand": "HomeStyle",
+      "stock": 150,
+      "rating": 4.6,
+      "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&q=80",
+      "tags": [
+        "mug",
+        "coffee",
+        "kitchen",
+        "home"
+      ],
+      "popularity": 65,
+      "_modelName": "Product",
+      "_id": "64df94ae328a35fdb70f961c"
+    },
+    {
+      "productName": "Indoor Desk Plant",
+      "name": "Indoor Desk Plant",
+      "price": 650,
+      "description": "Low maintenance indoor succulent to brighten your workspace.",
+      "category": "Home & Living",
+      "brand": "GreenThumb",
+      "stock": 30,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&q=80",
+      "tags": [
+        "plant",
+        "decor",
+        "home",
+        "desk"
+      ],
+      "popularity": 82,
+      "_modelName": "Product",
+      "_id": "64df94ae328a35fdb70f961d"
     }
   ],
   "User": [
@@ -409,6 +489,30 @@
       "phone": "1234567890",
       "_modelName": "User",
       "_id": "2de1f575a4d56225a7211540"
+    },
+    {
+      "fullName": "test",
+      "email": "test@gmail.com",
+      "password": "$2b$10$5YrIfyGylaXhWobohkfSpeHJW0xhRzc4X.0gBLGFNxXAmcQYrIceK",
+      "phone": "9079849999",
+      "_modelName": "User",
+      "_id": "754b85b2f709046beb5d3acf"
+    },
+    {
+      "fullName": "Mridul Shah",
+      "email": "mriduldevshah@gmail.com",
+      "password": "$2b$10$xlR8SRTzwelqk6vJSVd9MOAvGeMlMK65BXA7oYdNCpgayKLrCXrn2",
+      "phone": "9079840787",
+      "_modelName": "User",
+      "_id": "f2eeeaf615c6085e23cabaf9"
+    },
+    {
+      "fullName": "Sophia Sterling (Google)",
+      "email": "customer@nexcart.com",
+      "password": "$2b$10$IhQGIJF5rYACfgvVJXSzo.70kAnwleovZ6ykB/IXRf9fSnyt6AlCK",
+      "phone": "+91 9999999999",
+      "_modelName": "User",
+      "_id": "f343e879ea269b507713504d"
     }
   ],
   "Cart": [
@@ -417,19 +521,24 @@
       "items": [
         {
           "product": "f71b279c161c9fbf0a624bb5",
-          "quantity": 1,
+          "quantity": 2,
           "price": 249900
         },
         {
-          "product": "6f68370c3bc8b58b8e22f82f",
+          "product": "80df94ae328a35fdb70f960b",
           "quantity": 1,
-          "price": 29990
+          "price": 55000
+        },
+        {
+          "product": "60919505a4af5981a03f4189",
+          "quantity": 1,
+          "price": 55000
         }
       ],
       "_modelName": "Cart",
       "_id": "08cdc77f6839556df1343fef",
-      "totalItems": 2,
-      "totalPrice": 279890
+      "totalItems": 4,
+      "totalPrice": 609800
     },
     {
       "userId": "mock-customer-id",
@@ -454,6 +563,30 @@
       "_id": "659019b38a766dbafac100f5",
       "totalItems": 3,
       "totalPrice": 306100
+    },
+    {
+      "userId": "9ffvb1tqh",
+      "items": [
+        {
+          "product": "f71b279c161c9fbf0a624bb5",
+          "quantity": 1,
+          "price": 249900
+        },
+        {
+          "product": "80df94ae328a35fdb70f960b",
+          "quantity": 1,
+          "price": 55000
+        },
+        {
+          "product": "61d20bfff547af5170e79e79",
+          "quantity": 1,
+          "price": 8500
+        }
+      ],
+      "_modelName": "Cart",
+      "_id": "5f58eaeea818681108fd9288",
+      "totalItems": 3,
+      "totalPrice": 313400
     }
   ],
   "Order": [],

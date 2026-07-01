@@ -103,9 +103,9 @@ function Shop() {
           Tech Catalog
         </Typography>
 
-        <Grid container spacing={4}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
           {/* Filters Sidebar */}
-          <Grid item xs={12} md={3}>
+          <Box sx={{ width: { xs: '100%', md: '280px' }, flexShrink: 0 }}>
             <Card sx={{ borderRadius: "16px", border: "1px solid #E5E7EB", boxShadow: "none" }}>
               <CardContent sx={{ p: 3 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
@@ -131,6 +131,8 @@ function Shop() {
                     <FormControlLabel value="Laptops" control={<Radio />} label="Laptops" />
                     <FormControlLabel value="Accessories" control={<Radio />} label="Accessories" />
                     <FormControlLabel value="Audio" control={<Radio />} label="Audio" />
+                    <FormControlLabel value="Clothing" control={<Radio />} label="Clothing" />
+                    <FormControlLabel value="Home & Living" control={<Radio />} label="Home & Living" />
                   </RadioGroup>
                 </FormControl>
 
@@ -172,10 +174,10 @@ function Shop() {
                 </FormControl>
               </CardContent>
             </Card>
-          </Grid>
+          </Box>
 
           {/* Product Listing */}
-          <Grid item xs={12} md={9}>
+          <Box sx={{ flexGrow: 1, minWidth: 0 }}>
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
@@ -226,13 +228,13 @@ function Shop() {
             {/* Product Grid */}
             <Grid container spacing={3}>
               {filteredProducts.map((product, index) => (
-                <Grid item xs={12} sm={6} md={4} key={product._id}>
+                <Grid item xs={12} sm={6} md={4} lg={4} key={product._id}>
                   <ProductCard product={product} index={index} />
                 </Grid>
               ))}
             </Grid>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </MainLayout>
   );

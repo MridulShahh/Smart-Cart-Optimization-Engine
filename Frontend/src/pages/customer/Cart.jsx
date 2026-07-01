@@ -20,7 +20,7 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MainLayout from "../../layouts/MainLayout";
-import { updateCartItem, removeFromCart, clearCart } from "../../redux/slices/cartSlice";
+import { updateCartItem, removeFromCart, clearCart, addToCart, addLocalItem } from "../../redux/slices/cartSlice";
 import toast from "react-hot-toast";
 
 function Cart() {
@@ -255,8 +255,12 @@ function Cart() {
                               <Button
                                 size="small"
                                 onClick={() => {
-                                  dispatch(updateCartItem({ userId: user?.id, productId: item._id, quantity: 1 }));
-                                  toast.success(`Added suggestions to cart!`);
+                                  if (user) {
+                                    dispatch(addToCart({ userId: user.id, productId: item._id, quantity: 1 }));
+                                  } else {
+                                    dispatch(addLocalItem({ productId: item._id, quantity: 1, product: item }));
+                                  }
+                                  toast.success(`Added ${item.productName || item.name} to cart!`);
                                 }}
                                 sx={{ textTransform: "none", color: "#E23744", fontWeight: 700, fontSize: "0.75rem" }}
                               >
