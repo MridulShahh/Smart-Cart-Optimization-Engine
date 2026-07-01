@@ -116,7 +116,7 @@
     "brand": "Logitech",
     "stock": 15,
     "rating": 4.3,
-    "image": "https://images.unsplash.com/photo-1603539958975-d144342410a5?w=600&q=80",
+    "image": "/webcam.png",
     "tags": [
       "camera",
       "video",
@@ -296,7 +296,7 @@
     "brand": "Anker",
     "stock": 25,
     "rating": 4.7,
-    "image": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80",
+    "image": "/powerbank.png",
     "tags": [
       "powerbank",
       "charger",
