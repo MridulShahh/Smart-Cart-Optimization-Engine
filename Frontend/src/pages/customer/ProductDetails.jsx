@@ -13,6 +13,8 @@ import {
   Tab,
   CircularProgress,
   IconButton,
+  Dialog,
+  DialogContent,
 } from "@mui/material";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +27,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import CloseIcon from "@mui/icons-material/Close";
 import toast from "react-hot-toast";
 
 function ProductDetails() {
@@ -39,6 +42,7 @@ function ProductDetails() {
   const [tabValue, setTabValue] = useState(0);
   const [wishlisted, setWishlisted] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [openImage, setOpenImage] = useState(false);
 
   useEffect(() => {
     if (products.length === 0) {
@@ -158,6 +162,7 @@ function ProductDetails() {
           <Grid item xs={12} md={6}>
             <Paper
               elevation={0}
+              onClick={() => setOpenImage(true)}
               sx={{
                 p: 4,
                 borderRadius: "24px",
@@ -167,7 +172,10 @@ function ProductDetails() {
                 justifyContent: "center",
                 alignItems: "center",
                 height: { xs: "320px", md: "460px" },
-                mb: 2
+                mb: 2,
+                cursor: "pointer",
+                transition: "transform 0.3s",
+                "&:hover": { transform: "scale(1.02)" },
               }}
             >
               <Box
@@ -182,15 +190,6 @@ function ProductDetails() {
                 }}
               />
             </Paper>
-            
-            {/* Thumbnail Gallery */}
-            <Stack direction="row" spacing={2} sx={{ overflowX: 'auto', pb: 1 }}>
-              {[1, 2, 3, 4].map(idx => (
-                <Box key={idx} sx={{ width: 80, height: 80, borderRadius: '12px', border: idx === 1 ? '2px solid #F43F5E' : '1px solid #E5E7EB', p: 1, cursor: 'pointer', bgcolor: "#FAFAFA" }}>
-                  <Box component="img" src={product.image} sx={{ width: '100%', height: '100%', objectFit: 'contain', mixBlendMode: "multiply" }} />
-                </Box>
-              ))}
-            </Stack>
           </Grid>
 
           {/* Right Product Details Info */}
@@ -421,6 +420,32 @@ function ProductDetails() {
           </Grid>
         </Box>
       </Container>
+
+      {/* Lightbox Dialog */}
+      <Dialog 
+        open={openImage} 
+        onClose={() => setOpenImage(false)} 
+        maxWidth="lg" 
+        fullWidth
+        PaperProps={{
+          sx: { bgcolor: 'transparent', boxShadow: 'none' }
+        }}
+      >
+        <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 0, position: 'relative' }}>
+          <IconButton 
+            onClick={() => setOpenImage(false)} 
+            sx={{ position: 'absolute', top: 16, right: 16, color: 'white', bgcolor: 'rgba(0,0,0,0.5)', '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' } }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <Box
+            component="img"
+            src={product.image}
+            alt={product.productName || product.name}
+            sx={{ maxWidth: '100%', maxHeight: '90vh', objectFit: 'contain', borderRadius: '16px', bgcolor: 'white', p: 2 }}
+          />
+        </DialogContent>
+      </Dialog>
     </MainLayout>
   );
 }
