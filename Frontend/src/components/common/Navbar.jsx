@@ -44,7 +44,7 @@ import AppsIcon from "@mui/icons-material/Apps";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
-import { setFilters } from "../../redux/slices/productSlice";
+import { setFilters, clearFilters } from "../../redux/slices/productSlice";
 import toast from "react-hot-toast";
 
 function Navbar() {
@@ -395,10 +395,10 @@ function Navbar() {
         }}
       >
         {[
-          { label: "All Items", action: () => { navigate("/shop"); }, icon: <AppsIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Laptops", action: () => { navigate("/category/Laptops"); }, icon: <LaptopIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Accessories", action: () => { navigate("/category/Accessories"); }, icon: <KeyboardIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: "Audio Devices", action: () => { navigate("/category/Audio"); }, icon: <HeadphonesIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: "All Items", action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/shop"); }, icon: <AppsIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: "Laptops", action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/category/Laptops"); }, icon: <LaptopIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: "Accessories", action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/category/Accessories"); }, icon: <KeyboardIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: "Audio Devices", action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/category/Audio"); }, icon: <HeadphonesIcon sx={{ fontSize: "1.1rem" }} /> },
           { label: "AI Recommendations", action: () => { navigate("/ai-picks"); }, icon: <AutoAwesomeIcon sx={{ fontSize: "1.1rem", color: "#FFB300" }} />, highlighted: true },
         ].map((item) => (
           <Button
