@@ -49,11 +49,23 @@ Smart-Cart-Optimization-Engine
 │   └── package.json
 │
 ├── Backend/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── config/
+│   ├── seed/                     # Database seed scripts
+│   │
+│   ├── src/
+│   │   ├── ai/                   # AI recommendation logic
+│   │   ├── config/               # Database & app configuration
+│   │   ├── controllers/          # Request handling
+│   │   ├── data/                 # Static datasets
+│   │   ├── engine/               # Recommendation engine
+│   │   ├── middleware/           # JWT authentication middleware
+│   │   ├── ml/                   # Machine Learning utilities
+│   │   ├── models/               # Mongoose models
+│   │   ├── routes/               # API routes
+│   │   ├── services/             # Business logic
+│   │   └── utils/                # Helper functions
+│   │
+│   ├── API_DOCUMENTATION.md
+│   ├── package.json
 │   └── server.js
 │
 └── README.md
