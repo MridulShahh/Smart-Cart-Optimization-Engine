@@ -271,25 +271,7 @@ function Navbar() {
 
           {/* Actions & Badges */}
           <Stack direction="row" spacing={1} alignItems="center">
-            {/* Speed Badge */}
-            <Box
-              sx={{
-                display: { xs: "none", md: "flex" },
-                alignItems: "center",
-                gap: 0.5,
-                bgcolor: isDark ? "#422006" : "#FFFBEB",
-                color: "#D97706",
-                px: 1.5,
-                py: 0.8,
-                borderRadius: "50px",
-                fontSize: "0.8rem",
-                fontWeight: 700,
-                border: `1px solid ${isDark ? "#78350F" : "#FEF3C7"}`,
-              }}
-            >
-              <ElectricBoltIcon sx={{ fontSize: "1rem" }} />
-              {t("oneDay", language)}
-            </Box>
+
 
             {/* Currency selector */}
             <Button

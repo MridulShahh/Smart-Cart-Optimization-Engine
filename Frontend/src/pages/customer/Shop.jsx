@@ -24,11 +24,13 @@ import MainLayout from "../../layouts/MainLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, setFilters, clearFilters } from "../../redux/slices/productSlice";
 import ProductCard from "../../components/product/ProductCard";
+import { formatPrice } from "../../constants/currencies";
 
 function Shop() {
   const dispatch = useDispatch();
   const { categoryName } = useParams();
   const { items: products, filters, loading } = useSelector((state) => state.products);
+  const { currency } = useSelector((state) => state.settings);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -146,16 +148,19 @@ function Shop() {
                     onChange={handlePriceChange}
                     valueLabelDisplay="auto"
                     min={0}
-                    max={60000}
+                    max={250000}
                     step={500}
                     color="primary"
                   />
                   <Stack direction="row" justifyContent="space-between" mt={1}>
                     <Typography variant="body2" color="text.secondary">
-                      ₹{filters.priceRange[0].toLocaleString("en-IN")}
+                      {formatPrice(filters.priceRange[0], currency)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      ₹{filters.priceRange[1].toLocaleString("en-IN")}
+                      -
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {formatPrice(filters.priceRange[1], currency)}
                     </Typography>
                   </Stack>
                 </Box>
