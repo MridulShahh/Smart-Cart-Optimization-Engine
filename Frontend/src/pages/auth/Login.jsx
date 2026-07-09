@@ -14,7 +14,6 @@ import {
   Checkbox
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
-import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -123,7 +122,7 @@ function Login() {
             </Typography>
           </Box>
 
-          {/* Footer Streak indicator */}
+          {/* Footer Brand Badge */}
           <Stack direction="row" spacing={2} alignItems="center">
             <Box
               sx={{
@@ -137,14 +136,14 @@ function Login() {
                 backdropFilter: "blur(4px)"
               }}
             >
-              <LocalFireDepartmentIcon sx={{ color: "#FFB300", fontSize: "2rem" }} />
+              <AutoAwesomeIcon sx={{ color: "#FFB300", fontSize: "2rem" }} />
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight="800">
-                Daily Shopping Streaks
+                AI-Powered Shopping
               </Typography>
               <Typography variant="caption" sx={{ color: "#D1D5DB" }}>
-                Maintain your visit streak and earn exclusive promo code unlocks.
+                Personalized picks and smart cart optimization powered by NexCart AI.
               </Typography>
             </Box>
           </Stack>
@@ -178,7 +177,7 @@ function Login() {
               Welcome Back
             </Typography>
             <Typography color="text.secondary" mb={3} sx={{ fontSize: "0.9rem" }}>
-              Sign in to access your dashboard and saved streaks.
+              Sign in to access your dashboard and preferences.
             </Typography>
 
             {/* Navigation Tabs */}
@@ -315,4 +314,5 @@ function Login() {
 }
 
 import { Grid } from "@mui/material";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 export default Login;

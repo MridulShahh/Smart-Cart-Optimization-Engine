@@ -1,25 +1,30 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { Box, Paper, Typography, Button, Stack } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CheckIcon from "@mui/icons-material/Check";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import toast from "react-hot-toast";
 
+const CANVAS_WIDTH = 320;
+const CANVAS_HEIGHT = 180;
+
 function ScratchCard() {
   const canvasRef = useRef(null);
   const [isScratched, setIsScratched] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
+  const lastPoint = useRef(null);
 
   const promoCode = "NEXSMART15";
 
-  useEffect(() => {
+  const initCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
-    canvas.width = canvas.offsetWidth || 300;
-    canvas.height = canvas.offsetHeight || 160;
+    // Set actual pixel dimensions (not CSS dimensions)
+    canvas.width = CANVAS_WIDTH;
+    canvas.height = CANVAS_HEIGHT;
 
     // Scratchable surface (silver metallic gradient)
     const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
@@ -46,53 +51,78 @@ function ScratchCard() {
     ctx.fillText("SCRATCH TO REVEAL DISCOUNT", canvas.width / 2, canvas.height / 2);
   }, []);
 
+  useEffect(() => {
+    if (!isScratched) {
+      // Small timeout to ensure the canvas element is rendered with correct dimensions
+      const timer = setTimeout(initCanvas, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isScratched, initCanvas]);
+
   const getCoordinates = (e) => {
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };
     const rect = canvas.getBoundingClientRect();
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    // Scale coordinates to match canvas pixel dimensions
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
     return {
-      x: clientX - rect.left,
-      y: clientY - rect.top,
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY,
     };
   };
 
   const handleStart = (e) => {
+    if (isScratched) return;
     setIsDrawing(true);
     const coords = getCoordinates(e);
-    scratch(coords.x, coords.y, true);
+    lastPoint.current = coords;
+    scratch(coords.x, coords.y);
   };
 
   const handleMove = (e) => {
     if (!isDrawing || isScratched) return;
     e.preventDefault();
     const coords = getCoordinates(e);
-    scratch(coords.x, coords.y, false);
+    scratchLine(lastPoint.current.x, lastPoint.current.y, coords.x, coords.y);
+    lastPoint.current = coords;
   };
 
   const handleEnd = () => {
     setIsDrawing(false);
+    lastPoint.current = null;
     checkScratchPercentage();
   };
 
-  const scratch = (x, y, isNew) => {
+  const scratch = (x, y) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
     ctx.globalCompositeOperation = "destination-out";
-    ctx.lineWidth = 32;
+    ctx.beginPath();
+    ctx.arc(x, y, 18, 0, Math.PI * 2);
+    ctx.fill();
+  };
+
+  const scratchLine = (fromX, fromY, toX, toY) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.lineWidth = 36;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
-    if (isNew) {
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-    } else {
-      ctx.lineTo(x, y);
-      ctx.stroke();
-    }
+    ctx.beginPath();
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(toX, toY);
+    ctx.stroke();
   };
 
   const checkScratchPercentage = () => {
@@ -110,9 +140,8 @@ function ScratchCard() {
     }
 
     const percentage = (transparentCount / (pixels.length / 4)) * 100;
-    if (percentage > 45 && !isScratched) {
+    if (percentage > 40 && !isScratched) {
       setIsScratched(true);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
       toast.success("Congratulations! You revealed a 15% discount code! 🎉");
     }
   };
@@ -128,8 +157,8 @@ function ScratchCard() {
     <Paper
       elevation={2}
       sx={{
-        width: "320px",
-        height: "180px",
+        width: `${CANVAS_WIDTH}px`,
+        height: `${CANVAS_HEIGHT}px`,
         position: "relative",
         borderRadius: "16px",
         overflow: "hidden",
@@ -183,9 +212,10 @@ function ScratchCard() {
 
       {/* Canvas Overlay for scratching */}
       {!isScratched && (
-        <Box
-          component="canvas"
+        <canvas
           ref={canvasRef}
+          width={CANVAS_WIDTH}
+          height={CANVAS_HEIGHT}
           onMouseDown={handleStart}
           onMouseMove={handleMove}
           onMouseUp={handleEnd}
@@ -193,7 +223,7 @@ function ScratchCard() {
           onTouchStart={handleStart}
           onTouchMove={handleMove}
           onTouchEnd={handleEnd}
-          sx={{
+          style={{
             position: "absolute",
             top: 0,
             left: 0,
@@ -202,6 +232,7 @@ function ScratchCard() {
             cursor: "crosshair",
             zIndex: 10,
             borderRadius: "16px",
+            touchAction: "none",
           }}
         />
       )}

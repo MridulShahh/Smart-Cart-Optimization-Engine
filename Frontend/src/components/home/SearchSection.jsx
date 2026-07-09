@@ -31,7 +31,7 @@ function SearchSection() {
               Unlock Extra Savings!
             </Typography>
             <Typography variant="body2" color="text.secondary" mb={4}>
-              Try scratching our daily streak card to reveal exclusive coupon codes! Keep scratching to increase your streak level and qualify for premium reward catalogs.
+              Try scratching our reward card to reveal exclusive coupon codes! Unlock savings on your favorite tech accessories and gear.
             </Typography>
             <ScratchCard />
           </Box>

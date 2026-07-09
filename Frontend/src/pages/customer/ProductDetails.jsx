@@ -29,6 +29,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import CloseIcon from "@mui/icons-material/Close";
 import toast from "react-hot-toast";
+import { formatPrice } from "../../constants/currencies";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -37,6 +38,7 @@ function ProductDetails() {
 
   const { items: products, loading } = useSelector((state) => state.products);
   const { user } = useSelector((state) => state.auth);
+  const { currency } = useSelector((state) => state.settings);
 
   const [product, setProduct] = useState(null);
   const [tabValue, setTabValue] = useState(0);
@@ -223,10 +225,10 @@ function ProductDetails() {
             {/* Price section */}
             <Stack direction="row" alignItems="baseline" spacing={2} mb={0.5}>
               <Typography variant="h3" fontWeight="900">
-                ₹{(product.price || 0).toLocaleString("en-IN")}
+                {formatPrice(product.price || 0, currency)}
               </Typography>
               <Typography variant="h6" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
-                ₹{(product.originalPrice || Math.floor(product.price * 1.35)).toLocaleString("en-IN")}
+                {formatPrice(product.originalPrice || Math.floor(product.price * 1.35), currency)}
               </Typography>
               <Typography variant="h6" color="#16A34A" fontWeight="700">
                 {product.discount || "35% off"}
@@ -374,7 +376,7 @@ function ProductDetails() {
                       {rec.product.productName || rec.product.name}
                     </Typography>
                     <Typography variant="subtitle2" color="#E23744" fontWeight="800" mb={2}>
-                      ₹{rec.product.price.toLocaleString("en-IN")}
+                      {formatPrice(rec.product.price, currency)}
                     </Typography>
 
                     {/* Gemini AI explanation callout */}

@@ -38,6 +38,7 @@ import {
   Cell,
 } from "recharts";
 import toast from "react-hot-toast";
+import { formatPrice } from "../../constants/currencies";
 
 const ANIMATION_VARIANTS = {
   hidden: { opacity: 0, y: 20 },
@@ -49,6 +50,7 @@ function AIPicks() {
   const { items: products, loading } = useSelector((state) => state.products);
   const { items: cartItems, localItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
+  const { currency } = useSelector((state) => state.settings);
 
   const [activeTab, setActiveTab] = useState(0);
   const [selectedProductId, setSelectedProductId] = useState("");
@@ -249,7 +251,7 @@ function AIPicks() {
             </Typography>
           </Stack>
           <Typography variant="body1" color="text.secondary" maxWidth="600px" sx={{ mx: "auto" }}>
-            Real-time cart pairing algorithm using Gemini-guided compatibility indices, pricing ratios, and purchasing streaks.
+            Real-time cart pairing algorithm using Gemini-guided compatibility indices and pricing ratios.
           </Typography>
         </Box>
 
@@ -326,7 +328,7 @@ function AIPicks() {
                         by {selectedProduct.brand} | {selectedProduct.category}
                       </Typography>
                       <Typography variant="h6" fontWeight="800" color="#E23744">
-                        ₹{selectedProduct.price.toLocaleString("en-IN")}
+                        {formatPrice(selectedProduct.price, currency)}
                       </Typography>
                       <Button
                         component={Link}
@@ -385,7 +387,7 @@ function AIPicks() {
                               {rec.product.productName}
                             </Typography>
                             <Typography variant="caption" color="text.secondary" display="block">
-                              ₹{rec.product.price.toLocaleString("en-IN")}
+                              {formatPrice(rec.product.price, currency)}
                             </Typography>
                           </Grid>
 
@@ -504,7 +506,7 @@ function AIPicks() {
                               {p.productName}
                             </Typography>
                             <Typography variant="caption" color="text.secondary">
-                              ₹{p.price.toLocaleString("en-IN")}
+                              {formatPrice(p.price, currency)}
                             </Typography>
                           </Box>
                         </Box>

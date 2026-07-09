@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Paper,
@@ -20,19 +20,30 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MainLayout from "../../layouts/MainLayout";
 import { clearCart } from "../../redux/slices/cartSlice";
+import { formatPrice } from "../../constants/currencies";
+import { t } from "../../constants/translations";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import toast from "react-hot-toast";
 
-const steps = ["Shipping Details", "Delivery Method", "Payment Method"];
-
 function Checkout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const { totalPrice, items: cartItems } = useSelector((state) => state.cart);
+  const { currency, language } = useSelector((state) => state.settings);
 
   const [activeStep, setActiveStep] = useState(0);
+
+  // Safety net: redirect if not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      toast.error("Please sign in to access checkout");
+      navigate("/login");
+    }
+  }, [isAuthenticated, navigate]);
+
+  const steps = [t("shippingDetails", language), t("deliveryMethod", language), t("paymentMethod", language)];
 
   // Form states
   const [shippingForm, setShippingForm] = useState({
@@ -77,14 +88,14 @@ function Checkout() {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Typography variant="h6" fontWeight="700" mb={1}>
-                Shipping Address
+                {t("shippingAddress", language)}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
                 name="fullName"
-                label="Full Name"
+                label={t("fullName", language)}
                 fullWidth
                 value={shippingForm.fullName}
                 onChange={handleInputChange}
@@ -94,7 +105,7 @@ function Checkout() {
               <TextField
                 required
                 name="phone"
-                label="Phone Number"
+                label={t("phoneNumber", language)}
                 fullWidth
                 value={shippingForm.phone}
                 onChange={handleInputChange}
@@ -104,7 +115,7 @@ function Checkout() {
               <TextField
                 required
                 name="address"
-                label="Address Line"
+                label={t("addressLine", language)}
                 fullWidth
                 value={shippingForm.address}
                 onChange={handleInputChange}
@@ -114,7 +125,7 @@ function Checkout() {
               <TextField
                 required
                 name="city"
-                label="City"
+                label={t("city", language)}
                 fullWidth
                 value={shippingForm.city}
                 onChange={handleInputChange}
@@ -124,7 +135,7 @@ function Checkout() {
               <TextField
                 required
                 name="zipCode"
-                label="Pincode / Zip Code"
+                label={t("pincode", language)}
                 fullWidth
                 value={shippingForm.zipCode}
                 onChange={handleInputChange}
@@ -136,28 +147,28 @@ function Checkout() {
         return (
           <Box>
             <Typography variant="h6" fontWeight="700" mb={3}>
-              Choose Delivery Option
+              {t("chooseDelivery", language)}
             </Typography>
             <RadioGroup value={deliveryMethod} onChange={(e) => setDeliveryMethod(e.target.value)}>
-              <Paper sx={{ p: 2.5, mb: 2, borderRadius: "12px", border: "1px solid #E5E7EB" }} elevation={0}>
+              <Paper sx={{ p: 2.5, mb: 2, borderRadius: "12px", border: "1px solid", borderColor: "divider" }} elevation={0}>
                 <FormControlLabel
                   value="standard"
                   control={<Radio />}
                   label={
                     <Box sx={{ ml: 1 }}>
-                      <Typography variant="body1" fontWeight="700">Standard Delivery (3-5 Days)</Typography>
+                      <Typography variant="body1" fontWeight="700">{t("standardDelivery", language)}</Typography>
                       <Typography variant="body2" color="text.secondary">Free delivery on orders above ₹999</Typography>
                     </Box>
                   }
                 />
               </Paper>
-              <Paper sx={{ p: 2.5, borderRadius: "12px", border: "1px solid #E5E7EB" }} elevation={0}>
+              <Paper sx={{ p: 2.5, borderRadius: "12px", border: "1px solid", borderColor: "divider" }} elevation={0}>
                 <FormControlLabel
                   value="express"
                   control={<Radio />}
                   label={
                     <Box sx={{ ml: 1 }}>
-                      <Typography variant="body1" fontWeight="700">Express Next-Day Delivery (1-Day)</Typography>
+                      <Typography variant="body1" fontWeight="700">{t("expressDelivery", language)}</Typography>
                       <Typography variant="body2" color="text.secondary">Guaranteed 1-day speed for urgent tech needs. (₹99 surcharge below threshold)</Typography>
                     </Box>
                   }
@@ -170,26 +181,26 @@ function Checkout() {
         return (
           <Box>
             <Typography variant="h6" fontWeight="700" mb={3}>
-              Choose Payment Method
+              {t("choosePayment", language)}
             </Typography>
             <RadioGroup value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-              <Paper sx={{ p: 2, mb: 2, borderRadius: "12px", border: "1px solid #E5E7EB" }} elevation={0}>
-                <FormControlLabel value="card" control={<Radio />} label="Credit or Debit Card" />
+              <Paper sx={{ p: 2, mb: 2, borderRadius: "12px", border: "1px solid", borderColor: "divider" }} elevation={0}>
+                <FormControlLabel value="card" control={<Radio />} label={t("creditDebit", language)} />
                 {paymentMethod === "card" && (
                   <Stack spacing={2} mt={2} sx={{ maxWidth: 400 }}>
-                    <TextField label="Card Number" fullWidth />
+                    <TextField label={t("cardNumber", language)} fullWidth />
                     <Stack direction="row" spacing={2}>
-                      <TextField label="Expiry Date (MM/YY)" fullWidth />
-                      <TextField label="CVV" type="password" fullWidth />
+                      <TextField label={t("expiryDate", language)} fullWidth />
+                      <TextField label={t("cvv", language)} type="password" fullWidth />
                     </Stack>
                   </Stack>
                 )}
               </Paper>
-              <Paper sx={{ p: 2, mb: 2, borderRadius: "12px", border: "1px solid #E5E7EB" }} elevation={0}>
-                <FormControlLabel value="razorpay" control={<Radio />} label="Razorpay / UPI / NetBanking" />
+              <Paper sx={{ p: 2, mb: 2, borderRadius: "12px", border: "1px solid", borderColor: "divider" }} elevation={0}>
+                <FormControlLabel value="razorpay" control={<Radio />} label={t("razorpay", language)} />
               </Paper>
-              <Paper sx={{ p: 2, borderRadius: "12px", border: "1px solid #E5E7EB" }} elevation={0}>
-                <FormControlLabel value="cod" control={<Radio />} label="Cash On Delivery (COD)" />
+              <Paper sx={{ p: 2, borderRadius: "12px", border: "1px solid", borderColor: "divider" }} elevation={0}>
+                <FormControlLabel value="cod" control={<Radio />} label={t("cod", language)} />
               </Paper>
             </RadioGroup>
           </Box>
@@ -199,22 +210,24 @@ function Checkout() {
     }
   };
 
+  if (!isAuthenticated) return null;
+
   return (
     <MainLayout>
       <Container sx={{ mt: 5, mb: 10, maxWidth: "800px" }}>
         {activeStep === 3 ? (
           /* Order success block */
-          <Paper sx={{ p: 6, textAlign: "center", borderRadius: "24px", border: "1px solid #E5E7EB" }} elevation={0}>
+          <Paper sx={{ p: 6, textAlign: "center", borderRadius: "24px", border: "1px solid", borderColor: "divider" }} elevation={0}>
             <CheckCircleIcon sx={{ fontSize: "5rem", color: "#16A34A", mb: 2 }} />
             <Typography variant="h4" fontWeight="900" gutterBottom sx={{ fontFamily: "'Poppins', sans-serif" }}>
-              Order Placed Successfully!
+              {t("orderSuccess", language)}
             </Typography>
             <Typography color="text.secondary" mb={4}>
-              Thank you for shopping with NexCart AI. Your order is confirmed and will be dispatched shortly.
+              {t("orderSuccessDesc", language)}
             </Typography>
 
             {/* Tracking block */}
-            <Paper sx={{ p: 3, mb: 4, bgcolor: "#FAFAFA", borderRadius: "12px", border: "1px solid #E5E7EB", textAlign: "left" }} elevation={0}>
+            <Paper sx={{ p: 3, mb: 4, bgcolor: "background.default", borderRadius: "12px", border: "1px solid", borderColor: "divider", textAlign: "left" }} elevation={0}>
               <Stack direction="row" spacing={2} alignItems="center" mb={2}>
                 <LocalShippingIcon sx={{ color: "#E23744" }} />
                 <Typography variant="body1" fontWeight="700">Order Tracking Status</Typography>
@@ -228,16 +241,16 @@ function Checkout() {
             </Paper>
 
             <Button variant="contained" onClick={() => navigate("/")} sx={{ borderRadius: "50px", px: 4, py: 1.2 }}>
-              Continue Shopping
+              {t("continueShopping", language)}
             </Button>
           </Paper>
         ) : (
-          <Paper sx={{ p: 4, borderRadius: "24px", border: "1px solid #E5E7EB" }} elevation={0}>
+          <Paper sx={{ p: 4, borderRadius: "24px", border: "1px solid", borderColor: "divider" }} elevation={0}>
             <Typography variant="h4" fontWeight="800" mb={4} sx={{ 
               fontFamily: "'Poppins', sans-serif",
               textAlign: "center"
             }}>
-              Checkout
+              {t("checkout", language)}
             </Typography>
 
             <Stepper activeStep={activeStep} alternativeLabel sx={{ mb: 5 }}>
@@ -253,16 +266,16 @@ function Checkout() {
             <Divider sx={{ my: 4 }} />
 
             <Stack direction="row" justifyContent="space-between">
-              <Button disabled={activeStep === 0} onClick={handleBack} sx={{ color: "#4B5563", fontWeight: 600 }}>
-                Back
+              <Button disabled={activeStep === 0} onClick={handleBack} sx={{ color: "text.secondary", fontWeight: 600 }}>
+                {t("back", language)}
               </Button>
               {activeStep === steps.length - 1 ? (
                 <Button variant="contained" onClick={handlePlaceOrder} sx={{ bgcolor: "#E23744", fontWeight: 700, borderRadius: "50px", px: 4 }}>
-                  Place Order (₹{totalPrice.toLocaleString("en-IN")})
+                  {t("placeOrder", language)} ({formatPrice(totalPrice, currency)})
                 </Button>
               ) : (
                 <Button variant="contained" onClick={handleNext} sx={{ bgcolor: "#111827", fontWeight: 700, borderRadius: "50px", px: 4 }}>
-                  Continue
+                  {t("continue", language)}
                 </Button>
               )}
             </Stack>

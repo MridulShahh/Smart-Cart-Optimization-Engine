@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, addLocalItem } from "../../redux/slices/cartSlice";
+import { formatPrice } from "../../constants/currencies";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import toast from "react-hot-toast";
@@ -25,6 +26,7 @@ const fadeInUp = keyframes`
 function ProductCard({ product, index = 0 }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const { currency } = useSelector((state) => state.settings);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -173,7 +175,7 @@ function ProductCard({ product, index = 0 }) {
               fontWeight="900"
               sx={{ mb: 2.5, letterSpacing: "-0.02em" }}
             >
-              ₹{(product.price || 0).toLocaleString("en-IN")}
+              {formatPrice(product.price || 0, currency)}
             </Typography>
 
             <Stack direction="row" spacing={1.5}>

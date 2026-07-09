@@ -21,14 +21,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MainLayout from "../../layouts/MainLayout";
 import { updateCartItem, removeFromCart, clearCart, addToCart, addLocalItem } from "../../redux/slices/cartSlice";
+import { formatPrice } from "../../constants/currencies";
+import { t } from "../../constants/translations";
 import toast from "react-hot-toast";
 
 function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const { items: cartItems, totalPrice, totalItems } = useSelector((state) => state.cart);
   const { items: products } = useSelector((state) => state.products);
+  const { currency, language } = useSelector((state) => state.settings);
 
   const [promo, setPromo] = useState("");
   const [discountPercent, setDiscountPercent] = useState(0);
@@ -53,6 +56,14 @@ function Cart() {
     toast.success("Item removed from cart");
   };
 
+  const handleProceedToCheckout = (e) => {
+    if (!isAuthenticated) {
+      e.preventDefault();
+      toast.error("Please sign in to proceed to checkout");
+      navigate("/login");
+    }
+  };
+
   const discountAmount = Math.round(totalPrice * (discountPercent / 100));
   const shipping = totalPrice > 999 ? 0 : totalPrice === 0 ? 0 : 99;
   const finalTotal = totalPrice - discountAmount + shipping;
@@ -72,19 +83,19 @@ function Cart() {
     <MainLayout>
       <Container sx={{ mt: 5, mb: 10 }}>
         <Typography variant="h3" fontWeight="900" mb={4} sx={{ fontFamily: "'Poppins', sans-serif" }}>
-          Shopping Cart
+          {t("shoppingCart", language)}
         </Typography>
 
         {cartItems.length === 0 ? (
           <Box sx={{ textAlign: "center", py: 10 }}>
             <Typography variant="h5" fontWeight="700" gutterBottom>
-              Your Cart is Empty
+              {t("emptyCart", language)}
             </Typography>
             <Typography color="text.secondary" mb={4}>
-              Add some high-velocity IT gear and accessories to get started.
+              {t("emptyCartDesc", language)}
             </Typography>
             <Button variant="contained" component={Link} to="/shop" sx={{ borderRadius: "50px" }}>
-              Shop Now
+              {t("shopNow", language)}
             </Button>
           </Box>
         ) : (
@@ -97,9 +108,9 @@ function Cart() {
                     key={item.product._id}
                     sx={{
                       borderRadius: "16px",
-                      border: "1px solid #E5E7EB",
+                      border: "1px solid",
+                      borderColor: "divider",
                       boxShadow: "none",
-                      bgcolor: "white",
                     }}
                   >
                     <CardContent sx={{ p: 3 }}>
@@ -109,13 +120,13 @@ function Cart() {
                             component="img"
                             src={item.product.image}
                             alt={item.product.productName || item.product.name}
-                            sx={{ width: "100%", height: 80, objectFit: "contain", bgcolor: "#FAFAFA", borderRadius: "12px" }}
+                            sx={{ width: "100%", height: 80, objectFit: "contain", bgcolor: "background.default", borderRadius: "12px" }}
                           />
                         </Grid>
                         <Grid item xs={9} sm={10}>
                           <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                             <Box>
-                              <Typography variant="body1" fontWeight="700" color="#111827">
+                              <Typography variant="body1" fontWeight="700" color="text.primary">
                                 {item.product.productName || item.product.name}
                               </Typography>
                               <Typography variant="caption" color="text.secondary">
@@ -123,7 +134,7 @@ function Cart() {
                               </Typography>
                             </Box>
                             <Typography variant="body1" fontWeight="800" color="#E23744">
-                              ₹{(item.product.price * item.quantity).toLocaleString("en-IN")}
+                              {formatPrice(item.product.price * item.quantity, currency)}
                             </Typography>
                           </Stack>
 
@@ -154,38 +165,38 @@ function Cart() {
             <Grid item xs={12} md={4}>
               <Stack spacing={4}>
                 {/* Order Summary */}
-                <Card sx={{ borderRadius: "16px", border: "1px solid #E5E7EB", boxShadow: "none" }}>
+                <Card sx={{ borderRadius: "16px", border: "1px solid", borderColor: "divider", boxShadow: "none" }}>
                   <CardContent sx={{ p: 3 }}>
                     <Typography variant="h6" fontWeight="700" mb={3}>
-                      Order Summary
+                      {t("orderSummary", language)}
                     </Typography>
 
                     <Stack spacing={2} mb={3}>
                       <Stack direction="row" justifyContent="space-between">
-                        <Typography color="text.secondary">Subtotal ({totalItems} items)</Typography>
-                        <Typography fontWeight="600">₹{totalPrice.toLocaleString("en-IN")}</Typography>
+                        <Typography color="text.secondary">{t("subtotal", language)} ({totalItems} {t("items", language)})</Typography>
+                        <Typography fontWeight="600">{formatPrice(totalPrice, currency)}</Typography>
                       </Stack>
 
                       {discountPercent > 0 && (
                         <Stack direction="row" justifyContent="space-between">
-                          <Typography color="text.secondary">Discount ({discountPercent}%)</Typography>
-                          <Typography fontWeight="600" color="#16A34A">-₹{discountAmount.toLocaleString("en-IN")}</Typography>
+                          <Typography color="text.secondary">{t("discount", language)} ({discountPercent}%)</Typography>
+                          <Typography fontWeight="600" color="#16A34A">-{formatPrice(discountAmount, currency)}</Typography>
                         </Stack>
                       )}
 
                       <Stack direction="row" justifyContent="space-between">
-                        <Typography color="text.secondary">Delivery Charge</Typography>
+                        <Typography color="text.secondary">{t("deliveryCharge", language)}</Typography>
                         <Typography fontWeight="600" color={shipping === 0 ? "#16A34A" : "text.primary"}>
-                          {shipping === 0 ? "FREE" : `₹${shipping}`}
+                          {shipping === 0 ? t("free", language) : formatPrice(shipping, currency)}
                         </Typography>
                       </Stack>
 
                       <Divider />
 
                       <Stack direction="row" justifyContent="space-between">
-                        <Typography fontWeight="700" color="#111827">Order Total</Typography>
+                        <Typography fontWeight="700" color="text.primary">{t("orderTotal", language)}</Typography>
                         <Typography variant="h6" fontWeight="900" color="#E23744">
-                          ₹{finalTotal.toLocaleString("en-IN")}
+                          {formatPrice(finalTotal, currency)}
                         </Typography>
                       </Stack>
                     </Stack>
@@ -194,20 +205,21 @@ function Cart() {
                     <Stack direction="row" spacing={1} mb={4}>
                       <TextField
                         size="small"
-                        placeholder="Promo Code"
+                        placeholder={t("promoCode", language)}
                         value={promo}
                         onChange={(e) => setPromo(e.target.value)}
                         fullWidth
                         sx={{ input: { fontSize: "0.85rem" } }}
                       />
-                      <Button variant="outlined" onClick={handleApplyPromo} sx={{ borderColor: "#111827", color: "#111827" }}>
-                        Apply
+                      <Button variant="outlined" onClick={handleApplyPromo} sx={{ borderColor: "text.primary", color: "text.primary" }}>
+                        {t("apply", language)}
                       </Button>
                     </Stack>
 
                     <Button
                       component={Link}
                       to="/checkout"
+                      onClick={handleProceedToCheckout}
                       variant="contained"
                       fullWidth
                       sx={{
@@ -219,37 +231,37 @@ function Cart() {
                         "&:hover": { bgcolor: "#b82531" },
                       }}
                     >
-                      Proceed to Checkout
+                      {t("proceedToCheckout", language)}
                     </Button>
                   </CardContent>
                 </Card>
 
                 {/* AI Add-on Recommendations */}
                 {suggestions.length > 0 && (
-                  <Card sx={{ borderRadius: "16px", border: "1px dashed #FFB300", bgcolor: "#FFFBEB", boxShadow: "none" }}>
+                  <Card sx={{ borderRadius: "16px", border: "1px dashed #FFB300", bgcolor: "background.paper", boxShadow: "none" }}>
                     <CardContent sx={{ p: 3 }}>
                       <Stack direction="row" spacing={1} alignItems="center" mb={2}>
                         <AutoAwesomeIcon sx={{ color: "#FFB300" }} />
                         <Typography variant="subtitle2" fontWeight="700" color="#D97706" sx={{ letterSpacing: "0.05em", textTransform: "uppercase" }}>
-                          AI Cart Optimization
+                          {t("aiCartOptimization", language)}
                         </Typography>
                       </Stack>
 
                       <Stack spacing={2.5}>
                         {suggestions.map((item) => (
-                          <Paper key={item._id} elevation={0} sx={{ p: 2, borderRadius: "12px", border: "1px solid #FEF3C7", bgcolor: "white" }}>
+                          <Paper key={item._id} elevation={0} sx={{ p: 2, borderRadius: "12px", border: "1px solid", borderColor: "divider" }}>
                             <Stack direction="row" spacing={2} alignItems="center" mb={1}>
                               <Box
                                 component="img"
                                 src={item.image}
-                                sx={{ width: 45, height: 45, objectFit: "contain", bgcolor: "#FAFAFA", borderRadius: "6px" }}
+                                sx={{ width: 45, height: 45, objectFit: "contain", bgcolor: "background.default", borderRadius: "6px" }}
                               />
                               <Box flex={1}>
                                 <Typography variant="body2" fontWeight="700" sx={{ fontSize: "0.85rem" }}>
                                   {item.productName || item.name}
                                 </Typography>
                                 <Typography variant="caption" color="text.secondary">
-                                  ₹{item.price.toLocaleString("en-IN")}
+                                  {formatPrice(item.price, currency)}
                                 </Typography>
                               </Box>
                               <Button
@@ -264,7 +276,7 @@ function Cart() {
                                 }}
                                 sx={{ textTransform: "none", color: "#E23744", fontWeight: 700, fontSize: "0.75rem" }}
                               >
-                                + Add
+                                {t("add", language)}
                               </Button>
                             </Stack>
                             <Typography variant="caption" color="text.secondary" sx={{ fontStyle: "italic" }}>
