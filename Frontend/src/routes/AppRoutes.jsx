@@ -9,6 +9,7 @@ import Cart from "../pages/customer/Cart";
 import Wishlist from "../pages/customer/Wishlist";
 import Checkout from "../pages/customer/Checkout";
 import Profile from "../pages/customer/Profile";
+import Orders from "../pages/customer/Orders";
 import AIPicks from "../pages/customer/AIPicks";
 
 // Admin Pages
@@ -60,6 +61,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/orders"
+        element={
+          <ProtectedRoute>
+            <Orders />
           </ProtectedRoute>
         }
       />
