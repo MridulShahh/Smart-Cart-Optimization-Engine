@@ -3,13 +3,18 @@ import api from "../../services/api";
 
 export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
-  async (userId, { rejectWithValue }) => {
+  async (userId, { rejectWithValue, dispatch }) => {
     try {
-      if (!userId) return { items: [], totalItems: 0, totalPrice: 0 };
+      if (!userId) {
+        dispatch(loadLocalCart());
+        return null;
+      }
       const response = await api.get(`/cart/${userId}`);
       return response?.data || response;
     } catch (error) {
-      return rejectWithValue(error.message || "Failed to fetch cart");
+      // Fall back to local cart when backend is unavailable
+      dispatch(loadLocalCart());
+      return null;
     }
   }
 );
@@ -26,7 +31,8 @@ export const addToCart = createAsyncThunk(
       const response = await api.post(`/cart/${userId}/add`, { productId, quantity });
       return response?.data || response;
     } catch (error) {
-      return rejectWithValue(error.message || "Failed to add to cart");
+      // Fallback: use local cart when backend is unavailable
+      return null;
     }
   }
 );
@@ -42,7 +48,8 @@ export const updateCartItem = createAsyncThunk(
       const response = await api.put(`/cart/${userId}/update`, { productId, quantity });
       return response?.data || response;
     } catch (error) {
-      return rejectWithValue(error.message || "Failed to update item quantity");
+      // Fallback: use local update
+      return null;
     }
   }
 );
@@ -58,7 +65,8 @@ export const removeFromCart = createAsyncThunk(
       const response = await api.delete(`/cart/${userId}/remove/${productId}`);
       return response?.data || response;
     } catch (error) {
-      return rejectWithValue(error.message || "Failed to remove from cart");
+      // Fallback: use local remove
+      return null;
     }
   }
 );
@@ -74,7 +82,9 @@ export const clearCart = createAsyncThunk(
       const response = await api.delete(`/cart/${userId}/clear`);
       return response?.data || response;
     } catch (error) {
-      return rejectWithValue(error.message || "Failed to clear cart");
+      // Fallback: clear locally
+      dispatch(clearLocalCart());
+      return null;
     }
   }
 );
