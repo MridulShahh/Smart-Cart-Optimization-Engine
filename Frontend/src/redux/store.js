@@ -3,6 +3,7 @@ import authReducer from "./slices/authSlice";
 import cartReducer from "./slices/cartSlice";
 import productReducer from "./slices/productSlice";
 import settingsReducer from "./slices/settingsSlice";
+import orderReducer from "./slices/orderSlice";
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     cart: cartReducer,
     products: productReducer,
     settings: settingsReducer,
+    orders: orderReducer,
   },
 });

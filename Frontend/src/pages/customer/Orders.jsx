@@ -20,30 +20,7 @@ import { t } from "../../constants/translations";
 function Orders() {
   const { user } = useSelector((state) => state.auth);
   const { currency, language } = useSelector((state) => state.settings);
-
-  // Mock orders data for the demo
-  const mockOrders = [
-    {
-      id: "ORD-948573",
-      date: new Date().toLocaleDateString(),
-      status: "Processing",
-      total: 45000,
-      items: [
-        {
-          name: "Logitech MX Master 3S",
-          qty: 1,
-          price: 9999,
-          image: "https://images.unsplash.com/photo-1527814050087-379381547961?auto=format&fit=crop&q=80&w=200",
-        },
-        {
-          name: "Dell UltraSharp 27",
-          qty: 1,
-          price: 35001,
-          image: "https://images.unsplash.com/photo-1527443195645-1133f7f28990?auto=format&fit=crop&q=80&w=200",
-        },
-      ],
-    },
-  ];
+  const { items: orders } = useSelector((state) => state.orders);
 
   return (
     <MainLayout>
@@ -52,7 +29,7 @@ function Orders() {
           {t("myOrders", language) || "My Orders"}
         </Typography>
 
-        {mockOrders.length === 0 ? (
+        {orders.length === 0 ? (
           <Box sx={{ textAlign: "center", py: 10 }}>
             <Typography variant="h5" fontWeight="700" gutterBottom>
               You haven't placed any orders yet.
@@ -63,7 +40,7 @@ function Orders() {
           </Box>
         ) : (
           <Stack spacing={4}>
-            {mockOrders.map((order) => (
+            {orders.map((order) => (
               <Card
                 key={order.id}
                 sx={{

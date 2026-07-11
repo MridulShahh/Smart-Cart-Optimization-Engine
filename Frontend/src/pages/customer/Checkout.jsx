@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MainLayout from "../../layouts/MainLayout";
 import { clearCart } from "../../redux/slices/cartSlice";
+import { addOrder } from "../../redux/slices/orderSlice";
 import { formatPrice } from "../../constants/currencies";
 import { t } from "../../constants/translations";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -76,6 +77,20 @@ function Checkout() {
   };
 
   const handlePlaceOrder = () => {
+    const newOrder = {
+      id: "ORD-" + Math.floor(Math.random() * 900000 + 100000),
+      date: new Date().toLocaleDateString(),
+      status: "Processing",
+      total: totalPrice,
+      items: cartItems.map((item) => ({
+        name: item.product.productName || item.product.name,
+        qty: item.quantity,
+        price: item.product.price,
+        image: item.product.image,
+      })),
+    };
+
+    dispatch(addOrder(newOrder));
     dispatch(clearCart(user?.id));
     setActiveStep(3); // Go to success page
     toast.success("Order placed successfully! 🎉");
