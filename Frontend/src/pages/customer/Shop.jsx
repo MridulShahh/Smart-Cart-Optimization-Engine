@@ -95,7 +95,7 @@ function Shop() {
 
   return (
     <MainLayout>
-      <Container sx={{ mt: 5, mb: 10 }}>
+      <Container maxWidth="xl" sx={{ mt: 5, mb: 10 }}>
         <Typography
           variant="h3"
           fontWeight="900"
@@ -233,7 +233,7 @@ function Shop() {
             {/* Product Grid */}
             <Grid container spacing={3}>
               {filteredProducts.map((product, index) => (
-                <Grid item xs={12} sm={6} md={4} lg={4} key={product._id}>
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={product._id}>
                   <ProductCard product={product} index={index} />
                 </Grid>
               ))}
