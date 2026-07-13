@@ -31,7 +31,7 @@ const mockProducts = [
     "brand": "Logitech",
     "stock": 50,
     "rating": 4.5,
-    "image": "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1605773527852-c546a8584ea3?w=600&q=80",
     "tags": [
       "mouse",
       "accessory",
@@ -69,7 +69,7 @@ const mockProducts = [
     "brand": "Lenovo",
     "stock": 30,
     "rating": 4.4,
-    "image": "https://images.unsplash.com/photo-1491933382434-500287f9b54b?w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1547949003-9792a18a2601?w=600&q=80",
     "tags": [
       "bag",
       "accessory",
@@ -145,7 +145,7 @@ const mockProducts = [
     "brand": "Anker",
     "stock": 100,
     "rating": 4.2,
-    "image": "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1515940175183-6798529cb860?w=600&q=80",
     "tags": [
       "usb",
       "hub",
@@ -474,7 +474,7 @@ const mockProducts = [
     "price": 114900,
     "rating": 4.8,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80",
     "description": "13.6\" Liquid Retina, Apple M2 chip, 8GB RAM, 256GB SSD. Supercharged by Apple Silicon."
   },
   {
@@ -529,7 +529,7 @@ const mockProducts = [
     "price": 3499,
     "rating": 4.4,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?w=600&q=80",
     "description": "7-in-1 USB-C adapter with HDMI 4K, 100W PD, USB 3.0 ports, and SD card reader."
   },
   {
@@ -573,7 +573,7 @@ const mockProducts = [
     "price": 4999,
     "rating": 4.3,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=600&q=80",
     "description": "Full HD webcam with auto-light correction, built-in dual mics, and wide-angle lens for video calls."
   },
   {
