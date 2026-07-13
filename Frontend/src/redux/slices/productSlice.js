@@ -20,7 +20,7 @@ const mockProducts = [
       "electronics"
     ],
     "popularity": 90,
-    "_id": "mock-id-0"
+    "_id": "mock-id-10"
   },
   {
     "productName": "Wireless Mouse",
@@ -192,25 +192,6 @@ const mockProducts = [
     ],
     "popularity": 92,
     "_id": "mock-id-9"
-  },
-  {
-    "productName": "Laptop",
-    "name": "Laptop",
-    "price": 55000,
-    "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
-    "category": "Laptops",
-    "brand": "Dell",
-    "stock": 10,
-    "rating": 4.8,
-    "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&q=80",
-    "tags": [
-      "pc",
-      "computer",
-      "work",
-      "electronics"
-    ],
-    "popularity": 90,
-    "_id": "mock-id-10"
   },
   {
     "productName": "MacBook Pro 16\"",
@@ -462,6 +443,314 @@ const mockProducts = [
     "popularity": 82,
     "_modelName": "Product",
     "_id": "64df94ae328a35fdb70f961d"
+  },
+  {
+    "_id": "mock-laptop-001",
+    "productName": "Dell Inspiron 15 Laptop",
+    "category": "Laptops",
+    "brand": "Dell",
+    "price": 60000,
+    "rating": 4.5,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&q=80&w=400",
+    "description": "15.6\" Full HD display, Intel Core i5, 8GB RAM, 512GB SSD. Perfect for work and entertainment."
+  },
+  {
+    "_id": "mock-laptop-002",
+    "productName": "HP Pavilion Gaming Laptop",
+    "category": "Laptops",
+    "brand": "HP",
+    "price": 75000,
+    "rating": 4.6,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&q=80&w=400",
+    "description": "15.6\" FHD 144Hz, AMD Ryzen 7, 16GB RAM, 512GB SSD, NVIDIA GTX 1650. Built for gamers."
+  },
+  {
+    "_id": "mock-laptop-003",
+    "productName": "MacBook Air M2",
+    "category": "Laptops",
+    "brand": "Apple",
+    "price": 114900,
+    "rating": 4.8,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=400",
+    "description": "13.6\" Liquid Retina, Apple M2 chip, 8GB RAM, 256GB SSD. Supercharged by Apple Silicon."
+  },
+  {
+    "_id": "mock-laptop-004",
+    "productName": "Lenovo ThinkPad X1 Carbon",
+    "category": "Laptops",
+    "brand": "Lenovo",
+    "price": 135000,
+    "rating": 4.7,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=400",
+    "description": "14\" 2.8K OLED, Intel Core i7, 16GB RAM, 512GB SSD. The gold standard for business laptops."
+  },
+  {
+    "_id": "mock-acc-001",
+    "productName": "Logitech MX Master 3S",
+    "category": "Accessories",
+    "brand": "Logitech",
+    "price": 9999,
+    "rating": 4.7,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=400",
+    "description": "Wireless performance mouse with 8K DPI tracking, quiet clicks, and MagSpeed scroll."
+  },
+  {
+    "_id": "mock-acc-002",
+    "productName": "Razer BlackWidow V4",
+    "category": "Accessories",
+    "brand": "Razer",
+    "price": 14999,
+    "rating": 4.6,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&q=80&w=400",
+    "description": "Mechanical gaming keyboard with Razer Green switches, RGB Chroma, and magnetic wrist rest."
+  },
+  {
+    "_id": "mock-acc-003",
+    "productName": "Dell UltraSharp 27\" Monitor",
+    "category": "Accessories",
+    "brand": "Dell",
+    "price": 35000,
+    "rating": 4.5,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1527443195645-1133f7f28990?auto=format&fit=crop&q=80&w=400",
+    "description": "27\" 4K UHD IPS monitor with USB-C hub, 99% sRGB, and factory-calibrated colors."
+  },
+  {
+    "_id": "mock-acc-004",
+    "productName": "Anker USB-C Hub 7-in-1",
+    "category": "Accessories",
+    "brand": "Anker",
+    "price": 3499,
+    "rating": 4.4,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?auto=format&fit=crop&q=80&w=400",
+    "description": "7-in-1 USB-C adapter with HDMI 4K, 100W PD, USB 3.0 ports, and SD card reader."
+  },
+  {
+    "_id": "mock-acc-005",
+    "productName": "Laptop Stand Aluminum",
+    "category": "Accessories",
+    "brand": "AmazonBasics",
+    "price": 1899,
+    "rating": 4.3,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=400",
+    "description": "Ergonomic aluminum laptop riser, adjustable height, foldable design for portability."
+  },
+  {
+    "_id": "mock-acc-006",
+    "productName": "Corsair Mouse Pad XXL",
+    "category": "Accessories",
+    "brand": "Corsair",
+    "price": 1599,
+    "rating": 4.3,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1616763355548-1b11f2b35e83?auto=format&fit=crop&q=80&w=400",
+    "description": "Extended gaming mouse pad with micro-weave fabric, anti-skid base, and spill-proof coating."
+  },
+  {
+    "_id": "mock-acc-007",
+    "productName": "Laptop Backpack Pro",
+    "category": "Accessories",
+    "brand": "Skybags",
+    "price": 2499,
+    "rating": 4.4,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400",
+    "description": "Water-resistant laptop backpack with padded compartment (fits up to 15.6\"), USB charging port, and anti-theft design."
+  },
+  {
+    "_id": "mock-acc-008",
+    "productName": "Webcam HD 1080p",
+    "category": "Accessories",
+    "brand": "Logitech",
+    "price": 4999,
+    "rating": 4.3,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?auto=format&fit=crop&q=80&w=400",
+    "description": "Full HD webcam with auto-light correction, built-in dual mics, and wide-angle lens for video calls."
+  },
+  {
+    "_id": "mock-audio-001",
+    "productName": "Sony WH-1000XM5",
+    "category": "Audio",
+    "brand": "Sony",
+    "price": 29990,
+    "rating": 4.8,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&q=80&w=400",
+    "description": "Industry-leading noise cancelling headphones with 30-hour battery, Hi-Res Audio, and multipoint."
+  },
+  {
+    "_id": "mock-audio-002",
+    "productName": "JBL Tune 760NC",
+    "category": "Audio",
+    "brand": "JBL",
+    "price": 4999,
+    "rating": 4.3,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400",
+    "description": "Wireless over-ear headphones with Active Noise Cancelling, JBL Pure Bass, and 50-hour battery."
+  },
+  {
+    "_id": "mock-audio-003",
+    "productName": "boAt Airdopes 141",
+    "category": "Audio",
+    "brand": "boAt",
+    "price": 1299,
+    "rating": 4.1,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1590658268037-6bf12f032f55?auto=format&fit=crop&q=80&w=400",
+    "description": "True wireless earbuds with ENx noise cancellation, BEAST mode, and 42-hour total playtime."
+  },
+  {
+    "_id": "mock-audio-004",
+    "productName": "Marshall Stanmore II",
+    "category": "Audio",
+    "brand": "Marshall",
+    "price": 34999,
+    "rating": 4.7,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&q=80&w=400",
+    "description": "Iconic Bluetooth speaker with powerful multi-directional sound, analog controls, and classic rock design."
+  },
+  {
+    "_id": "mock-audio-005",
+    "productName": "Headphone Stand Wood",
+    "category": "Audio",
+    "brand": "Knox",
+    "price": 1499,
+    "rating": 4.2,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&q=80&w=400",
+    "description": "Premium walnut wood headphone stand with cable hook. Keeps your desk organized and headphones safe."
+  },
+  {
+    "_id": "mock-audio-006",
+    "productName": "Audio Cable 3.5mm Gold",
+    "category": "Audio",
+    "brand": "Anker",
+    "price": 499,
+    "rating": 4,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&q=80&w=400",
+    "description": "Gold-plated 3.5mm aux cable, braided nylon, 1.2m length. Crystal-clear audio for headphones and speakers."
+  },
+  {
+    "_id": "mock-cloth-001",
+    "productName": "Tech-Wear Hoodie",
+    "category": "Clothing",
+    "brand": "NexCart Originals",
+    "price": 2499,
+    "rating": 4.4,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=400",
+    "description": "Premium cotton-blend hoodie with hidden cable routing pocket and minimalist tech logo."
+  },
+  {
+    "_id": "mock-cloth-002",
+    "productName": "Developer T-Shirt",
+    "category": "Clothing",
+    "brand": "NexCart Originals",
+    "price": 999,
+    "rating": 4.2,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=400",
+    "description": "100% combed cotton tee with 'Hello World' design. Available in Black, White, and Navy."
+  },
+  {
+    "_id": "mock-cloth-003",
+    "productName": "Tech Joggers",
+    "category": "Clothing",
+    "brand": "NexCart Originals",
+    "price": 1799,
+    "rating": 4.3,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&q=80&w=400",
+    "description": "Comfortable slim-fit joggers with zip pockets. Perfect for coding sessions and casual outings."
+  },
+  {
+    "_id": "mock-cloth-004",
+    "productName": "Sneakers White",
+    "category": "Clothing",
+    "brand": "NexCart Originals",
+    "price": 3499,
+    "rating": 4.5,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=400",
+    "description": "Premium white leather sneakers with cushioned sole. Minimal and clean design for everyday wear."
+  },
+  {
+    "_id": "mock-cloth-005",
+    "productName": "Cotton Crew Socks (3-Pack)",
+    "category": "Clothing",
+    "brand": "NexCart Originals",
+    "price": 499,
+    "rating": 4.1,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?auto=format&fit=crop&q=80&w=400",
+    "description": "Breathable cotton crew socks in assorted colors. Reinforced heel and toe for durability."
+  },
+  {
+    "_id": "mock-cloth-006",
+    "productName": "Tech Cap",
+    "category": "Clothing",
+    "brand": "NexCart Originals",
+    "price": 699,
+    "rating": 4,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1588850561407-ed78c334e67a?auto=format&fit=crop&q=80&w=400",
+    "description": "Adjustable baseball cap with embroidered NexCart logo. One size fits all."
+  },
+  {
+    "_id": "mock-home-001",
+    "productName": "Smart LED Desk Lamp",
+    "category": "Home & Living",
+    "brand": "Mi",
+    "price": 2999,
+    "rating": 4.5,
+    "popularity": "High",
+    "image": "https://images.unsplash.com/photo-1507473885765-e6ed057ab6fe?auto=format&fit=crop&q=80&w=400",
+    "description": "WiFi-connected desk lamp with adjustable color temperature, brightness control, and app support."
+  },
+  {
+    "_id": "mock-home-002",
+    "productName": "Ergonomic Office Chair",
+    "category": "Home & Living",
+    "brand": "GreenSoul",
+    "price": 18999,
+    "rating": 4.4,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=400",
+    "description": "High-back mesh chair with lumbar support, adjustable armrests, and breathable mesh back."
+  },
+  {
+    "_id": "mock-home-003",
+    "productName": "Cable Management Kit",
+    "category": "Home & Living",
+    "brand": "AmazonBasics",
+    "price": 799,
+    "rating": 4.1,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&q=80&w=400",
+    "description": "Complete cable organizer kit with clips, sleeves, and velcro ties. Declutter your workspace instantly."
+  },
+  {
+    "_id": "mock-home-004",
+    "productName": "Desk Organizer Bamboo",
+    "category": "Home & Living",
+    "brand": "Mi",
+    "price": 1299,
+    "rating": 4.3,
+    "popularity": "Medium",
+    "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=400",
+    "description": "Natural bamboo desktop organizer with compartments for pens, phones, and gadgets."
   }
 ];
 
