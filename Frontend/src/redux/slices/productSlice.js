@@ -31,7 +31,7 @@ const mockProducts = [
     "brand": "Logitech",
     "stock": 50,
     "rating": 4.5,
-    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&q=80",
     "tags": [
       "mouse",
       "accessory",
@@ -69,7 +69,7 @@ const mockProducts = [
     "brand": "Lenovo",
     "stock": 30,
     "rating": 4.4,
-    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1491933382434-500287f9b54b?w=600&q=80",
     "tags": [
       "bag",
       "accessory",
@@ -463,7 +463,7 @@ const mockProducts = [
     "price": 75000,
     "rating": 4.6,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=600&q=80",
     "description": "15.6\" FHD 144Hz, AMD Ryzen 7, 16GB RAM, 512GB SSD, NVIDIA GTX 1650. Built for gamers."
   },
   {
@@ -474,7 +474,7 @@ const mockProducts = [
     "price": 114900,
     "rating": 4.8,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80",
     "description": "13.6\" Liquid Retina, Apple M2 chip, 8GB RAM, 256GB SSD. Supercharged by Apple Silicon."
   },
   {
@@ -540,7 +540,7 @@ const mockProducts = [
     "price": 1899,
     "rating": 4.3,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?w=600&q=80",
     "description": "Ergonomic aluminum laptop riser, adjustable height, foldable design for portability."
   },
   {
@@ -562,7 +562,7 @@ const mockProducts = [
     "price": 2499,
     "rating": 4.4,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80",
     "description": "Water-resistant laptop backpack with padded compartment (fits up to 15.6\"), USB charging port, and anti-theft design."
   },
   {
@@ -577,17 +577,6 @@ const mockProducts = [
     "description": "Full HD webcam with auto-light correction, built-in dual mics, and wide-angle lens for video calls."
   },
   {
-    "_id": "mock-audio-001",
-    "productName": "Sony WH-1000XM5",
-    "category": "Audio",
-    "brand": "Sony",
-    "price": 29990,
-    "rating": 4.8,
-    "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&q=80&w=400",
-    "description": "Industry-leading noise cancelling headphones with 30-hour battery, Hi-Res Audio, and multipoint."
-  },
-  {
     "_id": "mock-audio-002",
     "productName": "JBL Tune 760NC",
     "category": "Audio",
@@ -595,7 +584,7 @@ const mockProducts = [
     "price": 4999,
     "rating": 4.3,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&q=80",
     "description": "Wireless over-ear headphones with Active Noise Cancelling, JBL Pure Bass, and 50-hour battery."
   },
   {
@@ -617,7 +606,7 @@ const mockProducts = [
     "price": 34999,
     "rating": 4.7,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1534394017772-5369fc877477?w=600&q=80",
     "description": "Iconic Bluetooth speaker with powerful multi-directional sound, analog controls, and classic rock design."
   },
   {
@@ -661,7 +650,7 @@ const mockProducts = [
     "price": 999,
     "rating": 4.2,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&q=80",
     "description": "100% combed cotton tee with 'Hello World' design. Available in Black, White, and Navy."
   },
   {
