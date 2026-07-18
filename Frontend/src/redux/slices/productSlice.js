@@ -69,7 +69,7 @@ const mockProducts = [
     "brand": "Lenovo",
     "stock": 30,
     "rating": 4.4,
-    "image": "https://images.unsplash.com/photo-1547949003-9792a18a2601?w=600&q=80",
+    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
     "tags": [
       "bag",
       "accessory",
@@ -126,7 +126,7 @@ const mockProducts = [
     "brand": "Logitech",
     "stock": 15,
     "rating": 4.3,
-    "image": "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=600&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Logicool_StreamCam_%28cropped%29.jpg/960px-Logicool_StreamCam_%28cropped%29.jpg",
     "tags": [
       "camera",
       "video",
@@ -145,7 +145,7 @@ const mockProducts = [
     "brand": "Anker",
     "stock": 100,
     "rating": 4.2,
-    "image": "https://images.unsplash.com/photo-1515940175183-6798529cb860?w=600&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/46/USB_hub.jpg",
     "tags": [
       "usb",
       "hub",
@@ -164,7 +164,7 @@ const mockProducts = [
     "brand": "Samsung",
     "stock": 40,
     "rating": 4.8,
-    "image": "https://images.unsplash.com/photo-1531492746076-161ca9bcad58?w=600&q=80",
+    "image": "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
     "tags": [
       "storage",
       "ssd",
@@ -297,7 +297,7 @@ const mockProducts = [
     "brand": "Anker",
     "stock": 25,
     "rating": 4.7,
-    "image": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80",
+    "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-magsafe-battery-pack/thumbnail.webp",
     "tags": [
       "powerbank",
       "charger",
@@ -496,7 +496,7 @@ const mockProducts = [
     "price": 9999,
     "rating": 4.7,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&q=80&w=400",
+    "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/monopod/thumbnail.webp",
     "description": "Wireless performance mouse with 8K DPI tracking, quiet clicks, and MagSpeed scroll."
   },
   {
@@ -529,7 +529,7 @@ const mockProducts = [
     "price": 3499,
     "rating": 4.4,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?w=600&q=80",
+    "image": "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
     "description": "7-in-1 USB-C adapter with HDMI 4K, 100W PD, USB 3.0 ports, and SD card reader."
   },
   {
@@ -540,7 +540,7 @@ const mockProducts = [
     "price": 1899,
     "rating": 4.3,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?w=600&q=80",
+    "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/tv-studio-camera-pedestal/thumbnail.webp",
     "description": "Ergonomic aluminum laptop riser, adjustable height, foldable design for portability."
   },
   {
@@ -551,7 +551,7 @@ const mockProducts = [
     "price": 1599,
     "rating": 4.3,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1616763355548-1b11f2b35e83?auto=format&fit=crop&q=80&w=400",
+    "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpower-wireless-charger/thumbnail.webp",
     "description": "Extended gaming mouse pad with micro-weave fabric, anti-skid base, and spill-proof coating."
   },
   {
@@ -573,7 +573,7 @@ const mockProducts = [
     "price": 4999,
     "rating": 4.3,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=600&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Logicool_StreamCam_%28cropped%29.jpg/960px-Logicool_StreamCam_%28cropped%29.jpg",
     "description": "Full HD webcam with auto-light correction, built-in dual mics, and wide-angle lens for video calls."
   },
   {
@@ -595,7 +595,7 @@ const mockProducts = [
     "price": 1299,
     "rating": 4.1,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=600&q=80",
+    "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods/thumbnail.webp",
     "description": "True wireless earbuds with ENx noise cancellation, BEAST mode, and 42-hour total playtime."
   },
   {
@@ -661,7 +661,7 @@ const mockProducts = [
     "price": 1799,
     "rating": 4.3,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&q=80&w=400",
+    "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     "description": "Comfortable slim-fit joggers with zip pockets. Perfect for coding sessions and casual outings."
   },
   {
@@ -694,7 +694,7 @@ const mockProducts = [
     "price": 699,
     "rating": 4,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1588850561407-ed78c334e67a?auto=format&fit=crop&q=80&w=400",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/58/Basecap_New_York_Yankees.jpg",
     "description": "Adjustable baseball cap with embroidered NexCart logo. One size fits all."
   },
   {
@@ -705,7 +705,7 @@ const mockProducts = [
     "price": 2999,
     "rating": 4.5,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1507473885765-e6ed057ab6fe?auto=format&fit=crop&q=80&w=400",
+    "image": "https://cdn.dummyjson.com/product-images/home-decoration/table-lamp/thumbnail.webp",
     "description": "WiFi-connected desk lamp with adjustable color temperature, brightness control, and app support."
   },
   {
@@ -727,7 +727,7 @@ const mockProducts = [
     "price": 799,
     "rating": 4.1,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&q=80&w=400",
+    "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-iphone-charger/thumbnail.webp",
     "description": "Complete cable organizer kit with clips, sleeves, and velcro ties. Declutter your workspace instantly."
   },
   {
@@ -738,7 +738,7 @@ const mockProducts = [
     "price": 1299,
     "rating": 4.3,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=400",
+    "image": "https://cdn.dummyjson.com/product-images/kitchen-accessories/mug-tree-stand/thumbnail.webp",
     "description": "Natural bamboo desktop organizer with compartments for pens, phones, and gadgets."
   }
 ];
