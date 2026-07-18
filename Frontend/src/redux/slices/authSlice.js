@@ -4,42 +4,28 @@ import api from "../../services/api";
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
+    // Fast-path for Demo credentials to prevent 10s backend timeout
+    if (credentials.email === "admin@nexcart.com" && credentials.password === "admin123") {
+      return {
+        token: "mock-admin-jwt-token",
+        user: { id: "mock-admin-id", fullName: "Admin NexCart", email: "admin@nexcart.com", role: "admin", phone: "+91 9999999999" },
+      };
+    }
+    if (credentials.email === "customer@nexcart.com" && credentials.password === "customer123") {
+      return {
+        token: "mock-customer-jwt-token",
+        user: { id: "mock-customer-id", fullName: "Sophia Sterling", email: "customer@nexcart.com", role: "customer", phone: "+91 8888888888" },
+      };
+    }
+
     try {
-      // Try to connect to backend api if it exists
-      const response = await api.post("/auth/login", credentials);
+      const response = await Promise.race([
+        api.post("/auth/login", credentials),
+        new Promise((_, reject) => setTimeout(() => reject(new Error("Demo timeout")), 1500))
+      ]);
       return response.data;
     } catch (error) {
-      // Mock login fallback for demonstration
-      if (
-        credentials.email === "admin@nexcart.com" &&
-        credentials.password === "admin123"
-      ) {
-        return {
-          token: "mock-admin-jwt-token",
-          user: {
-            id: "mock-admin-id",
-            fullName: "Admin NexCart",
-            email: "admin@nexcart.com",
-            role: "admin",
-            phone: "+91 9999999999",
-          },
-        };
-      } else if (
-        credentials.email === "customer@nexcart.com" &&
-        credentials.password === "customer123"
-      ) {
-        return {
-          token: "mock-customer-jwt-token",
-          user: {
-            id: "mock-customer-id",
-            fullName: "Sophia Sterling",
-            email: "customer@nexcart.com",
-            role: "customer",
-            phone: "+91 8888888888",
-          },
-        };
-      }
-      return rejectWithValue(error.message || "Invalid credentials. Use admin@nexcart.com / admin123 or customer@nexcart.com / customer123");
+      return rejectWithValue("Invalid credentials. Use admin@nexcart.com / admin123");
     }
   }
 );
@@ -48,10 +34,13 @@ export const signupUser = createAsyncThunk(
   "auth/signup",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await api.post("/auth/register", userData);
+      const response = await Promise.race([
+        api.post("/auth/register", userData),
+        new Promise((_, reject) => setTimeout(() => reject(new Error("Demo timeout")), 1500))
+      ]);
       return response.data;
     } catch (error) {
-      // Mock signup fallback
+      // Mock signup fallback instantly after short timeout
       return {
         token: "mock-signup-jwt-token",
         user: {
