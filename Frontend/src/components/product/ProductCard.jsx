@@ -108,12 +108,12 @@ function ProductCard({ product, index = 0 }) {
             image={
               product.image
                 ? product.image
-                : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80"
+                : "https://placehold.co/600x600/f3f4f6/9ca3af?text=No+Image"
             }
             alt={product.productName || product.name}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80";
+              e.target.src = "https://placehold.co/600x600/f3f4f6/9ca3af?text=No+Image";
             }}
             sx={{
               objectFit: "contain",
