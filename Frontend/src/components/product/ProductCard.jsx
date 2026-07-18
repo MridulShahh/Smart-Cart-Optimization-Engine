@@ -106,7 +106,7 @@ function ProductCard({ product, index = 0 }) {
             component="img"
             height="220"
             image={
-              product.image && product.image.startsWith("http")
+              product.image
                 ? product.image
                 : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80"
             }

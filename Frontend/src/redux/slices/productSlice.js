@@ -164,7 +164,7 @@ const mockProducts = [
     "brand": "Samsung",
     "stock": 40,
     "rating": 4.8,
-    "image": "https://i.ibb.co/FLTsrZsZ/shopping-1.webp",
+    "image": "/ssd.webp",
     "tags": [
       "storage",
       "ssd",
