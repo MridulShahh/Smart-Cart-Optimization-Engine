@@ -17,12 +17,12 @@ function Inventory() {
   }, [dispatch]);
 
   const columns = [
-    { field: "id", headerName: "SKU / ID", width: 220, valueGetter: (params) => params.row._id },
+    { field: "id", headerName: "SKU / ID", width: 220, valueGetter: (value, row) => row._id },
     { 
       field: "productName", 
       headerName: "Product Name", 
       flex: 1, 
-      valueGetter: (params) => params.row.productName || params.row.name,
+      valueGetter: (value, row) => row.productName || row.name,
       renderCell: (params) => (
         <Typography variant="body2" fontWeight="600">{params.value}</Typography>
       )

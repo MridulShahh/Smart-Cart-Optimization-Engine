@@ -132,7 +132,7 @@ function Products() {
       headerName: "Product Name", 
       flex: 1, 
       minWidth: 200,
-      valueGetter: (params) => params.row.productName || params.row.name,
+      valueGetter: (value, row) => row.productName || row.name,
       renderCell: (params) => (
         <Typography variant="body2" fontWeight="600">{params.value}</Typography>
       )

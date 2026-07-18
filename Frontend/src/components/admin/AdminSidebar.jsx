@@ -118,6 +118,8 @@ function AdminSidebar() {
         <List sx={{ mt: 1 }}>
           <ListItem disablePadding>
             <ListItemButton
+              component={Link}
+              to="/profile"
               sx={{
                 borderRadius: "10px",
                 color: isDark ? "#9CA3AF" : "#4B5563",

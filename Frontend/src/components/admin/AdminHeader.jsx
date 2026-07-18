@@ -1,19 +1,41 @@
-import { AppBar, Toolbar, Box, IconButton, InputBase, Badge, Avatar, useTheme } from "@mui/material";
+import { useState } from "react";
+import { AppBar, Toolbar, Box, IconButton, InputBase, Badge, Avatar, useTheme, Menu, MenuItem, Typography, Divider } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode } from "../../redux/slices/settingsSlice";
+import { logout } from "../../redux/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 260;
 
 function AdminHeader() {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isDark = theme.palette.mode === "dark";
   const { darkMode } = useSelector((state) => state.settings);
+  const { user } = useSelector((state) => state.auth);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleMenuClose = () => setAnchorEl(null);
+
+  const handleLogout = () => {
+    handleMenuClose();
+    dispatch(logout());
+    navigate("/login");
+  };
+
+  const handleSettings = () => {
+    handleMenuClose();
+    navigate("/profile");
+  };
 
   return (
     <AppBar
@@ -60,8 +82,50 @@ function AdminHeader() {
           </IconButton>
 
           <Box sx={{ ml: 2, display: "flex", alignItems: "center", gap: 1.5, pl: 2, borderLeft: `1px solid ${isDark ? "#374151" : "#E5E7EB"}` }}>
-            <Avatar sx={{ width: 32, height: 32, bgcolor: "#E23744", fontSize: "0.9rem", fontWeight: "bold" }}>A</Avatar>
+            <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
+              <Avatar sx={{ width: 32, height: 32, bgcolor: "#E23744", fontSize: "0.9rem", fontWeight: "bold" }}>
+                {user?.fullName?.charAt(0) || "A"}
+              </Avatar>
+            </IconButton>
           </Box>
+
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: 'visible',
+                filter: 'drop-shadow(0px 4px 12px rgba(0,0,0,0.1))',
+                mt: 1.5,
+                minWidth: 200,
+                bgcolor: isDark ? "#1F2937" : "#FFFFFF",
+                borderRadius: "12px",
+                border: `1px solid ${isDark ? "#374151" : "#E5E7EB"}`,
+              },
+            }}
+          >
+            <Box sx={{ px: 2, py: 1.5 }}>
+              <Typography variant="body2" fontWeight="700">
+                {user?.fullName || "Admin User"}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {user?.email || "admin@nexcart.com"}
+              </Typography>
+            </Box>
+            <Divider sx={{ borderColor: isDark ? "#374151" : "#E5E7EB", my: 0.5 }} />
+            <MenuItem onClick={handleSettings} sx={{ py: 1.5 }}>
+              <SettingsIcon sx={{ mr: 1.5, fontSize: "1.2rem", color: isDark ? "#9CA3AF" : "#4B5563" }} />
+              <Typography variant="body2" fontWeight="500">Settings</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleLogout} sx={{ py: 1.5, color: "#EF4444" }}>
+              <LogoutIcon sx={{ mr: 1.5, fontSize: "1.2rem", color: "inherit" }} />
+              <Typography variant="body2" fontWeight="600">Sign Out</Typography>
+            </MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>
