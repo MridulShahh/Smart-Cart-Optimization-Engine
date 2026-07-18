@@ -765,6 +765,12 @@ export const fetchProducts = createAsyncThunk(
     } catch (error) {
       // Fallback to mock catalog when backend is unreachable
       console.info("Backend unavailable — loading mock product catalog");
+      const localData = localStorage.getItem("demoProducts");
+      if (localData) {
+        try {
+          return JSON.parse(localData);
+        } catch(e) {}
+      }
       return mockProducts;
     }
   }
@@ -821,15 +827,18 @@ const productSlice = createSlice({
     },
     addProductLocal: (state, action) => {
       state.items.unshift(action.payload);
+      localStorage.setItem("demoProducts", JSON.stringify(state.items));
     },
     updateProductLocal: (state, action) => {
       const index = state.items.findIndex(p => p._id === action.payload._id);
       if (index !== -1) {
         state.items[index] = action.payload;
+        localStorage.setItem("demoProducts", JSON.stringify(state.items));
       }
     },
     deleteProductLocal: (state, action) => {
       state.items = state.items.filter(p => p._id !== action.payload);
+      localStorage.setItem("demoProducts", JSON.stringify(state.items));
     },
   },
   extraReducers: (builder) => {
