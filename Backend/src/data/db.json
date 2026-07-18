@@ -513,6 +513,15 @@
       "phone": "+91 9999999999",
       "_modelName": "User",
       "_id": "f343e879ea269b507713504d"
+    },
+    {
+      "fullName": "Admin User",
+      "email": "admin@nexcart.com",
+      "password": "$2b$10$ETU92WTuPm4Z7khooGcBveeGTC4hXYC9C/2stOSHFEos7wYPdsmHq",
+      "phone": "0000000000",
+      "role": "admin",
+      "_modelName": "User",
+      "_id": "admin-id-123"
     }
   ],
   "Cart": [

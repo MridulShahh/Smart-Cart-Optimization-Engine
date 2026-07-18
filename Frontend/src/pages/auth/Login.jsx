@@ -303,6 +303,9 @@ function Login() {
                   <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: "block", fontSize: "0.7rem" }}>
                     Demo Customer: customer@nexcart.com / customer123
                   </Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: "block", fontSize: "0.7rem" }}>
+                    Demo Admin: admin@nexcart.com / admin123
+                  </Typography>
                 </Box>
               </Stack>
             </Box>
