@@ -819,6 +819,18 @@ const productSlice = createSlice({
     clearSelectedProduct: (state) => {
       state.selectedProduct = null;
     },
+    addProductLocal: (state, action) => {
+      state.items.unshift(action.payload);
+    },
+    updateProductLocal: (state, action) => {
+      const index = state.items.findIndex(p => p._id === action.payload._id);
+      if (index !== -1) {
+        state.items[index] = action.payload;
+      }
+    },
+    deleteProductLocal: (state, action) => {
+      state.items = state.items.filter(p => p._id !== action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -849,5 +861,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { setFilters, clearFilters, clearSelectedProduct } = productSlice.actions;
+export const { setFilters, clearFilters, clearSelectedProduct, addProductLocal, updateProductLocal, deleteProductLocal } = productSlice.actions;
 export default productSlice.reducer;
