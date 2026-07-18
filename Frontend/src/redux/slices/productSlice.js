@@ -164,7 +164,7 @@ const mockProducts = [
     "brand": "Samsung",
     "stock": 40,
     "rating": 4.8,
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Samsung_SSD_850_PRO_512GB.jpg/800px-Samsung_SSD_850_PRO_512GB.jpg",
+    "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600&q=80",
     "tags": [
       "storage",
       "ssd",
@@ -765,22 +765,8 @@ export const fetchProducts = createAsyncThunk(
     } catch (error) {
       // Fallback to mock catalog when backend is unreachable
       console.info("Backend unavailable — loading mock product catalog");
-      const localData = localStorage.getItem("demoProducts");
-      if (localData) {
-        try {
-          const parsedData = JSON.parse(localData);
-          
-          // Auto-Migration: If the user has the old broken SSD image cached in LocalStorage, fix it automatically
-          const ssdImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Samsung_SSD_850_PRO_512GB.jpg/800px-Samsung_SSD_850_PRO_512GB.jpg";
-          const ssdIndex = parsedData.findIndex(p => p.productName === "SSD 512GB");
-          if (ssdIndex !== -1 && parsedData[ssdIndex].image !== ssdImageUrl) {
-             parsedData[ssdIndex].image = ssdImageUrl;
-             localStorage.setItem("demoProducts", JSON.stringify(parsedData));
-          }
-          
-          return parsedData;
-        } catch(e) {}
-      }
+      // Force-clear stale cached products so fresh mock data (with correct images) always loads
+      localStorage.removeItem("demoProducts");
       return mockProducts;
     }
   }
