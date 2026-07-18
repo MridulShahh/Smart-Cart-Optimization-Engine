@@ -4,35 +4,34 @@ import {
   Typography,
   Box,
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+  Drawer,
   TextField,
   Stack,
+  useTheme,
+  Chip,
+  Avatar,
+  Divider,
 } from "@mui/material";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/slices/productSlice";
 import AdminLayout from "../../layouts/AdminLayout";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import api from "../../services/api";
 import toast from "react-hot-toast";
 
 function Products() {
   const dispatch = useDispatch();
-  const { items: products } = useSelector((state) => state.products);
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
+  const { items: products, status } = useSelector((state) => state.products);
 
-  const [open, setOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [form, setForm] = useState({
     productName: "",
@@ -75,11 +74,11 @@ function Products() {
         description: "",
       });
     }
-    setOpen(true);
+    setDrawerOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setDrawerOpen(false);
     setEditingProduct(null);
   };
 
@@ -91,11 +90,9 @@ function Products() {
     e.preventDefault();
     try {
       if (editingProduct) {
-        // Edit API call
         await api.put(`/products/${editingProduct._id}`, form);
         toast.success("Product updated successfully!");
       } else {
-        // Create API call
         await api.post("/products", form);
         toast.success("Product created successfully!");
       }
@@ -118,144 +115,160 @@ function Products() {
     }
   };
 
+  // DataGrid Columns Definition
+  const columns = [
+    {
+      field: "image",
+      headerName: "Image",
+      width: 70,
+      renderCell: (params) => (
+        <Avatar src={params.value} variant="rounded" sx={{ width: 40, height: 40, bgcolor: isDark ? "#374151" : "#F3F4F6", img: { objectFit: "contain", p: 0.5 } }} />
+      ),
+      sortable: false,
+      filterable: false,
+    },
+    { 
+      field: "productName", 
+      headerName: "Product Name", 
+      flex: 1, 
+      minWidth: 200,
+      valueGetter: (params) => params.row.productName || params.row.name,
+      renderCell: (params) => (
+        <Typography variant="body2" fontWeight="600">{params.value}</Typography>
+      )
+    },
+    { field: "category", headerName: "Category", width: 130 },
+    { field: "brand", headerName: "Brand", width: 120 },
+    { 
+      field: "price", 
+      headerName: "Price", 
+      width: 100,
+      renderCell: (params) => (
+        <Typography variant="body2" fontWeight="600">₹{(params.value || 0).toLocaleString("en-IN")}</Typography>
+      )
+    },
+    {
+      field: "stock",
+      headerName: "Status",
+      width: 120,
+      renderCell: (params) => {
+        const stock = params.value;
+        let color = "success";
+        let label = "In Stock";
+        if (stock === 0) { color = "error"; label = "Out of Stock"; }
+        else if (stock < 10) { color = "warning"; label = "Low Stock"; }
+        
+        return <Chip label={label} size="small" color={color} sx={{ fontWeight: 600, height: 24, fontSize: "0.75rem" }} />;
+      }
+    },
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Actions",
+      width: 100,
+      getActions: (params) => [
+        <GridActionsCellItem icon={<EditIcon sx={{ color: "#3B82F6" }}/>} label="Edit" onClick={() => handleOpen(params.row)} />,
+        <GridActionsCellItem icon={<DeleteIcon sx={{ color: "#EF4444" }}/>} label="Delete" onClick={() => handleDelete(params.row._id)} />,
+      ],
+    },
+  ];
+
   return (
     <AdminLayout>
-      <Container sx={{ mt: 5, mb: 10 }}>
+      <Container maxWidth="xl" sx={{ mt: 2, mb: 10 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
-          <Typography variant="h3" fontWeight="900" sx={{ fontFamily: "'Poppins', sans-serif" }}>
-            Product Management
-          </Typography>
+          <Box>
+            <Typography variant="h4" fontWeight="800" sx={{ fontFamily: "'Poppins', sans-serif" }}>
+              Products
+            </Typography>
+            <Typography variant="body2" color="text.secondary" mt={0.5}>
+              Manage your entire product catalog, pricing, and stock.
+            </Typography>
+          </Box>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() => handleOpen()}
-            sx={{ bgcolor: "#E23744", "&:hover": { bgcolor: "#b82531" } }}
+            sx={{ bgcolor: "#E23744", fontWeight: 600, borderRadius: "8px", "&:hover": { bgcolor: "#b82531" } }}
           >
             Add Product
           </Button>
         </Stack>
 
-        <TableContainer component={Paper} sx={{ borderRadius: "16px", border: "1px solid #E5E7EB" }} elevation={0}>
-          <Table>
-            <TableHead sx={{ bgcolor: "#F9FAFB" }}>
-              <TableRow>
-                <TableCell><strong>Image</strong></TableCell>
-                <TableCell><strong>Name</strong></TableCell>
-                <TableCell><strong>Brand</strong></TableCell>
-                <TableCell><strong>Category</strong></TableCell>
-                <TableCell><strong>Price</strong></TableCell>
-                <TableCell><strong>Stock</strong></TableCell>
-                <TableCell align="right"><strong>Actions</strong></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {products.map((p) => (
-                <TableRow key={p._id}>
-                  <TableCell>
-                    <Box
-                      component="img"
-                      src={p.image}
-                      sx={{ width: 40, height: 40, objectFit: "contain", bgcolor: "#FAFAFA", borderRadius: "6px" }}
-                    />
-                  </TableCell>
-                  <TableCell fontWeight="600">{p.productName || p.name}</TableCell>
-                  <TableCell>{p.brand}</TableCell>
-                  <TableCell>{p.category}</TableCell>
-                  <TableCell>₹{(p.price || 0).toLocaleString("en-IN")}</TableCell>
-                  <TableCell>{p.stock}</TableCell>
-                  <TableCell align="right">
-                    <IconButton onClick={() => handleOpen(p)} sx={{ color: "#3B82F6" }}>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton onClick={() => handleDelete(p._id)} sx={{ color: "#EF4444" }}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Box sx={{ height: "70vh", width: "100%", bgcolor: isDark ? "#1F2937" : "#FFFFFF", borderRadius: "16px", p: 1, border: `1px solid ${isDark ? "#374151" : "#E5E7EB"}` }}>
+          <DataGrid
+            rows={products}
+            columns={columns}
+            getRowId={(row) => row._id}
+            loading={status === "loading"}
+            slots={{ toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
+                quickFilterProps: { debounceMs: 500 },
+              },
+            }}
+            initialState={{
+              pagination: { paginationModel: { pageSize: 15 } },
+            }}
+            pageSizeOptions={[15, 25, 50]}
+            checkboxSelection
+            disableRowSelectionOnClick
+            sx={{
+              border: "none",
+              "& .MuiDataGrid-cell": { borderBottom: `1px solid ${isDark ? "#374151" : "#F3F4F6"}` },
+              "& .MuiDataGrid-columnHeaders": { bgcolor: isDark ? "#111827" : "#F9FAFB", borderBottom: "none" },
+              "& .MuiDataGrid-toolbarContainer": { p: 2, pb: 1 },
+            }}
+          />
+        </Box>
 
-        {/* Add/Edit Dialog Form */}
-        <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-          <Box component="form" onSubmit={handleSubmit}>
-            <DialogTitle fontWeight="bold">
+        {/* Drawer for Add/Edit Form */}
+        <Drawer anchor="right" open={drawerOpen} onClose={handleClose} PaperProps={{ sx: { width: { xs: "100%", sm: 500 }, bgcolor: isDark ? "#111827" : "#FFFFFF" } }}>
+          <Box sx={{ p: 3, display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid ${isDark ? "#374151" : "#E5E7EB"}` }}>
+            <Typography variant="h6" fontWeight="800">
               {editingProduct ? "Edit Product" : "Add New Product"}
-            </DialogTitle>
-            <DialogContent>
-              <Stack spacing={3} mt={1}>
-                <TextField
-                  name="productName"
-                  label="Product Name"
-                  value={form.productName}
-                  onChange={handleInputChange}
-                  fullWidth
-                  required
-                />
-                <TextField
-                  name="brand"
-                  label="Brand"
-                  value={form.brand}
-                  onChange={handleInputChange}
-                  fullWidth
-                  required
-                />
-                <TextField
-                  name="category"
-                  label="Category (e.g. Laptops, Accessories, Audio)"
-                  value={form.category}
-                  onChange={handleInputChange}
-                  fullWidth
-                  required
-                />
-                <Stack direction="row" spacing={2}>
-                  <TextField
-                    name="price"
-                    label="Price (INR)"
-                    type="number"
-                    value={form.price}
-                    onChange={handleInputChange}
-                    fullWidth
-                    required
-                  />
-                  <TextField
-                    name="stock"
-                    label="Stock Count"
-                    type="number"
-                    value={form.stock}
-                    onChange={handleInputChange}
-                    fullWidth
-                    required
-                  />
-                </Stack>
-                <TextField
-                  name="image"
-                  label="Image URL"
-                  value={form.image}
-                  onChange={handleInputChange}
-                  fullWidth
-                  required
-                />
-                <TextField
-                  name="description"
-                  label="Description"
-                  value={form.description}
-                  onChange={handleInputChange}
-                  multiline
-                  rows={3}
-                  fullWidth
-                />
-              </Stack>
-            </DialogContent>
-            <DialogActions sx={{ p: 3 }}>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit" variant="contained" sx={{ bgcolor: "#E23744" }}>
-                Save Product
-              </Button>
-            </DialogActions>
+            </Typography>
+            <IconButton onClick={handleClose}><CloseIcon /></IconButton>
           </Box>
-        </Dialog>
+          
+          <Box component="form" onSubmit={handleSubmit} sx={{ p: 3, overflowY: "auto", height: "calc(100% - 140px)" }}>
+            <Stack spacing={3}>
+              <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+                <Box sx={{ width: 120, height: 120, borderRadius: "16px", border: `2px dashed ${isDark ? "#374151" : "#D1D5DB"}`, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", bgcolor: isDark ? "#1F2937" : "#F9FAFB" }}>
+                  {form.image ? (
+                    <img src={form.image} alt="Preview" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                  ) : (
+                    <PhotoCameraIcon sx={{ fontSize: "2.5rem", color: isDark ? "#4B5563" : "#9CA3AF" }} />
+                  )}
+                </Box>
+              </Box>
+
+              <TextField name="productName" label="Product Name" value={form.productName} onChange={handleInputChange} fullWidth required />
+              
+              <Stack direction="row" spacing={2}>
+                <TextField name="brand" label="Brand" value={form.brand} onChange={handleInputChange} fullWidth required />
+                <TextField name="category" label="Category" value={form.category} onChange={handleInputChange} fullWidth required />
+              </Stack>
+              
+              <Stack direction="row" spacing={2}>
+                <TextField name="price" label="Price (INR)" type="number" value={form.price} onChange={handleInputChange} fullWidth required />
+                <TextField name="stock" label="Stock Count" type="number" value={form.stock} onChange={handleInputChange} fullWidth required />
+              </Stack>
+              
+              <TextField name="image" label="Image URL" value={form.image} onChange={handleInputChange} fullWidth required helperText="Provide a direct URL to the product image." />
+              
+              <TextField name="description" label="Description" value={form.description} onChange={handleInputChange} multiline rows={4} fullWidth />
+            </Stack>
+          </Box>
+
+          <Box sx={{ p: 3, borderTop: `1px solid ${isDark ? "#374151" : "#E5E7EB"}`, display: "flex", gap: 2 }}>
+            <Button onClick={handleClose} variant="outlined" fullWidth sx={{ borderRadius: "8px", fontWeight: 600 }}>Cancel</Button>
+            <Button type="submit" variant="contained" fullWidth onClick={handleSubmit} sx={{ bgcolor: "#E23744", borderRadius: "8px", fontWeight: 600 }}>
+              {editingProduct ? "Save Changes" : "Create Product"}
+            </Button>
+          </Box>
+        </Drawer>
       </Container>
     </AdminLayout>
   );

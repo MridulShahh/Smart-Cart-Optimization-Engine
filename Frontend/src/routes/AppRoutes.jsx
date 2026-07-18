@@ -17,6 +17,9 @@ import Dashboard from "../pages/admin/Dashboard";
 import Products from "../pages/admin/Products";
 import Relationships from "../pages/admin/Relationships";
 import Analytics from "../pages/admin/Analytics";
+import AdminOrders from "../pages/admin/Orders";
+import AdminCustomers from "../pages/admin/Customers";
+import AdminInventory from "../pages/admin/Inventory";
 
 import { useSelector } from "react-redux";
 
@@ -92,6 +95,30 @@ function AppRoutes() {
         element={
           <AdminRoute>
             <Products />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/orders"
+        element={
+          <AdminRoute>
+            <AdminOrders />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/customers"
+        element={
+          <AdminRoute>
+            <AdminCustomers />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/inventory"
+        element={
+          <AdminRoute>
+            <AdminInventory />
           </AdminRoute>
         }
       />
