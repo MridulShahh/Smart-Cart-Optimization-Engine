@@ -69,7 +69,7 @@ const mockProducts = [
     "brand": "Lenovo",
     "stock": 30,
     "rating": 4.4,
-    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80",
     "tags": [
       "bag",
       "accessory",
@@ -164,7 +164,7 @@ const mockProducts = [
     "brand": "Samsung",
     "stock": 40,
     "rating": 4.8,
-    "image": "/ssd.webp",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Samsung_SSD_850_PRO_512GB.jpg/800px-Samsung_SSD_850_PRO_512GB.jpg",
     "tags": [
       "storage",
       "ssd",
@@ -771,9 +771,10 @@ export const fetchProducts = createAsyncThunk(
           const parsedData = JSON.parse(localData);
           
           // Auto-Migration: If the user has the old broken SSD image cached in LocalStorage, fix it automatically
+          const ssdImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Samsung_SSD_850_PRO_512GB.jpg/800px-Samsung_SSD_850_PRO_512GB.jpg";
           const ssdIndex = parsedData.findIndex(p => p.productName === "SSD 512GB");
-          if (ssdIndex !== -1 && parsedData[ssdIndex].image !== "/ssd.webp") {
-             parsedData[ssdIndex].image = "/ssd.webp";
+          if (ssdIndex !== -1 && parsedData[ssdIndex].image !== ssdImageUrl) {
+             parsedData[ssdIndex].image = ssdImageUrl;
              localStorage.setItem("demoProducts", JSON.stringify(parsedData));
           }
           
