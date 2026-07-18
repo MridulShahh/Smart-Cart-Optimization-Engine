@@ -126,7 +126,7 @@ const mockProducts = [
     "brand": "Logitech",
     "stock": 15,
     "rating": 4.3,
-    "image": "/webcam.png",
+    "image": "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=600&q=80",
     "tags": [
       "camera",
       "video",
@@ -297,7 +297,7 @@ const mockProducts = [
     "brand": "Anker",
     "stock": 25,
     "rating": 4.7,
-    "image": "/powerbank.png",
+    "image": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80",
     "tags": [
       "powerbank",
       "charger",
@@ -595,7 +595,7 @@ const mockProducts = [
     "price": 1299,
     "rating": 4.1,
     "popularity": "High",
-    "image": "https://images.unsplash.com/photo-1590658268037-6bf12f032f55?auto=format&fit=crop&q=80&w=400",
+    "image": "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=600&q=80",
     "description": "True wireless earbuds with ENx noise cancellation, BEAST mode, and 42-hour total playtime."
   },
   {
@@ -606,7 +606,7 @@ const mockProducts = [
     "price": 34999,
     "rating": 4.7,
     "popularity": "Medium",
-    "image": "https://images.unsplash.com/photo-1534394017772-5369fc877477?w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80",
     "description": "Iconic Bluetooth speaker with powerful multi-directional sound, analog controls, and classic rock design."
   },
   {

@@ -105,8 +105,16 @@ function ProductCard({ product, index = 0 }) {
             className="product-image"
             component="img"
             height="220"
-            image={product.image || "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&q=80"}
+            image={
+              product.image && product.image.startsWith("http")
+                ? product.image
+                : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80"
+            }
             alt={product.productName || product.name}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80";
+            }}
             sx={{
               objectFit: "contain",
               p: 2,
