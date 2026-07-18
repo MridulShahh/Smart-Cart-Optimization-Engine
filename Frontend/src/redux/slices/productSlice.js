@@ -768,7 +768,16 @@ export const fetchProducts = createAsyncThunk(
       const localData = localStorage.getItem("demoProducts");
       if (localData) {
         try {
-          return JSON.parse(localData);
+          const parsedData = JSON.parse(localData);
+          
+          // Auto-Migration: If the user has the old broken SSD image cached in LocalStorage, fix it automatically
+          const ssdIndex = parsedData.findIndex(p => p.productName === "SSD 512GB");
+          if (ssdIndex !== -1 && parsedData[ssdIndex].image !== "/ssd.webp") {
+             parsedData[ssdIndex].image = "/ssd.webp";
+             localStorage.setItem("demoProducts", JSON.stringify(parsedData));
+          }
+          
+          return parsedData;
         } catch(e) {}
       }
       return mockProducts;
