@@ -91,12 +91,7 @@ function AdminSidebar() {
                     transition: "all 0.2s ease",
                   }}
                 >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 40,
-                      color: "inherit",
-                    }}
-                  >
+                  <ListItemIcon sx={{ minWidth: 40, color: "inherit" }}>
                     {item.icon}
                   </ListItemIcon>
                   <ListItemText
@@ -106,6 +101,40 @@ function AdminSidebar() {
                       fontSize: "0.95rem",
                     }}
                   />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+        </List>
+
+        <Typography variant="overline" color="text.secondary" sx={{ ml: 2, fontWeight: 700, mt: 3, display: "block" }}>
+          CMS
+        </Typography>
+        <List sx={{ mt: 1 }}>
+          {[
+            { text: "Categories", path: "/admin/categories" },
+            { text: "Brands", path: "/admin/brands" },
+            { text: "Coupons", path: "/admin/coupons" },
+            { text: "Banners", path: "/admin/banners" },
+            { text: "Users", path: "/admin/users" },
+          ].map((item) => {
+            const isActive = location.pathname.startsWith(item.path);
+            return (
+              <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
+                <ListItemButton
+                  component={Link}
+                  to={item.path}
+                  sx={{
+                    borderRadius: "10px",
+                    bgcolor: isActive ? (isDark ? "rgba(226, 55, 68, 0.15)" : "#FFF5F5") : "transparent",
+                    color: isActive ? "#E23744" : (isDark ? "#9CA3AF" : "#4B5563"),
+                    "&:hover": {
+                      bgcolor: isActive ? (isDark ? "rgba(226, 55, 68, 0.2)" : "#FEE2E2") : (isDark ? "#1F2937" : "#F3F4F6"),
+                      color: isActive ? "#E23744" : (isDark ? "#F9FAFB" : "#111827"),
+                    },
+                  }}
+                >
+                  <ListItemText primary={item.text} primaryTypographyProps={{ fontWeight: isActive ? 700 : 500, fontSize: "0.95rem" }} />
                 </ListItemButton>
               </ListItem>
             );

@@ -45,7 +45,7 @@ function Signup() {
 
     const result = await dispatch(signupUser(form));
     if (signupUser.fulfilled.match(result)) {
-      toast.success(`Account generated. Welcome to the grid, ${result.payload.user.fullName}.`, {
+      toast.success("Account created successfully!", {
         icon: '💻',
         style: {
           borderRadius: '12px',
@@ -63,39 +63,8 @@ function Signup() {
   };
 
   const handleGoogleSignup = async () => {
-    const result = await dispatch(signupUser({
-      fullName: "Sophia Sterling (Google)",
-      email: "customer@nexcart.com",
-      phone: "+91 9999999999",
-      password: "customer123"
-    }));
-    if (signupUser.fulfilled.match(result)) {
-      toast.success(`Google Auth Protocol verified. Welcome to the grid, Sophia Sterling.`, {
-        icon: '💻',
-        style: {
-          borderRadius: '12px',
-          background: '#0a0a0a',
-          color: '#00ff41',
-          border: '1px solid #00ff41',
-          boxShadow: '0 0 15px rgba(0, 255, 65, 0.3)',
-          fontFamily: 'monospace'
-        }
-      });
-      navigate("/");
-    } else {
-      toast.success(`Google Auth Protocol verified. Welcome to the grid, Sophia Sterling.`, {
-        icon: '💻',
-        style: {
-          borderRadius: '12px',
-          background: '#0a0a0a',
-          color: '#00ff41',
-          border: '1px solid #00ff41',
-          boxShadow: '0 0 15px rgba(0, 255, 65, 0.3)',
-          fontFamily: 'monospace'
-        }
-      });
-      navigate("/");
-    }
+    // In a real app, this would use Firebase Auth or standard OAuth flow
+    toast.error("Google Auth is not configured in this environment.");
   };
 
   return (
@@ -324,20 +293,7 @@ function Signup() {
                   </Button>
                 </Stack>
 
-                {/* Demo Note */}
-                <Box
-                  sx={{
-                    bgcolor: "#F9FAFB",
-                    border: "1px solid #E5E7EB",
-                    borderRadius: "12px",
-                    p: 2.5,
-                    mt: 2
-                  }}
-                >
-                  <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, lineHeight: 1.5, display: "block" }}>
-                    <strong>Demo Access Note:</strong> You can register a new account or sign in with any email and password. Session values will be stored immediately.
-                  </Typography>
-                </Box>
+
               </Stack>
             </Box>
           </Paper>
