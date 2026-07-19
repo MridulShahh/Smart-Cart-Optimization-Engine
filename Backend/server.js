@@ -42,6 +42,7 @@ app.use("/api/settings", require("./src/routes/settingRoutes"));
 app.use("/api/admin", require("./src/routes/adminRoutes"));
 app.use("/api/cart", require("./src/routes/cartRoutes")); 
 app.use("/api/recommendations", require("./src/routes/recommendationRoutes"));
+app.use("/api/analytics", require("./src/routes/analyticsRoutes"));
 
 app.get("/", (req, res) => {
   res.send("Smart Cart Backend Running 🚀");

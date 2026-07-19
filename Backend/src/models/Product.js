@@ -19,8 +19,11 @@ const ProductSchema = new mongoose.Schema({
     value: { type: String }
   }],
   tags: [{ type: String }],
+  relatedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
   isFeatured: { type: Boolean, default: false },
   isActive: { type: Boolean, default: true },
+  recommendationCount: { type: Number, default: 0 },
+  recommendationAcceptances: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
 
