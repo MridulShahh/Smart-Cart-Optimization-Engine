@@ -317,10 +317,10 @@ function ProductDetails() {
               <Typography variant="subtitle1" fontWeight="800" mb={2}>Specifications</Typography>
               <Grid container spacing={2}>
                 <Grid item xs={4}><Typography variant="body2" color="text.secondary">Brand</Typography></Grid>
-                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.brand}</Typography></Grid>
+                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{typeof product.brand === 'object' ? product.brand.name : product.brand}</Typography></Grid>
                 
                 <Grid item xs={4}><Typography variant="body2" color="text.secondary">Category</Typography></Grid>
-                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.category}</Typography></Grid>
+                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{typeof product.category === 'object' ? product.category.name : product.category}</Typography></Grid>
                 
                 <Grid item xs={4}><Typography variant="body2" color="text.secondary">Weight</Typography></Grid>
                 <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.specifications?.weight || '1.2 kg'}</Typography></Grid>
@@ -370,7 +370,7 @@ function ProductDetails() {
                       />
                     </Box>
                     <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: "uppercase" }}>
-                      {rec.product.brand}
+                      {typeof rec.product.brand === 'object' ? rec.product.brand.name : rec.product.brand}
                     </Typography>
                     <Typography variant="h6" fontWeight="700" sx={{ fontSize: "1rem", mb: 1 }}>
                       {rec.product.productName || rec.product.name}

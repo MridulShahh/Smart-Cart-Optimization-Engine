@@ -140,7 +140,7 @@ function ProductCard({ product, index = 0 }) {
               fontWeight="800"
               sx={{ textTransform: "uppercase", letterSpacing: "0.1em", color: "#6B7280" }}
             >
-              {product.brand}
+              {typeof product.brand === 'object' ? product.brand.name : product.brand}
             </Typography>
 
             <Typography

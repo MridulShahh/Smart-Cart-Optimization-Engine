@@ -221,7 +221,7 @@ function Cart() {
                                 {item.product.productName || item.product.name}
                               </Typography>
                               <Typography variant="caption" color="text.secondary">
-                                by {item.product.brand}
+                                by {typeof item.product.brand === 'object' ? item.product.brand.name : item.product.brand}
                               </Typography>
                             </Box>
                             <Typography variant="body1" fontWeight="800" color="#E23744">
