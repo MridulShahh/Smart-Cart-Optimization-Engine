@@ -48,12 +48,24 @@ const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setFilter: (state, action) => {
+    setFilters: (state, action) => {
       state.filters = { ...state.filters, ...action.payload };
     },
     clearFilters: (state) => {
       state.filters = initialState.filters;
     },
+    addProductLocal: (state, action) => {
+      state.items.unshift(action.payload);
+    },
+    updateProductLocal: (state, action) => {
+      const index = state.items.findIndex(p => p._id === action.payload._id);
+      if (index !== -1) {
+        state.items[index] = action.payload;
+      }
+    },
+    deleteProductLocal: (state, action) => {
+      state.items = state.items.filter(p => p._id !== action.payload);
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -82,7 +94,7 @@ const productSlice = createSlice({
   },
 });
 
-export const { setFilter, clearFilters } = productSlice.actions;
+export const { setFilters, clearFilters, addProductLocal, updateProductLocal, deleteProductLocal } = productSlice.actions;
 
 export const selectFilteredProducts = (state) => state.products.items;
 

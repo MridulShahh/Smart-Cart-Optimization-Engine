@@ -3,20 +3,26 @@ import {
   Typography,
   Grid,
   Box,
-  CircularProgress
+  CircularProgress,
+  useTheme
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setFilter } from "../../redux/slices/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilters } from "../../redux/slices/productSlice";
 import { useCategories } from "../../hooks/useApi";
 
 function Categories() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categories, loading } = useCategories();
+  const { language } = useSelector((state) => state.settings);
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
 
-  const handleCategoryClick = (name) => {
-    dispatch(setFilter({ category: name }));
+  const handleCategoryClick = (categoryName) => {
+    // We navigate to /shop to let the shop page handle fetching.
+    // We also set the filter so it pre-selects the category.
+    dispatch(setFilters({ category: categoryName }));
     navigate("/shop");
   };
 
