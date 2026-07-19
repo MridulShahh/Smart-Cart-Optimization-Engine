@@ -46,7 +46,7 @@ router.post("/cart", async (req, res) => {
 // POST /explain — AI explanation for a recommendation
 router.post("/explain", async (req, res) => {
   try {
-    const { cartProductId, recommendedProductId } = req.body;
+    const { cartProductId, recommendedProductId, factors } = req.body;
 
     if (!cartProductId || !recommendedProductId) {
       return res.status(400).json({ success: false, error: "Both product IDs are required" });
@@ -61,7 +61,8 @@ router.post("/explain", async (req, res) => {
 
     const explanation = await explainRecommendation(
       cartProduct.productName || cartProduct.name,
-      recommended.productName || recommended.name
+      recommended.productName || recommended.name,
+      factors
     );
 
     return res.json({

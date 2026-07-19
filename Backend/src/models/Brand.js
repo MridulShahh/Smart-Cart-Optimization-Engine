@@ -8,12 +8,11 @@ const BrandSchema = new mongoose.Schema({
   isActive: { type: Boolean, default: true }
 }, { timestamps: true });
 
-BrandSchema.pre('save', function(next) {
+BrandSchema.pre('save', function() {
   if (this.isModified('name')) {
     const slugify = require('slugify');
     this.slug = slugify(this.name, { lower: true, strict: true });
   }
-  next();
 });
 
 module.exports = mongoose.model('Brand', BrandSchema);

@@ -94,11 +94,14 @@ function Cart() {
     const cartProductId = cartItems[0]?.product?._id;
     if (!cartProductId) return;
 
+    const recommendation = recommendations.find(r => r.productId === recommendedProductId || r._id === recommendedProductId);
+
     setExplainLoading((prev) => ({ ...prev, [recommendedProductId]: true }));
     try {
       const res = await api.post("/recommendations/explain", {
         cartProductId,
         recommendedProductId,
+        factors: recommendation?.factors
       });
       if (res.success && res.data?.explanation) {
         setExplanations((prev) => ({ ...prev, [recommendedProductId]: res.data.explanation }));
