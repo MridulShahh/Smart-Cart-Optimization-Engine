@@ -1,11 +1,3 @@
-// Override mongoose cache with our custom mock
-const mockMongoose = require('./src/utils/mockMongoose.js');
-require.cache[require.resolve('mongoose')] = {
-  id: require.resolve('mongoose'),
-  exports: mockMongoose,
-  loaded: true
-};
-
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");

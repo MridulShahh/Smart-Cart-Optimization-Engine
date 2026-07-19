@@ -27,7 +27,10 @@ function TrendingProducts() {
   const categories = ["All", "Laptops", "Accessories", "Audio"];
 
   const filteredProducts = products
-    .filter((p) => activeTab === 0 || p.category === categories[activeTab])
+    .filter((p) => {
+      const catName = typeof p.category === 'object' ? p.category?.name : p.category;
+      return activeTab === 0 || catName === categories[activeTab];
+    })
     .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
     .slice(0, 4);
 

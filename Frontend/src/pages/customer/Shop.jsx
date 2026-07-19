@@ -74,8 +74,9 @@ function Shop() {
         .includes(filters.search.toLowerCase());
       
       // Category check
+      const catName = typeof product.category === 'object' ? product.category?.name : product.category;
       const categoryMatch = !filters.category || 
-        (product.category && product.category.toLowerCase().trim() === filters.category.toLowerCase().trim());
+        (catName && catName.toLowerCase().trim() === filters.category.toLowerCase().trim());
 
       // Price check
       const priceMatch =
