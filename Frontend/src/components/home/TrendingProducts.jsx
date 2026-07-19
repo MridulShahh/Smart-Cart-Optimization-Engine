@@ -24,10 +24,13 @@ function TrendingProducts() {
     }
   }, [dispatch, products.length]);
 
-  const categories = ["All", "Laptops", "Accessories", "Audio"];
+  const categories = ["All", "Electronics", "Home", "Beauty"];
 
   const filteredProducts = products
-    .filter((p) => activeTab === 0 || p.category === categories[activeTab])
+    .filter((p) => {
+      const catName = typeof p.category === 'object' ? p.category?.name : p.category;
+      return activeTab === 0 || catName === categories[activeTab];
+    })
     .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
     .slice(0, 4);
 
@@ -57,9 +60,9 @@ function TrendingProducts() {
           }}
         >
           <Tab label="All Trending" />
-          <Tab label="Laptops" />
-          <Tab label="Accessories" />
-          <Tab label="Audio Devices" />
+          <Tab label="Electronics" />
+          <Tab label="Home" />
+          <Tab label="Beauty" />
         </Tabs>
       </Box>
 

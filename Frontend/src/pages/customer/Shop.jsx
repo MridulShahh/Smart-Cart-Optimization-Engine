@@ -74,8 +74,9 @@ function Shop() {
         .includes(filters.search.toLowerCase());
       
       // Category check
+      const catName = typeof product.category === 'object' ? product.category.name : product.category;
       const categoryMatch = !filters.category || 
-        (product.category && product.category.toLowerCase().trim() === filters.category.toLowerCase().trim());
+        (catName && catName.toLowerCase().trim() === filters.category.toLowerCase().trim());
 
       // Price check
       const priceMatch =
@@ -130,11 +131,11 @@ function Shop() {
                   </FormLabel>
                   <RadioGroup value={filters.category} onChange={handleCategoryChange}>
                     <FormControlLabel value="" control={<Radio />} label="All Categories" />
-                    <FormControlLabel value="Laptops" control={<Radio />} label="Laptops" />
-                    <FormControlLabel value="Accessories" control={<Radio />} label="Accessories" />
-                    <FormControlLabel value="Audio" control={<Radio />} label="Audio" />
-                    <FormControlLabel value="Clothing" control={<Radio />} label="Clothing" />
-                    <FormControlLabel value="Home & Living" control={<Radio />} label="Home & Living" />
+                    <FormControlLabel value="Electronics" control={<Radio />} label="Electronics" />
+                    <FormControlLabel value="Fashion" control={<Radio />} label="Fashion" />
+                    <FormControlLabel value="Beauty" control={<Radio />} label="Beauty" />
+                    <FormControlLabel value="Home" control={<Radio />} label="Home" />
+                    <FormControlLabel value="Kitchen" control={<Radio />} label="Kitchen" />
                   </RadioGroup>
                 </FormControl>
 

@@ -1,13 +1,31 @@
 const Product = require('../models/Product');
 const slugify = require('slugify');
 
+const Category = require('../models/Category');
+
 // GET all products with filtering, sorting, pagination
 exports.getAllProducts = async (req, res, next) => {
   try {
     const { category, brand, search, sort, page = 1, limit = 12, isFeatured } = req.query;
     let filter = { isActive: true };
 
-    if (category) filter.category = category;
+    if (category) {
+      // If it's a valid ObjectId, use it directly
+      if (category.match(/^[0-9a-fA-F]{24}$/)) {
+        filter.category = category;
+      } else {
+        // Find category by name or slug
+        const cat = await Category.findOne({
+          $or: [
+            { name: { $regex: new RegExp(`^${category}$`, 'i') } },
+            { slug: { $regex: new RegExp(`^${category}$`, 'i') } }
+          ]
+        });
+        if (cat) filter.category = cat._id;
+        else filter.category = null; // force empty result if category doesn't exist
+      }
+    }
+    
     if (brand) filter.brand = brand;
     if (isFeatured) filter.isFeatured = isFeatured === 'true';
 

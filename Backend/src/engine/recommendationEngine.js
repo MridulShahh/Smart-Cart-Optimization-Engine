@@ -75,7 +75,7 @@ async function getFilteredCandidates(cartProducts, cartProductIds) {
     _id: { $nin: cartProductIds },
     isActive: true,
     stock: { $gt: 0 }
-  }).populate("category");
+  }).populate("category").populate("brand");
 
   // Filter candidates
   const filtered = allCandidates.filter(candidate => {
@@ -189,8 +189,8 @@ function passHardConstraints(candidate, scoreData, cartAvgPrice) {
 async function getRecommendations(cartProductIds) {
   if (!cartProductIds || cartProductIds.length === 0) return [];
 
-  // Fetch cart products with populated categories
-  const cartProducts = await Product.find({ _id: { $in: cartProductIds } }).populate("category");
+  // Fetch cart products with populated categories and brands
+  const cartProducts = await Product.find({ _id: { $in: cartProductIds } }).populate("category").populate("brand");
   if (cartProducts.length === 0) return [];
 
   const cartAvgPrice = cartProducts.reduce((sum, p) => sum + p.price, 0) / cartProducts.length;
@@ -213,6 +213,8 @@ async function getRecommendations(cartProductIds) {
         rating: candidate.rating,
         popularity: candidate.popularity,
         image: candidate.image,
+        brand: candidate.brand,
+        category: candidate.category,
         score: Math.round(scoreData.score * 100) / 100,
         scoringMethod: 'Multi-Stage Deterministic',
         factors: scoreData.factors

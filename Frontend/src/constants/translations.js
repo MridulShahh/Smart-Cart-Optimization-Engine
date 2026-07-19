@@ -14,9 +14,9 @@ const translations = {
 
     // Category Nav
     allItems: "All Items",
-    laptops: "Laptops",
-    accessories: "Accessories",
-    audioDevices: "Audio Devices",
+    electronics: "Electronics",
+    fashion: "Fashion",
+    beauty: "Beauty",
     aiRecommendations: "AI Recommendations",
 
     // Ticker
@@ -113,9 +113,9 @@ const translations = {
     oneDay: "1 दिन",
 
     allItems: "सभी आइटम",
-    laptops: "लैपटॉप",
-    accessories: "एक्सेसरीज़",
-    audioDevices: "ऑडियो डिवाइस",
+    electronics: "इलेक्ट्रॉनिक्स",
+    fashion: "फ़ैशन",
+    beauty: "सौंदर्य",
     aiRecommendations: "AI अनुशंसाएँ",
 
     ticker1: "⚡ ₹999 से अधिक ऑर्डर पर मुफ़्त डिलीवरी!",
@@ -204,9 +204,9 @@ const translations = {
     oneDay: "1 Día",
 
     allItems: "Todos",
-    laptops: "Portátiles",
-    accessories: "Accesorios",
-    audioDevices: "Dispositivos de Audio",
+    electronics: "Electrónica",
+    fashion: "Moda",
+    beauty: "Belleza",
     aiRecommendations: "Recomendaciones IA",
 
     ticker1: "⚡ ¡ENVÍO GRATIS EN PEDIDOS SUPERIORES A ₹999!",
@@ -295,9 +295,9 @@ const translations = {
     oneDay: "1 Jour",
 
     allItems: "Tous",
-    laptops: "Ordinateurs",
-    accessories: "Accessoires",
-    audioDevices: "Audio",
+    electronics: "Électronique",
+    fashion: "Mode",
+    beauty: "Beauté",
     aiRecommendations: "Recommandations IA",
 
     ticker1: "⚡ LIVRAISON GRATUITE AU-DESSUS DE ₹999 !",
