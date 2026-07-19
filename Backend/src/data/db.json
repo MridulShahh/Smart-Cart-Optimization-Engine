@@ -1,0 +1,604 @@
+{
+  "Product": [
+    {
+      "productName": "Laptop",
+      "name": "Laptop",
+      "price": 55000,
+      "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
+      "category": "Laptops",
+      "brand": "Dell",
+      "stock": 10,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&q=80",
+      "tags": [
+        "pc",
+        "computer",
+        "work",
+        "electronics"
+      ],
+      "popularity": 95,
+      "_modelName": "Product",
+      "_id": "80df94ae328a35fdb70f960b"
+    },
+    {
+      "productName": "Wireless Mouse",
+      "name": "Wireless Mouse",
+      "price": 1200,
+      "description": "Ergonomic wireless mouse with silent clicks.",
+      "category": "Accessories",
+      "brand": "Logitech",
+      "stock": 50,
+      "rating": 4.5,
+      "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80",
+      "tags": [
+        "mouse",
+        "accessory",
+        "electronics",
+        "laptop"
+      ],
+      "popularity": 96,
+      "_modelName": "Product",
+      "_id": "a0d5402bee7231144f4879e5"
+    },
+    {
+      "productName": "Mechanical Keyboard",
+      "name": "Mechanical Keyboard",
+      "price": 3500,
+      "description": "Tactile mechanical keyboard with RGB backlighting.",
+      "category": "Accessories",
+      "brand": "Keychron",
+      "stock": 25,
+      "rating": 4.7,
+      "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80",
+      "tags": [
+        "keyboard",
+        "accessory",
+        "electronics",
+        "laptop"
+      ],
+      "popularity": 85,
+      "_modelName": "Product",
+      "_id": "afe7a67c4dc3984cd80d7efc"
+    },
+    {
+      "productName": "Laptop Bag",
+      "name": "Laptop Bag",
+      "price": 1800,
+      "description": "Slim water-resistant laptop backpack with USB port.",
+      "category": "Accessories",
+      "brand": "Lenovo",
+      "stock": 30,
+      "rating": 4.4,
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80",
+      "tags": [
+        "bag",
+        "accessory",
+        "travel",
+        "laptop"
+      ],
+      "popularity": 75,
+      "_modelName": "Product",
+      "_id": "e84281bfd3c8768f080d02d3"
+    },
+    {
+      "productName": "Monitor",
+      "name": "Monitor",
+      "price": 14500,
+      "description": "27-inch IPS borderless monitor with 144Hz refresh rate.",
+      "category": "Laptops",
+      "brand": "LG",
+      "stock": 15,
+      "rating": 4.6,
+      "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80",
+      "tags": [
+        "display",
+        "screen",
+        "computer",
+        "electronics"
+      ],
+      "popularity": 80,
+      "_modelName": "Product",
+      "_id": "9705d813903d738993240667"
+    },
+    {
+      "productName": "Headphones",
+      "name": "Headphones",
+      "price": 4500,
+      "description": "Active noise-cancelling Bluetooth headphones.",
+      "category": "Audio",
+      "brand": "Sony",
+      "stock": 20,
+      "rating": 4.6,
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80",
+      "tags": [
+        "audio",
+        "headphones",
+        "music",
+        "electronics"
+      ],
+      "popularity": 88,
+      "_modelName": "Product",
+      "_id": "4d6b3d53ce082a2fa4299a2a"
+    },
+    {
+      "productName": "Webcam",
+      "name": "Webcam",
+      "price": 2200,
+      "description": "Full HD 1080p webcam with dual microphone.",
+      "category": "Accessories",
+      "brand": "Logitech",
+      "stock": 15,
+      "rating": 4.3,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Logicool_StreamCam_%28cropped%29.jpg/960px-Logicool_StreamCam_%28cropped%29.jpg",
+      "tags": [
+        "camera",
+        "video",
+        "accessory",
+        "laptop"
+      ],
+      "popularity": 65,
+      "_modelName": "Product",
+      "_id": "9cb77bf7e7a2fdb0c296508c"
+    },
+    {
+      "productName": "USB Hub",
+      "name": "USB Hub",
+      "price": 900,
+      "description": "4-in-1 USB-C hub with HDMI and USB 3.0 ports.",
+      "category": "Accessories",
+      "brand": "Anker",
+      "stock": 100,
+      "rating": 4.2,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/4/46/USB_hub.jpg",
+      "tags": [
+        "usb",
+        "hub",
+        "accessory",
+        "laptop"
+      ],
+      "popularity": 70,
+      "_modelName": "Product",
+      "_id": "8604b1ce06705091ce564b01"
+    },
+    {
+      "productName": "SSD 512GB",
+      "name": "SSD 512GB",
+      "price": 4500,
+      "description": "Superfast NVMe M.2 internal solid state drive.",
+      "category": "Laptops",
+      "brand": "Samsung",
+      "stock": 40,
+      "rating": 4.8,
+      "image": "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
+      "tags": [
+        "storage",
+        "ssd",
+        "computer",
+        "electronics"
+      ],
+      "popularity": 82,
+      "_modelName": "Product",
+      "_id": "ffbd24525061b907422c57ff"
+    },
+    {
+      "productName": "Bluetooth Speaker",
+      "name": "Bluetooth Speaker",
+      "price": 2800,
+      "description": "IPX7 waterproof portable bluetooth speaker.",
+      "category": "Audio",
+      "brand": "JBL",
+      "stock": 35,
+      "rating": 4.5,
+      "image": "https://images.unsplash.com/photo-1589003077984-894e133dabab?w=600&q=80",
+      "tags": [
+        "audio",
+        "speaker",
+        "music",
+        "wireless"
+      ],
+      "popularity": 92,
+      "_modelName": "Product",
+      "_id": "c4f36104924826b0d2b6899e"
+    },
+    {
+      "productName": "Laptop",
+      "name": "Laptop",
+      "price": 55000,
+      "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
+      "category": "Laptops",
+      "brand": "Dell",
+      "stock": 10,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&q=80",
+      "tags": [
+        "pc",
+        "computer",
+        "work",
+        "electronics"
+      ],
+      "popularity": 91,
+      "_modelName": "Product",
+      "_id": "60919505a4af5981a03f4189"
+    },
+    {
+      "productName": "MacBook Pro 16\"",
+      "name": "MacBook Pro 16\"",
+      "price": 249900,
+      "description": "M3 Max chip with 14-core CPU and 30-core GPU, 36GB Unified Memory.",
+      "category": "Laptops",
+      "brand": "Apple",
+      "stock": 5,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80",
+      "tags": [
+        "macbook",
+        "pro",
+        "apple",
+        "laptop"
+      ],
+      "popularity": 102,
+      "_modelName": "Product",
+      "_id": "f71b279c161c9fbf0a624bb5"
+    },
+    {
+      "productName": "ROG Zephyrus G14",
+      "name": "ROG Zephyrus G14",
+      "price": 145000,
+      "description": "Ultra-slim premium gaming laptop with RTX 4060 and OLED display.",
+      "category": "Laptops",
+      "brand": "ASUS",
+      "stock": 12,
+      "rating": 4.7,
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&q=80",
+      "tags": [
+        "gaming",
+        "rog",
+        "asus",
+        "laptop"
+      ],
+      "popularity": 92,
+      "_modelName": "Product",
+      "_id": "38108ea1692e54cbcde6c835"
+    },
+    {
+      "productName": "ThinkPad X1 Carbon",
+      "name": "ThinkPad X1 Carbon",
+      "price": 135000,
+      "description": "Gen 11 ultra-light business laptop with Intel Core i7.",
+      "category": "Laptops",
+      "brand": "Lenovo",
+      "stock": 8,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&q=80",
+      "tags": [
+        "business",
+        "thinkpad",
+        "lenovo",
+        "laptop"
+      ],
+      "popularity": 88,
+      "_modelName": "Product",
+      "_id": "2364ce9f7f77bd4c2995c622"
+    },
+    {
+      "productName": "MX Master 3S",
+      "name": "MX Master 3S",
+      "price": 8500,
+      "description": "Advanced ergonomic wireless mouse with MagSpeed scrolling.",
+      "category": "Accessories",
+      "brand": "Logitech",
+      "stock": 35,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80",
+      "tags": [
+        "mouse",
+        "wireless",
+        "logitech",
+        "accessory"
+      ],
+      "popularity": 97,
+      "_modelName": "Product",
+      "_id": "61d20bfff547af5170e79e79"
+    },
+    {
+      "productName": "Keychron Q1 Pro",
+      "name": "Keychron Q1 Pro",
+      "price": 14000,
+      "description": "QMK/VIA fully customizable wireless mechanical keyboard.",
+      "category": "Accessories",
+      "brand": "Keychron",
+      "stock": 15,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80",
+      "tags": [
+        "keyboard",
+        "mechanical",
+        "custom",
+        "accessory"
+      ],
+      "popularity": 91,
+      "_modelName": "Product",
+      "_id": "359371f620dbaba16c62c640"
+    },
+    {
+      "productName": "Anker 737 Power Bank",
+      "name": "Anker 737 Power Bank",
+      "price": 12500,
+      "description": "24,000mAh 140W fast-charging power bank for laptops.",
+      "category": "Accessories",
+      "brand": "Anker",
+      "stock": 25,
+      "rating": 4.7,
+      "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-magsafe-battery-pack/thumbnail.webp",
+      "tags": [
+        "powerbank",
+        "charger",
+        "anker",
+        "accessory"
+      ],
+      "popularity": 85,
+      "_modelName": "Product",
+      "_id": "22ea5b79b013cb9ffc85a91e"
+    },
+    {
+      "productName": "WH-1000XM5",
+      "name": "WH-1000XM5",
+      "price": 29990,
+      "description": "Industry leading noise-canceling wireless headphones.",
+      "category": "Audio",
+      "brand": "Sony",
+      "stock": 18,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=600&q=80",
+      "tags": [
+        "headphones",
+        "audio",
+        "sony",
+        "noise-canceling"
+      ],
+      "popularity": 99,
+      "_modelName": "Product",
+      "_id": "6f68370c3bc8b58b8e22f82f"
+    },
+    {
+      "productName": "AirPods Pro (2nd Gen)",
+      "name": "AirPods Pro (2nd Gen)",
+      "price": 24900,
+      "description": "Premium wireless earbuds with active noise cancellation.",
+      "category": "Audio",
+      "brand": "Apple",
+      "stock": 40,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=600&q=80",
+      "tags": [
+        "earbuds",
+        "audio",
+        "apple",
+        "wireless"
+      ],
+      "popularity": 97,
+      "_modelName": "Product",
+      "_id": "91260a978bbd875daf47e073"
+    },
+    {
+      "productName": "Sonos Roam",
+      "name": "Sonos Roam",
+      "price": 19999,
+      "description": "Smart portable Wi-Fi and Bluetooth speaker.",
+      "category": "Audio",
+      "brand": "Sonos",
+      "stock": 22,
+      "rating": 4.6,
+      "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80",
+      "tags": [
+        "speaker",
+        "audio",
+        "sonos",
+        "bluetooth"
+      ],
+      "popularity": 89,
+      "_modelName": "Product",
+      "_id": "bba0cf5bb6c364946cb0d225"
+    },
+    {
+      "productName": "Classic White T-Shirt",
+      "name": "Classic White T-Shirt",
+      "price": 800,
+      "description": "Premium 100% cotton everyday t-shirt.",
+      "category": "Clothing",
+      "brand": "Essentials",
+      "stock": 100,
+      "rating": 4.5,
+      "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80",
+      "tags": [
+        "clothing",
+        "shirt",
+        "casual",
+        "apparel"
+      ],
+      "popularity": 75,
+      "_modelName": "Product",
+      "_id": "64df94ae328a35fdb70f961a"
+    },
+    {
+      "productName": "Running Shoes",
+      "name": "Running Shoes",
+      "price": 4500,
+      "description": "Lightweight breathable sneakers for running and training.",
+      "category": "Clothing",
+      "brand": "Nike",
+      "stock": 45,
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
+      "tags": [
+        "shoes",
+        "sneakers",
+        "sports",
+        "footwear"
+      ],
+      "popularity": 88,
+      "_modelName": "Product",
+      "_id": "64df94ae328a35fdb70f961b"
+    },
+    {
+      "productName": "Ceramic Coffee Mug",
+      "name": "Ceramic Coffee Mug",
+      "price": 450,
+      "description": "Minimalist matte finish 350ml ceramic coffee mug.",
+      "category": "Home & Living",
+      "brand": "HomeStyle",
+      "stock": 150,
+      "rating": 4.6,
+      "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&q=80",
+      "tags": [
+        "mug",
+        "coffee",
+        "kitchen",
+        "home"
+      ],
+      "popularity": 65,
+      "_modelName": "Product",
+      "_id": "64df94ae328a35fdb70f961c"
+    },
+    {
+      "productName": "Indoor Desk Plant",
+      "name": "Indoor Desk Plant",
+      "price": 650,
+      "description": "Low maintenance indoor succulent to brighten your workspace.",
+      "category": "Home & Living",
+      "brand": "GreenThumb",
+      "stock": 30,
+      "rating": 4.9,
+      "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&q=80",
+      "tags": [
+        "plant",
+        "decor",
+        "home",
+        "desk"
+      ],
+      "popularity": 82,
+      "_modelName": "Product",
+      "_id": "64df94ae328a35fdb70f961d"
+    }
+  ],
+  "User": [
+    {
+      "fullName": "Unique User",
+      "email": "unique_user_2026_06_26@example.com",
+      "password": "$2b$10$F7llQaCpCFO/.JbJmDVREu0HUI2S7fLBkm3WPdRsJIdxGq0hm9bHy",
+      "phone": "1234567890",
+      "_modelName": "User",
+      "_id": "2de1f575a4d56225a7211540"
+    },
+    {
+      "fullName": "test",
+      "email": "test@gmail.com",
+      "password": "$2b$10$5YrIfyGylaXhWobohkfSpeHJW0xhRzc4X.0gBLGFNxXAmcQYrIceK",
+      "phone": "9079849999",
+      "_modelName": "User",
+      "_id": "754b85b2f709046beb5d3acf"
+    },
+    {
+      "fullName": "Mridul Shah",
+      "email": "mriduldevshah@gmail.com",
+      "password": "$2b$10$xlR8SRTzwelqk6vJSVd9MOAvGeMlMK65BXA7oYdNCpgayKLrCXrn2",
+      "phone": "9079840787",
+      "_modelName": "User",
+      "_id": "f2eeeaf615c6085e23cabaf9"
+    },
+    {
+      "fullName": "Sophia Sterling (Google)",
+      "email": "customer@nexcart.com",
+      "password": "$2b$10$IhQGIJF5rYACfgvVJXSzo.70kAnwleovZ6ykB/IXRf9fSnyt6AlCK",
+      "phone": "+91 9999999999",
+      "_modelName": "User",
+      "_id": "f343e879ea269b507713504d"
+    },
+    {
+      "fullName": "Admin User",
+      "email": "admin@nexcart.com",
+      "password": "$2b$10$ETU92WTuPm4Z7khooGcBveeGTC4hXYC9C/2stOSHFEos7wYPdsmHq",
+      "phone": "0000000000",
+      "role": "admin",
+      "_modelName": "User",
+      "_id": "admin-id-123"
+    }
+  ],
+  "Cart": [
+    {
+      "userId": "74v25zywd",
+      "items": [
+        {
+          "product": "f71b279c161c9fbf0a624bb5",
+          "quantity": 2,
+          "price": 249900
+        },
+        {
+          "product": "80df94ae328a35fdb70f960b",
+          "quantity": 1,
+          "price": 55000
+        },
+        {
+          "product": "60919505a4af5981a03f4189",
+          "quantity": 1,
+          "price": 55000
+        }
+      ],
+      "_modelName": "Cart",
+      "_id": "08cdc77f6839556df1343fef",
+      "totalItems": 4,
+      "totalPrice": 609800
+    },
+    {
+      "userId": "mock-customer-id",
+      "items": [
+        {
+          "product": "80df94ae328a35fdb70f960b",
+          "quantity": 1,
+          "price": 55000
+        },
+        {
+          "product": "a0d5402bee7231144f4879e5",
+          "quantity": 1,
+          "price": 1200
+        },
+        {
+          "product": "f71b279c161c9fbf0a624bb5",
+          "quantity": 1,
+          "price": 249900
+        }
+      ],
+      "_modelName": "Cart",
+      "_id": "659019b38a766dbafac100f5",
+      "totalItems": 3,
+      "totalPrice": 306100
+    },
+    {
+      "userId": "9ffvb1tqh",
+      "items": [
+        {
+          "product": "f71b279c161c9fbf0a624bb5",
+          "quantity": 1,
+          "price": 249900
+        },
+        {
+          "product": "80df94ae328a35fdb70f960b",
+          "quantity": 1,
+          "price": 55000
+        },
+        {
+          "product": "61d20bfff547af5170e79e79",
+          "quantity": 1,
+          "price": 8500
+        }
+      ],
+      "_modelName": "Cart",
+      "_id": "5f58eaeea818681108fd9288",
+      "totalItems": 3,
+      "totalPrice": 313400
+    }
+  ],
+  "Order": [],
+  "RecommendationHistory": [],
+  "Relationship": []
+}

@@ -30,7 +30,6 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import CloseIcon from "@mui/icons-material/Close";
 import toast from "react-hot-toast";
 import { formatPrice } from "../../constants/currencies";
-import api from "../../services/api";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -46,8 +45,6 @@ function ProductDetails() {
   const [wishlisted, setWishlisted] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [openImage, setOpenImage] = useState(false);
-  const [recommendations, setRecommendations] = useState([]);
-  const [recLoading, setRecLoading] = useState(false);
 
   useEffect(() => {
     if (products.length === 0) {
@@ -63,24 +60,6 @@ function ProductDetails() {
       }
     }
   }, [products, id]);
-
-  useEffect(() => {
-    if (product) {
-      const fetchRecs = async () => {
-        setRecLoading(true);
-        try {
-          const res = await api.post("/recommendations/cart", { cartProductIds: [product._id] });
-          if (res.success) {
-            setRecommendations(res.recommendations);
-          }
-        } catch (err) {
-          console.error("Failed to fetch recommendations:", err);
-        }
-        setRecLoading(false);
-      };
-      fetchRecs();
-    }
-  }, [product]);
 
   if (loading || !product) {
     return (
@@ -110,6 +89,65 @@ function ProductDetails() {
     setWishlisted(!wishlisted);
     toast.success(wishlisted ? "Removed from wishlist" : "Added to wishlist! ❤️");
   };
+
+  // Recommendation Scoring Logic
+  // Recommendation Score = 40% Product Relationship + 30% Popularity + 20% Rating + 10% Price Compatibility
+  const getAIRecommendations = () => {
+    const scoredList = products
+      .filter((p) => p._id !== product._id)
+      .map((item) => {
+        // 1. Relationship score (40%)
+        let rel = 0;
+        if (item.category !== product.category) {
+          // accessories match computers/audio well
+          if (product.category === "Laptops" && item.category === "Accessories") {
+            rel = 100;
+          } else if (product.category === "Accessories" && item.category === "Laptops") {
+            rel = 80;
+          } else {
+            rel = 40;
+          }
+        } else {
+          rel = 50; // same category is good but accessories complement devices better
+        }
+
+        // 2. Popularity score (30%)
+        const pop = item.popularity || 50;
+
+        // 3. Rating score (20%)
+        const rat = (item.rating || 4.5) * 20;
+
+        // 4. Price compatibility (10%)
+        // Accessories should be cheaper than main product
+        let priceComp = 0;
+        if (product.category === "Laptops") {
+          priceComp = item.price < product.price ? 100 : 100 - (item.price - product.price) / 1000;
+        } else {
+          priceComp = 100 - Math.abs(product.price - item.price) / 100;
+        }
+        priceComp = Math.max(0, Math.min(100, priceComp));
+
+        const finalScore = rel * 0.4 + pop * 0.3 + rat * 0.2 + priceComp * 0.1;
+
+        // Realistic AI explanations template
+        let aiExplanation = "";
+        if (item.productName === "Wireless Mouse") {
+          aiExplanation = "Wireless Mouse is recommended because customers frequently purchase it with Laptops. It improves navigation and workstation ergonomics.";
+        } else if (item.productName === "Mechanical Keyboard") {
+          aiExplanation = "A mechanical keyboard increases typing velocity and accuracy. Great pairing with your newly selected computer.";
+        } else if (item.productName === "Laptop Bag") {
+          aiExplanation = "Travel securely. A durable water-resistant laptop bag offers safety pads and accessory pockets for portable workstations.";
+        } else {
+          aiExplanation = `${item.productName} complements your purchase. It has a high rating and provides vital accessory compatibility for daily use.`;
+        }
+
+        return { product: item, score: Math.round(finalScore), aiExplanation };
+      });
+
+    return [...scoredList].sort((a, b) => b.score - a.score).slice(0, 3);
+  };
+
+  const recommendations = getAIRecommendations();
 
   return (
     <MainLayout>
@@ -279,10 +317,10 @@ function ProductDetails() {
               <Typography variant="subtitle1" fontWeight="800" mb={2}>Specifications</Typography>
               <Grid container spacing={2}>
                 <Grid item xs={4}><Typography variant="body2" color="text.secondary">Brand</Typography></Grid>
-                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{typeof product.brand === 'object' ? product.brand.name : product.brand}</Typography></Grid>
+                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.brand}</Typography></Grid>
                 
                 <Grid item xs={4}><Typography variant="body2" color="text.secondary">Category</Typography></Grid>
-                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{typeof product.category === 'object' ? product.category.name : product.category}</Typography></Grid>
+                <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.category}</Typography></Grid>
                 
                 <Grid item xs={4}><Typography variant="body2" color="text.secondary">Weight</Typography></Grid>
                 <Grid item xs={8}><Typography variant="body2" fontWeight="600">{product.specifications?.weight || '1.2 kg'}</Typography></Grid>
@@ -305,90 +343,83 @@ function ProductDetails() {
             </Typography>
           </Stack>
 
-          {recLoading ? (
-            <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-              <CircularProgress color="primary" />
-            </Box>
-          ) : (
-            <Grid container spacing={4}>
-              {recommendations.slice(0, 3).map((rec) => (
-                <Grid item xs={12} md={4} key={rec.productId || rec._id}>
-                  <Paper
-                    elevation={0}
+          <Grid container spacing={4}>
+            {recommendations.map((rec) => (
+              <Grid item xs={12} md={4} key={rec.product._id}>
+                <Paper
+                  elevation={0}
+                  sx={{
+                    p: 3,
+                    borderRadius: "20px",
+                    border: "1px solid #E5E7EB",
+                    bgcolor: "white",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    height: "100%",
+                    transition: "transform 0.3s",
+                    "&:hover": { transform: "translateY(-6px)" },
+                  }}
+                >
+                  <Box>
+                    <Box component={Link} to={`/product/${rec.product._id}`} sx={{ display: "block", textAlign: "center", mb: 2 }}>
+                      <Box
+                        component="img"
+                        src={rec.product.image}
+                        sx={{ height: 140, objectFit: "contain", bgcolor: "#FAFAFA", borderRadius: "12px", p: 1 }}
+                      />
+                    </Box>
+                    <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: "uppercase" }}>
+                      {rec.product.brand}
+                    </Typography>
+                    <Typography variant="h6" fontWeight="700" sx={{ fontSize: "1rem", mb: 1 }}>
+                      {rec.product.productName || rec.product.name}
+                    </Typography>
+                    <Typography variant="subtitle2" color="#E23744" fontWeight="800" mb={2}>
+                      {formatPrice(rec.product.price, currency)}
+                    </Typography>
+
+                    {/* Gemini AI explanation callout */}
+                    <Box sx={{ bgcolor: "#FFFBEB", border: "1px dashed #FFB300", p: 2, borderRadius: "12px", mb: 3 }}>
+                      <Stack direction="row" spacing={0.5} alignItems="center" mb={1}>
+                        <AutoAwesomeIcon sx={{ color: "#D97706", fontSize: "0.95rem" }} />
+                        <Typography variant="caption" fontWeight="700" color="#D97706">
+                          AI Compatibility Score: {rec.score}%
+                        </Typography>
+                      </Stack>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.8rem", lineHeight: 1.4, fontStyle: "italic" }}>
+                        "{rec.aiExplanation}"
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    onClick={() => {
+                      if (user) {
+                        dispatch(addToCart({ userId: user.id, productId: rec.product._id, quantity: 1 }));
+                      } else {
+                        dispatch(addLocalItem({ productId: rec.product._id, quantity: 1, product: rec.product }));
+                      }
+                      toast.success(`${rec.product.productName || rec.product.name} added to cart! 🛒`);
+                    }}
                     sx={{
-                      p: 3,
-                      borderRadius: "20px",
-                      border: "1px solid #E5E7EB",
-                      bgcolor: "white",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      height: "100%",
-                      transition: "transform 0.3s",
-                      "&:hover": { transform: "translateY(-6px)" },
+                      bgcolor: "#111827",
+                      color: "white",
+                      fontWeight: 600,
+                      borderRadius: "50px",
+                      py: 1,
+                      textTransform: "none",
+                      "&:hover": { bgcolor: "#E23744" },
                     }}
                   >
-                    <Box>
-                      <Box component={Link} to={`/product/${rec.productId || rec._id}`} sx={{ display: "block", textAlign: "center", mb: 2 }}>
-                        <Box
-                          component="img"
-                          src={rec.image || "https://placehold.co/600x600/f3f4f6/9ca3af?text=No+Image"}
-                          sx={{ height: 140, objectFit: "contain", bgcolor: "#FAFAFA", borderRadius: "12px", p: 1 }}
-                        />
-                      </Box>
-                      <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: "uppercase" }}>
-                        {typeof rec.brand === 'object' ? rec.brand.name : (rec.brand || 'Generic')}
-                      </Typography>
-                      <Typography variant="h6" fontWeight="700" sx={{ fontSize: "1rem", mb: 1 }}>
-                        {rec.productName || rec.name}
-                      </Typography>
-                      <Typography variant="subtitle2" color="#E23744" fontWeight="800" mb={2}>
-                        {formatPrice(rec.price, currency)}
-                      </Typography>
-
-                      {/* Gemini AI explanation callout */}
-                      <Box sx={{ bgcolor: "#FFFBEB", border: "1px dashed #FFB300", p: 2, borderRadius: "12px", mb: 3 }}>
-                        <Stack direction="row" spacing={0.5} alignItems="center" mb={1}>
-                          <AutoAwesomeIcon sx={{ color: "#D97706", fontSize: "0.95rem" }} />
-                          <Typography variant="caption" fontWeight="700" color="#D97706">
-                            AI Compatibility Score: {Math.round((rec.score || 0) * 100)}%
-                          </Typography>
-                        </Stack>
-                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.8rem", lineHeight: 1.4, fontStyle: "italic" }}>
-                          Based on our Multi-Stage Ranking algorithm, this product is highly compatible with your current selection.
-                        </Typography>
-                      </Box>
-                    </Box>
-
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      onClick={() => {
-                        const productData = { _id: rec.productId || rec._id, productName: rec.productName || rec.name, price: rec.price, image: rec.image, brand: rec.brand };
-                        if (user) {
-                          dispatch(addToCart({ userId: user.id, productId: productData._id, quantity: 1 }));
-                        } else {
-                          dispatch(addLocalItem({ productId: productData._id, quantity: 1, product: productData }));
-                        }
-                        toast.success(`${productData.productName} added to cart! 🛒`);
-                      }}
-                      sx={{
-                        bgcolor: "#111827",
-                        color: "white",
-                        fontWeight: 600,
-                        borderRadius: "50px",
-                        py: 1,
-                        textTransform: "none",
-                        "&:hover": { bgcolor: "#E23744" },
-                      }}
-                    >
-                      Add to Cart
-                    </Button>
-                  </Paper>
-                </Grid>
-              ))}
-            </Grid>
-          )}
+                    Add to Cart
+                  </Button>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       </Container>
 

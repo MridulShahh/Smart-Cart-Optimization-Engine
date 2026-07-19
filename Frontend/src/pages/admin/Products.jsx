@@ -102,7 +102,7 @@ function Products() {
     } catch (error) {
       // Mock Fallback for Demo Mode (when Vercel backend is missing)
       if (editingProduct) {
-        dispatch(updateProductLocal({ ...editingProduct, ...form }));
+        dispatch(updateProductLocal({ ...form, _id: editingProduct._id }));
         toast.success("Product updated locally (Demo Mode)!");
       } else {
         dispatch(addProductLocal({ ...form, _id: `demo-${Date.now()}` }));
@@ -133,9 +133,7 @@ function Products() {
       headerName: "Image",
       width: 70,
       renderCell: (params) => (
-        <Avatar key={params.value} src={params.value} variant="rounded" sx={{ width: 40, height: 40, bgcolor: isDark ? "#374151" : "#F3F4F6", img: { objectFit: "contain", p: 0.5 } }}>
-          {!params.value && <PhotoCameraIcon sx={{ color: "#9CA3AF" }} />}
-        </Avatar>
+        <Avatar src={params.value} variant="rounded" sx={{ width: 40, height: 40, bgcolor: isDark ? "#374151" : "#F3F4F6", img: { objectFit: "contain", p: 0.5 } }} />
       ),
       sortable: false,
       filterable: false,

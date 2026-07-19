@@ -106,14 +106,14 @@ function ProductCard({ product, index = 0 }) {
             component="img"
             height="220"
             image={
-              product.image
+              product.image && product.image.startsWith("http")
                 ? product.image
-                : "https://placehold.co/600x600/f3f4f6/9ca3af?text=No+Image"
+                : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80"
             }
             alt={product.productName || product.name}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "https://placehold.co/600x600/f3f4f6/9ca3af?text=No+Image";
+              e.target.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80";
             }}
             sx={{
               objectFit: "contain",
@@ -140,7 +140,7 @@ function ProductCard({ product, index = 0 }) {
               fontWeight="800"
               sx={{ textTransform: "uppercase", letterSpacing: "0.1em", color: "#6B7280" }}
             >
-              {typeof product.brand === 'object' ? product.brand.name : product.brand}
+              {product.brand}
             </Typography>
 
             <Typography

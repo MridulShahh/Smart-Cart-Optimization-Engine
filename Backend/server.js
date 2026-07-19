@@ -1,55 +1,55 @@
+// Override mongoose cache with our custom mock
+const mockMongoose = require('./src/utils/mockMongoose.js');
+require.cache[require.resolve('mongoose')] = {
+  id: require.resolve('mongoose'),
+  exports: mockMongoose,
+  loaded: true
+};
+
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const helmet = require("helmet");
-const path = require("path");
 const connectDB = require("./src/config/db");
-const { errorHandler } = require("./src/middleware/errorHandler");
+const Product = require("./src/models/Product");
 
 dotenv.config();
 
+// Seeding function to initialize database if empty
+const seedDatabase = async () => {
+  try {
+    const count = await Product.countDocuments();
+    if (count === 0) {
+      console.log("Database empty. Seeding with initial products...");
+      const products = require('./src/data/seedProducts.json');
+      await Product.insertMany(products);
+      console.log("Database seeded successfully.");
+    }
+  } catch (error) {
+    console.error("Database seeding failed:", error);
+  }
+};
+
 const runBackend = async () => {
   await connectDB();
+  await seedDatabase();
 };
 
 runBackend();
 
 const app = express();
 
-// Security middleware
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Serve static files for uploads
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
-app.use("/api/auth", require("./src/routes/authRoutes"));
-app.use("/api/users", require("./src/routes/userRoutes"));
 app.use("/api/products", require("./src/routes/productRoutes"));
-app.use("/api/categories", require("./src/routes/categoryRoutes"));
-app.use("/api/brands", require("./src/routes/brandRoutes"));
-app.use("/api/orders", require("./src/routes/orderRoutes"));
-app.use("/api/reviews", require("./src/routes/reviewRoutes"));
-app.use("/api/coupons", require("./src/routes/couponRoutes"));
-app.use("/api/banners", require("./src/routes/bannerRoutes"));
-app.use("/api/homepage", require("./src/routes/homepageSectionRoutes"));
-app.use("/api/settings", require("./src/routes/settingRoutes"));
-app.use("/api/admin", require("./src/routes/adminRoutes"));
 app.use("/api/cart", require("./src/routes/cartRoutes")); 
 app.use("/api/recommendations", require("./src/routes/recommendationRoutes"));
-app.use("/api/analytics", require("./src/routes/analyticsRoutes"));
+app.use("/api/auth", require("./src/routes/authRoutes"));
 
 app.get("/", (req, res) => {
   res.send("Smart Cart Backend Running 🚀");
 });
-
-// Global Error Handler
-app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

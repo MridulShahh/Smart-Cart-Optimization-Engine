@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
 
 // Verify Logged-in User
 exports.protect = async (req, res, next) => {
@@ -25,10 +24,7 @@ exports.protect = async (req, res, next) => {
       process.env.JWT_SECRET || "smartcartsecret"
     );
 
-    req.user = await User.findById(decoded.id).select("-password");
-    if (!req.user) {
-       return res.status(401).json({ success: false, error: "User not found" });
-    }
+    req.user = decoded;
 
     next();
   } catch (err) {
@@ -41,22 +37,12 @@ exports.protect = async (req, res, next) => {
 
 // Verify Admin
 exports.adminOnly = (req, res, next) => {
-  if (req.user.role !== "admin" && req.user.role !== "superadmin") {
+  if (req.user.role !== "admin") {
     return res.status(403).json({
       success: false,
       error: "Admin access only"
     });
   }
-  next();
-};
 
-// Verify Customer
-exports.customerOnly = (req, res, next) => {
-  if (req.user.role !== "customer") {
-    return res.status(403).json({
-      success: false,
-      error: "Customer access only"
-    });
-  }
   next();
 };

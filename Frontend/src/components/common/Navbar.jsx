@@ -423,9 +423,9 @@ function Navbar() {
       >
         {[
           { label: t("allItems", language), action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/shop"); }, icon: <AppsIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: t("electronics", language), action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/category/Electronics"); }, icon: <LaptopIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: t("fashion", language), action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/category/Fashion"); }, icon: <KeyboardIcon sx={{ fontSize: "1.1rem" }} /> },
-          { label: t("beauty", language), action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/category/Beauty"); }, icon: <HeadphonesIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: t("laptops", language), action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/category/Laptops"); }, icon: <LaptopIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: t("accessories", language), action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/category/Accessories"); }, icon: <KeyboardIcon sx={{ fontSize: "1.1rem" }} /> },
+          { label: t("audioDevices", language), action: () => { dispatch(clearFilters()); setSearchVal(""); navigate("/category/Audio"); }, icon: <HeadphonesIcon sx={{ fontSize: "1.1rem" }} /> },
           { label: t("aiRecommendations", language), action: () => { navigate("/ai-picks"); }, icon: <AutoAwesomeIcon sx={{ fontSize: "1.1rem", color: "#FFB300" }} />, highlighted: true },
         ].map((item) => (
           <Button
