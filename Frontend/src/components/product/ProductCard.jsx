@@ -33,7 +33,7 @@ function ProductCard({ product, index = 0 }) {
     e.stopPropagation();
     
     if (user) {
-      dispatch(addToCart({ userId: user.id, productId: product._id, quantity: 1 }));
+      dispatch(addToCart({ userId: user._id || user.id, productId: product._id, quantity: 1, product }));
     } else {
       dispatch(addLocalItem({ productId: product._id, quantity: 1, product }));
     }
@@ -231,4 +231,5 @@ function ProductCard({ product, index = 0 }) {
   );
 }
 
-export default ProductCard;
+import React from 'react';
+export default React.memo(ProductCard);

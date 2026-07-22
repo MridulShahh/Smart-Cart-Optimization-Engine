@@ -73,7 +73,7 @@ function ProductDetails() {
 
   const handleAddToCart = () => {
     if (user) {
-      dispatch(addToCart({ userId: user.id, productId: product._id, quantity }));
+      dispatch(addToCart({ userId: user._id || user.id, productId: product._id, quantity, product }));
     } else {
       dispatch(addLocalItem({ productId: product._id, quantity, product }));
     }
@@ -408,7 +408,7 @@ function ProductDetails() {
                     fullWidth
                     onClick={() => {
                       if (user) {
-                        dispatch(addToCart({ userId: user.id, productId: rec.product._id, quantity: 1 }));
+                        dispatch(addToCart({ userId: user._id || user.id, productId: rec.product._id, quantity: 1, product: rec.product }));
                       } else {
                         dispatch(addLocalItem({ productId: rec.product._id, quantity: 1, product: rec.product }));
                       }

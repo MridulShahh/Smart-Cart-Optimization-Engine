@@ -21,11 +21,11 @@ export const fetchCart = createAsyncThunk(
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
-  async ({ userId, productId, quantity }, { rejectWithValue, dispatch }) => {
+  async ({ userId, productId, quantity, product }, { rejectWithValue, dispatch }) => {
     try {
       if (!userId) {
         // Fallback for guest cart
-        dispatch(addLocalItem({ productId, quantity }));
+        dispatch(addLocalItem({ productId, quantity, product }));
         return null;
       }
       const response = await api.post(`/cart/${userId}/add`, { productId, quantity });

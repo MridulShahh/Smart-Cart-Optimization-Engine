@@ -301,7 +301,7 @@ function Cart() {
                                 size="small"
                                 onClick={() => {
                                   if (user) {
-                                    dispatch(addToCart({ userId: user.id, productId: item._id, quantity: 1 }));
+                                    dispatch(addToCart({ userId: user._id || user.id, productId: item._id, quantity: 1, product: item }));
                                   } else {
                                     dispatch(addLocalItem({ productId: item._id, quantity: 1, product: item }));
                                   }

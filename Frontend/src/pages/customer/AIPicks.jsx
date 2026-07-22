@@ -227,11 +227,11 @@ function AIPicks() {
 
   const handleAddToCartClick = (prod) => {
     if (user) {
-      dispatch(addToCart({ userId: user.id, productId: prod._id, quantity: 1 }));
+      dispatch(addToCart({ userId: user._id || user.id, productId: prod._id, quantity: 1, product: prod }));
     } else {
       dispatch(addLocalItem({ productId: prod._id, quantity: 1, product: prod }));
     }
-    toast.success(`${prod.productName || prod.name} added to cart! 🛒`);
+    toast.success(`${prod.productName || prod.name} added to cart!`);
   };
 
   return (
