@@ -100,7 +100,7 @@ function AIPicks() {
       } else if (productA.category === "Audio" && productB.category === "Accessories") {
         rel = 75;
       } else {
-        rel = 50;
+        rel = 0; // Unrelated categories
       }
     } else {
       rel = 40; // same category is less complementary than accessory pairings
@@ -108,7 +108,7 @@ function AIPicks() {
 
     // Matching tags bonus
     const commonTags = productA.tags?.filter(tag => productB.tags?.includes(tag)) || [];
-    rel = Math.min(100, rel + commonTags.length * 10);
+    rel = Math.min(100, rel + commonTags.length * 15);
 
     // 2. Popularity (30%)
     const pop = productB.popularity || 50;
@@ -118,14 +118,16 @@ function AIPicks() {
 
     // 4. Price compatibility (10%)
     let priceComp = 0;
-    if (productA.category === "Laptops") {
-      priceComp = productB.price < productA.price ? 100 : 100 - (productB.price - productA.price) / 1000;
-    } else {
-      priceComp = 100 - Math.abs(productA.price - productB.price) / 100;
+    if (rel > 0) {
+      if (productA.category === "Laptops") {
+        priceComp = productB.price < productA.price ? 100 : 100 - (productB.price - productA.price) / 1000;
+      } else {
+        priceComp = 100 - Math.abs(productA.price - productB.price) / 100;
+      }
     }
     priceComp = Math.max(0, Math.min(100, priceComp));
 
-    const finalScore = Math.round(rel * 0.4 + pop * 0.3 + rat * 0.2 + priceComp * 0.1);
+    const finalScore = rel > 0 ? Math.round(rel * 0.4 + pop * 0.3 + rat * 0.2 + priceComp * 0.1) : 0;
 
     // Gemini dynamic description generators
     let explanation = "";
@@ -163,6 +165,7 @@ function AIPicks() {
     const list = products
       .filter(p => p._id !== selectedProduct._id)
       .map(item => calculateFactors(selectedProduct, item))
+      .filter(item => item.score > 0)
       .sort((a, b) => b.score - a.score)
       .slice(0, 3);
     return list;
@@ -213,6 +216,7 @@ function AIPicks() {
           ]
         };
       })
+      .filter(item => item.score > 0)
       .sort((a, b) => b.score - a.score)
       .slice(0, 3);
 

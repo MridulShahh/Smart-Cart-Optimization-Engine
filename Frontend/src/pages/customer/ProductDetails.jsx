@@ -99,17 +99,22 @@ function ProductDetails() {
         // 1. Relationship score (40%)
         let rel = 0;
         if (item.category !== product.category) {
-          // accessories match computers/audio well
           if (product.category === "Laptops" && item.category === "Accessories") {
             rel = 100;
           } else if (product.category === "Accessories" && item.category === "Laptops") {
             rel = 80;
+          } else if (product.category === "Audio" && item.category === "Accessories") {
+            rel = 75;
           } else {
-            rel = 40;
+            rel = 0; // Unrelated categories get 0 relationship
           }
         } else {
-          rel = 50; // same category is good but accessories complement devices better
+          rel = 40; // Same category
         }
+        
+        // Tag bonus
+        const commonTags = product.tags?.filter(tag => item.tags?.includes(tag)) || [];
+        rel = Math.min(100, rel + commonTags.length * 15);
 
         // 2. Popularity score (30%)
         const pop = item.popularity || 50;
@@ -118,16 +123,18 @@ function ProductDetails() {
         const rat = (item.rating || 4.5) * 20;
 
         // 4. Price compatibility (10%)
-        // Accessories should be cheaper than main product
         let priceComp = 0;
-        if (product.category === "Laptops") {
-          priceComp = item.price < product.price ? 100 : 100 - (item.price - product.price) / 1000;
-        } else {
-          priceComp = 100 - Math.abs(product.price - item.price) / 100;
+        if (rel > 0) {
+          if (product.category === "Laptops") {
+            priceComp = item.price < product.price ? 100 : 100 - (item.price - product.price) / 1000;
+          } else {
+            priceComp = 100 - Math.abs(product.price - item.price) / 100;
+          }
         }
         priceComp = Math.max(0, Math.min(100, priceComp));
 
-        const finalScore = rel * 0.4 + pop * 0.3 + rat * 0.2 + priceComp * 0.1;
+        // If no relationship at all, score is 0
+        const finalScore = rel > 0 ? (rel * 0.4 + pop * 0.3 + rat * 0.2 + priceComp * 0.1) : 0;
 
         // Realistic AI explanations template
         let aiExplanation = "";
@@ -144,7 +151,10 @@ function ProductDetails() {
         return { product: item, score: Math.round(finalScore), aiExplanation };
       });
 
-    return [...scoredList].sort((a, b) => b.score - a.score).slice(0, 3);
+    return [...scoredList]
+      .filter(p => p.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3);
   };
 
   const recommendations = getAIRecommendations();

@@ -72,9 +72,42 @@ function Cart() {
   const getCrossSellSuggestions = () => {
     if (cartItems.length === 0) return [];
     const inCartIds = cartItems.map(item => item.product._id);
-    return products
-      .filter((p) => !inCartIds.includes(p._id))
-      .slice(0, 2);
+    
+    const candidates = products.filter((p) => !inCartIds.includes(p._id));
+    
+    const scoredCandidates = candidates.map(product => {
+      let totalScore = 0;
+      
+      cartItems.forEach(cartItem => {
+        const cp = cartItem.product;
+        let rel = 0;
+        
+        if (cp.category !== product.category) {
+          if (cp.category === "Laptops" && product.category === "Accessories") {
+            rel = 100;
+          } else if (cp.category === "Accessories" && product.category === "Laptops") {
+            rel = 80;
+          } else if (cp.category === "Audio" && product.category === "Accessories") {
+            rel = 75;
+          }
+        } else {
+          rel = 40; 
+        }
+        
+        const commonTags = cp.tags?.filter(tag => product.tags?.includes(tag)) || [];
+        rel = Math.min(100, rel + commonTags.length * 15);
+        
+        totalScore += rel;
+      });
+      
+      return { product, score: totalScore / cartItems.length };
+    });
+    
+    return scoredCandidates
+      .filter(c => c.score > 20)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 2)
+      .map(c => c.product);
   };
 
   const suggestions = getCrossSellSuggestions();
